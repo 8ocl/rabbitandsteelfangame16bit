@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="ILoveRabbitandSteel16Bit"
-run/main_scene="uid://c1v31xnafou7u"
+run/main_scene="uid://7tge47rfxsg1"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
