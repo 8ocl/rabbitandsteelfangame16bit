@@ -1,0 +1,77 @@
+[gd_scene load_steps=4 format=3 uid="uid://7tge47rfxsg1"]
+
+[ext_resource type="Texture2D" uid="uid://kdrwts0yemdh" path="res://Art/Sprite-0001.png" id="1_m6uer"]
+[ext_resource type="FontFile" uid="uid://dbxqf84atmdf5" path="res://Font/DotGothic16/DotGothic16-Regular.ttf" id="2_a43kq"]
+[ext_resource type="Texture2D" uid="uid://7yvjcb08ooll" path="res://Art/Sprite-0002.png" id="3_626he"]
+
+[node name="StartUI" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(5, 5)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_m6uer")
+
+[node name="MenuText" type="Label" parent="."]
+offset_left = -27.0
+offset_top = -65.0
+offset_right = 73.0
+offset_bottom = -26.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5137255)
+theme_override_fonts/font = ExtResource("2_a43kq")
+theme_override_font_sizes/font_size = 12
+text = "rabbit and steel 16 bit"
+autowrap_mode = 2
+
+[node name="Buttons" type="Node2D" parent="."]
+
+[node name="StartBackground" type="Sprite2D" parent="Buttons"]
+modulate = Color(1, 1, 1, 0.91764706)
+position = Vector2(66.25, -9.824999)
+scale = Vector2(0.16891892, 0.2462617)
+texture = ExtResource("3_626he")
+
+[node name="Start" type="Label" parent="Buttons"]
+offset_left = 51.5
+offset_top = -19.0
+offset_right = 84.5
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5137255)
+theme_override_fonts/font = ExtResource("2_a43kq")
+theme_override_font_sizes/font_size = 12
+text = "Start"
+autowrap_mode = 2
+
+[node name="SettingsBackground3" type="Sprite2D" parent="Buttons"]
+modulate = Color(1, 1, 1, 0.91764706)
+position = Vector2(62.5, 19.35)
+scale = Vector2(0.16486487, 0.19345795)
+texture = ExtResource("3_626he")
+
+[node name="Settings" type="Label" parent="Buttons"]
+offset_left = 38.5
+offset_top = 9.000002
+offset_right = 88.5
+offset_bottom = 28.000002
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5137255)
+theme_override_fonts/font = ExtResource("2_a43kq")
+theme_override_font_sizes/font_size = 12
+text = "Settings"
+autowrap_mode = 2
+
+[node name="QuitGameBackground" type="Sprite2D" parent="Buttons"]
+modulate = Color(1, 1, 1, 0.91764706)
+position = Vector2(57.5, 46.35)
+scale = Vector2(0.16486487, 0.19345795)
+texture = ExtResource("3_626he")
+
+[node name="Quit Game" type="Label" parent="Buttons"]
+offset_left = 30.5
+offset_top = 36.35
+offset_right = 86.5
+offset_bottom = 55.35
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5137255)
+theme_override_fonts/font = ExtResource("2_a43kq")
+theme_override_font_sizes/font_size = 12
+text = "Quit Game"
+autowrap_mode = 2

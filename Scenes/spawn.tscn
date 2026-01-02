@@ -1,0 +1,88 @@
+[gd_scene load_steps=13 format=3 uid="uid://c1v31xnafou7u"]
+
+[ext_resource type="PackedScene" uid="uid://va8ld3cvsieq" path="res://Scenes/players/player_1.tscn" id="1_e66bb"]
+[ext_resource type="PackedScene" uid="uid://dmv8quj68ks0a" path="res://Scenes/players/player_2.tscn" id="2_akeoe"]
+[ext_resource type="PackedScene" uid="uid://de3k3vaikl23d" path="res://Scenes/projectile.tscn" id="2_g1tsu"]
+[ext_resource type="Script" uid="uid://dubysrqwndoul" path="res://Scripts/damageable.gd" id="4_damageable"]
+[ext_resource type="PackedScene" uid="uid://dtwnt8fm2r8g6" path="res://Scenes/damage_number.tscn" id="5_dmgnum"]
+[ext_resource type="Texture2D" uid="uid://b6di3238ud7hp" path="res://Art/temporary/s_playerI_strip4.png" id="6_f73l8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g1tsu"]
+size = Vector2(16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7gbdd"]
+atlas = ExtResource("6_f73l8")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8fg1o"]
+atlas = ExtResource("6_f73l8")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_radqe"]
+atlas = ExtResource("6_f73l8")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rav82"]
+atlas = ExtResource("6_f73l8")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_26xnn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7gbdd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8fg1o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_radqe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rav82")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Spawn" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(5, 5)
+
+[node name="player1" parent="." instance=ExtResource("1_e66bb")]
+position = Vector2(14, -33)
+motion_mode = 1
+projectile_scene = ExtResource("2_g1tsu")
+
+[node name="player2" parent="." instance=ExtResource("2_akeoe")]
+projectile_scene = ExtResource("2_g1tsu")
+
+[node name="TestDummy" type="CharacterBody2D" parent="."]
+position = Vector2(31, 0)
+script = ExtResource("4_damageable")
+damage_number_scene = ExtResource("5_dmgnum")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TestDummy"]
+shape = SubResource("RectangleShape2D_g1tsu")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="TestDummy"]
+sprite_frames = SubResource("SpriteFrames_26xnn")
+frame_progress = 0.22181119
+
+[node name="TestDummyHurt" type="CharacterBody2D" parent="."]
+position = Vector2(31, -49)
+script = ExtResource("4_damageable")
+damage_number_scene = ExtResource("5_dmgnum")
+retaliation_projectile_scene = ExtResource("2_g1tsu")
+retaliation_damage = 1.0
+retaliation_crit_chance = 0.1
+retaliation_crit_multiplier = 2.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TestDummyHurt"]
+shape = SubResource("RectangleShape2D_g1tsu")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="TestDummyHurt"]
+sprite_frames = SubResource("SpriteFrames_26xnn")
+frame_progress = 0.22181119
