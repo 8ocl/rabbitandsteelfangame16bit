@@ -37,9 +37,9 @@ scale = Vector2(0.16891892, 0.2462617)
 texture = ExtResource("3_626he")
 
 [node name="StartText" type="Label" parent="Buttons"]
-offset_left = 51.5
+offset_left = 51.0
 offset_top = -19.0
-offset_right = 84.5
+offset_right = 82.0
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5137255)
 theme_override_fonts/font = ExtResource("2_a43kq")
 theme_override_font_sizes/font_size = 12
