@@ -4,19 +4,19 @@
 [ext_resource type="Script" uid="uid://fi7gj0p7xtl1" path="res://Scripts/transition/spawn.gd" id="1_n6nb1"]
 [ext_resource type="PackedScene" uid="uid://dmv8quj68ks0a" path="res://Scenes/players/player_2.tscn" id="2_akeoe"]
 [ext_resource type="PackedScene" uid="uid://de3k3vaikl23d" path="res://Scenes/projectile.tscn" id="2_g1tsu"]
+[ext_resource type="Texture2D" uid="uid://rde76ysg48uf" path="res://Art/Background/BackgroundRemade.png" id="3_n6nb1"]
 [ext_resource type="Script" uid="uid://dubysrqwndoul" path="res://Scripts/damageable.gd" id="4_damageable"]
 [ext_resource type="PackedScene" uid="uid://dtwnt8fm2r8g6" path="res://Scenes/damage_number.tscn" id="5_dmgnum"]
 [ext_resource type="Texture2D" uid="uid://dbhxxhuwrsr5v" path="res://Art/Players/Dummy.png" id="6_8fg1o"]
 [ext_resource type="Texture2D" uid="uid://7yvjcb08ooll" path="res://Art/Other/Shadow.png" id="7_7gbdd"]
 [ext_resource type="FontFile" uid="uid://dbxqf84atmdf5" path="res://Font/DotGothic16/DotGothic16-Regular.ttf" id="8_8fg1o"]
 [ext_resource type="Script" uid="uid://ccuc5ow7c1a5o" path="res://Scripts/start_game_area.gd" id="9_startgame"]
-[ext_resource type="Texture2D" uid="uid://btdyya35i0yd7" path="res://Art/Background/BackgroundGradiant.png" id="10_1ey31"]
 [ext_resource type="Script" uid="uid://dfmtfgukxvthw" path="res://Scripts/parallaxBackground/background.gd" id="10_ia4qq"]
-[ext_resource type="Texture2D" uid="uid://bxxtfv87dukld" path="res://Art/Background/Castle.png" id="11_1e7hw"]
-[ext_resource type="Texture2D" uid="uid://d4nb00j473yys" path="res://Art/Background/TreeLooking.png" id="12_bbkgn"]
+[ext_resource type="Texture2D" uid="uid://evvgwwvyqkvc" path="res://Art/Background/Castle.png" id="11_1e7hw"]
+[ext_resource type="Texture2D" uid="uid://kx3pvrhajhlk" path="res://Art/Background/TreeLooking.png" id="12_bbkgn"]
 [ext_resource type="Script" uid="uid://bl7h7x8jtndw6" path="res://Scripts/parallaxBackground/castle.gd" id="12_n6nb1"]
-[ext_resource type="Texture2D" uid="uid://c3ht3lfonlf3l" path="res://Art/Background/Spikes.png" id="13_vng4u"]
-[ext_resource type="Texture2D" uid="uid://dctvrlg7cvg7r" path="res://Art/Background/FirstLayer.png" id="14_rsbfg"]
+[ext_resource type="Texture2D" uid="uid://cmjx43syfmms1" path="res://Art/Background/Spikes.png" id="13_vng4u"]
+[ext_resource type="Texture2D" uid="uid://b4rrnckawicaq" path="res://Art/Background/FirstLayer.png" id="14_rsbfg"]
 [ext_resource type="Script" uid="uid://gmhg2sw2id5x" path="res://Scripts/parallaxBackground/tree_looking.gd" id="14_ucbsa"]
 [ext_resource type="Script" uid="uid://bybl3a4ug8ig8" path="res://Scripts/parallaxBackground/spikes.gd" id="16_o6jx8"]
 [ext_resource type="Script" uid="uid://blx7k604nli1j" path="res://Scripts/parallaxBackground/first_layer.gd" id="18_d0e7t"]
@@ -61,7 +61,7 @@ position = Vector2(199, 0)
 script = ExtResource("10_ia4qq")
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Background"]
-texture = ExtResource("10_1ey31")
+texture = ExtResource("3_n6nb1")
 
 [node name="Castle" type="ParallaxLayer" parent="ParallaxBackground"]
 modulate = Color(0.8804394, 0.832393, 0.8549745, 1)
