@@ -1,55 +1,106 @@
-[gd_scene load_steps=8 format=3 uid="uid://0j01jdsvep1u"]
+[gd_scene load_steps=18 format=3 uid="uid://0j01jdsvep1u"]
 
 [ext_resource type="PackedScene" uid="uid://va8ld3cvsieq" path="res://Scenes/players/player_1.tscn" id="1_p1f1o"]
 [ext_resource type="PackedScene" uid="uid://de3k3vaikl23d" path="res://Scenes/projectile.tscn" id="2_ys4pu"]
 [ext_resource type="PackedScene" uid="uid://dmv8quj68ks0a" path="res://Scenes/players/player_2.tscn" id="3_h2ono"]
-[ext_resource type="Script" uid="uid://drgmrhibp5ctt" path="res://Scripts/enable_enter_collision.gd" id="4_i6t4g"]
+[ext_resource type="Script" uid="uid://bwpxl5gsj6dl4" path="res://Scripts/transition/fly_in_scene.gd" id="5_flyin"]
+[ext_resource type="Script" uid="uid://dfmtfgukxvthw" path="res://Scripts/parallaxBackground/background.gd" id="6_ap3ea"]
+[ext_resource type="Texture2D" uid="uid://btdyya35i0yd7" path="res://Art/Background/BackgroundGradiant.png" id="7_t6ver"]
+[ext_resource type="Script" uid="uid://bl7h7x8jtndw6" path="res://Scripts/parallaxBackground/castle.gd" id="8_2nb4t"]
+[ext_resource type="Texture2D" uid="uid://bxxtfv87dukld" path="res://Art/Background/Castle.png" id="9_jb51l"]
+[ext_resource type="Script" uid="uid://gmhg2sw2id5x" path="res://Scripts/parallaxBackground/tree_looking.gd" id="10_dxsep"]
+[ext_resource type="Texture2D" uid="uid://d4nb00j473yys" path="res://Art/Background/TreeLooking.png" id="11_lexqi"]
+[ext_resource type="Script" uid="uid://bybl3a4ug8ig8" path="res://Scripts/parallaxBackground/spikes.gd" id="12_pkgwa"]
+[ext_resource type="Texture2D" uid="uid://c3ht3lfonlf3l" path="res://Art/Background/Spikes.png" id="13_radxo"]
+[ext_resource type="Script" uid="uid://blx7k604nli1j" path="res://Scripts/parallaxBackground/first_layer.gd" id="14_1cu4j"]
+[ext_resource type="Texture2D" uid="uid://dctvrlg7cvg7r" path="res://Art/Background/FirstLayer.png" id="15_djl3p"]
+[ext_resource type="Script" uid="uid://bi3ccs8jxok16" path="res://Scripts/transition/sync_camera_from_meta.gd" id="16_camsync"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_p1f1o"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ap3ea"]
 size = Vector2(231, 20)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ys4pu"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t6ver"]
 size = Vector2(20, 170)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_p8jf4"]
-size = Vector2(27, 130)
-
 [node name="tutorial" type="Node2D"]
+script = ExtResource("5_flyin")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(5, 5)
-
-[node name="player1" parent="." instance=ExtResource("1_p1f1o")]
-position = Vector2(-148, -17)
-motion_mode = 1
-projectile_scene = ExtResource("2_ys4pu")
-
-[node name="player2" parent="." instance=ExtResource("3_h2ono")]
-position = Vector2(-148, 1)
-projectile_scene = ExtResource("2_ys4pu")
+script = ExtResource("16_camsync")
 
 [node name="borders" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="borders"]
 position = Vector2(0.5, -75)
-shape = SubResource("RectangleShape2D_p1f1o")
+shape = SubResource("RectangleShape2D_ap3ea")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="borders"]
 position = Vector2(0, 75)
-shape = SubResource("RectangleShape2D_p1f1o")
+shape = SubResource("RectangleShape2D_ap3ea")
 
-[node name="Enter" type="CollisionShape2D" parent="borders"]
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="borders"]
 position = Vector2(-125, 0)
-shape = SubResource("RectangleShape2D_ys4pu")
-disabled = true
+shape = SubResource("RectangleShape2D_t6ver")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="borders"]
 position = Vector2(126, 0)
-shape = SubResource("RectangleShape2D_ys4pu")
+shape = SubResource("RectangleShape2D_t6ver")
 
-[node name="EnableEnterCollision" type="Area2D" parent="borders"]
-script = ExtResource("4_i6t4g")
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="borders/EnableEnterCollision"]
-position = Vector2(-93.5, 0)
-shape = SubResource("RectangleShape2D_p8jf4")
+[node name="Background" type="ParallaxLayer" parent="ParallaxBackground"]
+modulate = Color(0.8804394, 0.832393, 0.8549745, 1)
+texture_repeat = 2
+position = Vector2(199, 0)
+script = ExtResource("6_ap3ea")
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Background"]
+texture = ExtResource("7_t6ver")
+
+[node name="Castle" type="ParallaxLayer" parent="ParallaxBackground"]
+modulate = Color(0.8804394, 0.832393, 0.8549745, 1)
+texture_repeat = 2
+position = Vector2(199, 0)
+script = ExtResource("8_2nb4t")
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Castle"]
+texture = ExtResource("9_jb51l")
+
+[node name="TreeLooking" type="ParallaxLayer" parent="ParallaxBackground"]
+modulate = Color(0.8804394, 0.832393, 0.8549745, 1)
+texture_repeat = 2
+position = Vector2(199, 0)
+script = ExtResource("10_dxsep")
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/TreeLooking"]
+texture = ExtResource("11_lexqi")
+
+[node name="Spikes" type="ParallaxLayer" parent="ParallaxBackground"]
+modulate = Color(0.8804394, 0.832393, 0.8549745, 1)
+texture_repeat = 2
+position = Vector2(199, 0)
+script = ExtResource("12_pkgwa")
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Spikes"]
+texture = ExtResource("13_radxo")
+
+[node name="FirstLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+modulate = Color(0.8804394, 0.832393, 0.8549745, 1)
+texture_repeat = 2
+position = Vector2(199, 0)
+script = ExtResource("14_1cu4j")
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/FirstLayer"]
+texture = ExtResource("15_djl3p")
+
+[node name="players" type="Node2D" parent="."]
+
+[node name="player1" parent="players" instance=ExtResource("1_p1f1o")]
+position = Vector2(-95, -16)
+motion_mode = 1
+projectile_scene = ExtResource("2_ys4pu")
+
+[node name="player2" parent="players" instance=ExtResource("3_h2ono")]
+position = Vector2(-95, 16)
+projectile_scene = ExtResource("2_ys4pu")

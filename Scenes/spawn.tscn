@@ -1,6 +1,7 @@
-[gd_scene load_steps=25 format=3 uid="uid://c1v31xnafou7u"]
+[gd_scene load_steps=26 format=3 uid="uid://c1v31xnafou7u"]
 
 [ext_resource type="PackedScene" uid="uid://va8ld3cvsieq" path="res://Scenes/players/player_1.tscn" id="1_e66bb"]
+[ext_resource type="Script" uid="uid://fi7gj0p7xtl1" path="res://Scripts/transition/spawn.gd" id="1_n6nb1"]
 [ext_resource type="PackedScene" uid="uid://dmv8quj68ks0a" path="res://Scenes/players/player_2.tscn" id="2_akeoe"]
 [ext_resource type="PackedScene" uid="uid://de3k3vaikl23d" path="res://Scenes/projectile.tscn" id="2_g1tsu"]
 [ext_resource type="Script" uid="uid://dubysrqwndoul" path="res://Scripts/damageable.gd" id="4_damageable"]
@@ -44,6 +45,9 @@ size = Vector2(231, 20)
 size = Vector2(20, 170)
 
 [node name="spawn" type="Node2D"]
+script = ExtResource("1_n6nb1")
+tutorial_scene_path = "uid://0j01jdsvep1u"
+fly_offset = Vector2(300, 0)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(5, 5)

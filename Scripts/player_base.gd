@@ -48,6 +48,7 @@ class_name PlayerBase
 @export var invincible_orb_scene: PackedScene
 @export var invincible_duration: float = 1.0
 
+var controls_enabled: bool = true
 var current_speed: float
 var can_primary := true
 var can_secondary := true
@@ -77,10 +78,16 @@ func _ready() -> void:
 	if attack_ring_cooldown != null:
 		attack_ring_cooldown.visible = false
 
-func _physics_process(delta: float) -> void:
-	_handle_movement(delta)
-	_handle_actions()
+func set_controls_enabled(enabled: bool) -> void:
+	controls_enabled = enabled
+	if not enabled:
+		velocity = Vector2.ZERO
 
+func _physics_process(delta: float) -> void:
+	if controls_enabled:
+		_handle_movement(delta)
+		_handle_actions()
+	
 	# Face closest enemy, if any. If there are no enemies, keep current facing.
 	var aim_dir := _get_aim_direction()
 	if aim_dir != Vector2.ZERO:
