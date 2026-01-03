@@ -1,0 +1,88 @@
+[gd_scene load_steps=10 format=3 uid="uid://ckko34uixyy73"]
+
+[ext_resource type="PackedScene" uid="uid://va8ld3cvsieq" path="res://Scenes/players/player_1.tscn" id="1_x5xfh"]
+[ext_resource type="PackedScene" uid="uid://de3k3vaikl23d" path="res://Scenes/projectile.tscn" id="2_ehyua"]
+[ext_resource type="PackedScene" uid="uid://dmv8quj68ks0a" path="res://Scenes/players/player_2.tscn" id="3_qc3lj"]
+[ext_resource type="Script" uid="uid://c1d677g62mfvu" path="res://Scripts/start_game_tutorial.gd" id="4_klft6"]
+[ext_resource type="Texture2D" uid="uid://7yvjcb08ooll" path="res://Art/Other/Shadow.png" id="5_lvy03"]
+[ext_resource type="FontFile" uid="uid://dbxqf84atmdf5" path="res://Font/DotGothic16/DotGothic16-Regular.ttf" id="6_mfb7r"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8fg1o"]
+size = Vector2(39, 130)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x5xfh"]
+size = Vector2(231, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ehyua"]
+size = Vector2(20, 170)
+
+[node name="firstlevel" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(5, 5)
+
+[node name="player1" parent="." instance=ExtResource("1_x5xfh")]
+position = Vector2(-160, -17)
+motion_mode = 1
+projectile_scene = ExtResource("2_ehyua")
+
+[node name="player2" parent="." instance=ExtResource("3_qc3lj")]
+position = Vector2(-160, 1)
+projectile_scene = ExtResource("2_ehyua")
+
+[node name="StartGame" type="Area2D" parent="."]
+visible = false
+position = Vector2(105, 0)
+collision_mask = 2
+script = ExtResource("4_klft6")
+next_scene_path = ""
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StartGame"]
+position = Vector2(-9.5, 0)
+shape = SubResource("RectangleShape2D_8fg1o")
+disabled = true
+
+[node name="NinePatchRect" type="NinePatchRect" parent="StartGame"]
+modulate = Color(1, 1, 1, 0.7058824)
+z_index = -1
+offset_left = -30.0
+offset_top = -65.0
+offset_right = 10.0
+offset_bottom = 66.0
+texture = ExtResource("5_lvy03")
+region_rect = Rect2(0, 0, 370, 107)
+patch_margin_left = 1
+patch_margin_top = 40
+patch_margin_right = 1
+patch_margin_bottom = 40
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="StartText" type="Label" parent="StartGame"]
+offset_left = -25.0
+offset_top = -51.0
+offset_right = 6.0
+offset_bottom = -32.0
+theme_override_fonts/font = ExtResource("6_mfb7r")
+theme_override_font_sizes/font_size = 12
+text = "0/2"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="borders" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="borders"]
+position = Vector2(0.5, -75)
+shape = SubResource("RectangleShape2D_x5xfh")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="borders"]
+position = Vector2(0, 75)
+shape = SubResource("RectangleShape2D_x5xfh")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="borders"]
+position = Vector2(-125, 0)
+shape = SubResource("RectangleShape2D_ehyua")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="borders"]
+position = Vector2(126, 0)
+shape = SubResource("RectangleShape2D_ehyua")

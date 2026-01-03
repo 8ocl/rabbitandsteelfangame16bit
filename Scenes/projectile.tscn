@@ -1,18 +1,32 @@
-[gd_scene load_steps=4 format=3 uid="uid://de3k3vaikl23d"]
+[gd_scene load_steps=6 format=3 uid="uid://de3k3vaikl23d"]
 
-[ext_resource type="Texture2D" uid="uid://dfcpn6prybu28" path="res://icon.svg" id="1_f8cdk"]
 [ext_resource type="Script" uid="uid://c7hhyrqusm187" path="res://Scripts/projectile.gd" id="1_yr2qt"]
+[ext_resource type="Texture2D" uid="uid://cggvfq8f7pij5" path="res://Art/temporary/Fire Effect and Bullet 16x16.png" id="2_yr2qt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yr2qt"]
-size = Vector2(16, 16)
+size = Vector2(8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tl4hk"]
+atlas = ExtResource("2_yr2qt")
+region = Rect2(160, 112, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_d4467"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tl4hk")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="Projectile" type="Area2D"]
 script = ExtResource("1_yr2qt")
 speed = 100.0
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.125, 0.125)
-texture = ExtResource("1_f8cdk")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_yr2qt")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_d4467")

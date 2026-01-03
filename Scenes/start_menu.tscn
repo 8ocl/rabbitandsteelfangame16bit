@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://7tge47rfxsg1"]
 
-[ext_resource type="Texture2D" uid="uid://kdrwts0yemdh" path="res://Art/Sprite-0001.png" id="1_m6uer"]
+[ext_resource type="Texture2D" uid="uid://kdrwts0yemdh" path="res://Art/temporary/Sprite-0001.png" id="1_m6uer"]
 [ext_resource type="FontFile" uid="uid://dbxqf84atmdf5" path="res://Font/DotGothic16/DotGothic16-Regular.ttf" id="2_a43kq"]
-[ext_resource type="Texture2D" uid="uid://7yvjcb08ooll" path="res://Art/Sprite-0002.png" id="3_626he"]
+[ext_resource type="Texture2D" uid="uid://7yvjcb08ooll" path="res://Art/Other/Shadow.png" id="3_626he"]
 [ext_resource type="PackedScene" uid="uid://c1v31xnafou7u" path="res://Scenes/spawn.tscn" id="4_spawn_scene"]
 [ext_resource type="Script" uid="uid://rmpwlh5ptayd" path="res://Scripts/ui_start_button.gd" id="5_start_button"]
 [ext_resource type="Script" uid="uid://bn5djg81nrphw" path="res://Scripts/ui_settings_button.gd" id="6_settings_button"]

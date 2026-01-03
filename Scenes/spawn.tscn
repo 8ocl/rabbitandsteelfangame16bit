@@ -1,66 +1,112 @@
-[gd_scene load_steps=13 format=3 uid="uid://c1v31xnafou7u"]
+[gd_scene load_steps=25 format=3 uid="uid://c1v31xnafou7u"]
 
 [ext_resource type="PackedScene" uid="uid://va8ld3cvsieq" path="res://Scenes/players/player_1.tscn" id="1_e66bb"]
 [ext_resource type="PackedScene" uid="uid://dmv8quj68ks0a" path="res://Scenes/players/player_2.tscn" id="2_akeoe"]
 [ext_resource type="PackedScene" uid="uid://de3k3vaikl23d" path="res://Scenes/projectile.tscn" id="2_g1tsu"]
 [ext_resource type="Script" uid="uid://dubysrqwndoul" path="res://Scripts/damageable.gd" id="4_damageable"]
 [ext_resource type="PackedScene" uid="uid://dtwnt8fm2r8g6" path="res://Scenes/damage_number.tscn" id="5_dmgnum"]
-[ext_resource type="Texture2D" uid="uid://b6di3238ud7hp" path="res://Art/temporary/s_playerI_strip4.png" id="6_f73l8"]
+[ext_resource type="Texture2D" uid="uid://dbhxxhuwrsr5v" path="res://Art/Players/Dummy.png" id="6_8fg1o"]
+[ext_resource type="Texture2D" uid="uid://7yvjcb08ooll" path="res://Art/Other/Shadow.png" id="7_7gbdd"]
+[ext_resource type="FontFile" uid="uid://dbxqf84atmdf5" path="res://Font/DotGothic16/DotGothic16-Regular.ttf" id="8_8fg1o"]
+[ext_resource type="Script" uid="uid://ccuc5ow7c1a5o" path="res://Scripts/start_game_area.gd" id="9_startgame"]
+[ext_resource type="Texture2D" uid="uid://btdyya35i0yd7" path="res://Art/Background/BackgroundGradiant.png" id="10_1ey31"]
+[ext_resource type="Script" uid="uid://dfmtfgukxvthw" path="res://Scripts/parallaxBackground/background.gd" id="10_ia4qq"]
+[ext_resource type="Texture2D" uid="uid://bxxtfv87dukld" path="res://Art/Background/Castle.png" id="11_1e7hw"]
+[ext_resource type="Texture2D" uid="uid://d4nb00j473yys" path="res://Art/Background/TreeLooking.png" id="12_bbkgn"]
+[ext_resource type="Script" uid="uid://bl7h7x8jtndw6" path="res://Scripts/parallaxBackground/castle.gd" id="12_n6nb1"]
+[ext_resource type="Texture2D" uid="uid://c3ht3lfonlf3l" path="res://Art/Background/Spikes.png" id="13_vng4u"]
+[ext_resource type="Texture2D" uid="uid://dctvrlg7cvg7r" path="res://Art/Background/FirstLayer.png" id="14_rsbfg"]
+[ext_resource type="Script" uid="uid://gmhg2sw2id5x" path="res://Scripts/parallaxBackground/tree_looking.gd" id="14_ucbsa"]
+[ext_resource type="Script" uid="uid://bybl3a4ug8ig8" path="res://Scripts/parallaxBackground/spikes.gd" id="16_o6jx8"]
+[ext_resource type="Script" uid="uid://blx7k604nli1j" path="res://Scripts/parallaxBackground/first_layer.gd" id="18_d0e7t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g1tsu"]
 size = Vector2(16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7gbdd"]
-atlas = ExtResource("6_f73l8")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8fg1o"]
-atlas = ExtResource("6_f73l8")
-region = Rect2(16, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_radqe"]
-atlas = ExtResource("6_f73l8")
-region = Rect2(32, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_rav82"]
-atlas = ExtResource("6_f73l8")
-region = Rect2(48, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_26xnn"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_7gbdd")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_8fg1o")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_radqe")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_rav82")
+"texture": ExtResource("6_8fg1o")
 }],
 "loop": true,
 "name": &"default",
 "speed": 5.0
 }]
 
-[node name="Spawn" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8fg1o"]
+size = Vector2(39, 130)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_radqe"]
+size = Vector2(231, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rav82"]
+size = Vector2(20, 170)
+
+[node name="spawn" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(5, 5)
 
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="Background" type="ParallaxLayer" parent="ParallaxBackground"]
+texture_repeat = 2
+position = Vector2(199, 0)
+script = ExtResource("10_ia4qq")
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Background"]
+texture = ExtResource("10_1ey31")
+
+[node name="Castle" type="ParallaxLayer" parent="ParallaxBackground"]
+texture_repeat = 2
+position = Vector2(199, 0)
+script = ExtResource("12_n6nb1")
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Castle"]
+texture = ExtResource("11_1e7hw")
+
+[node name="TreeLooking" type="ParallaxLayer" parent="ParallaxBackground"]
+texture_repeat = 2
+position = Vector2(199, 0)
+script = ExtResource("14_ucbsa")
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/TreeLooking"]
+texture = ExtResource("12_bbkgn")
+
+[node name="Spikes" type="ParallaxLayer" parent="ParallaxBackground"]
+texture_repeat = 2
+position = Vector2(199, 0)
+script = ExtResource("16_o6jx8")
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Spikes"]
+texture = ExtResource("13_vng4u")
+
+[node name="FirstLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+texture_repeat = 2
+position = Vector2(199, 0)
+script = ExtResource("18_d0e7t")
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/FirstLayer"]
+texture = ExtResource("14_rsbfg")
+
+[node name="Blur_Shadow" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 0.4117647)
+scale = Vector2(1, 2.0800004)
+texture = ExtResource("7_7gbdd")
+
 [node name="player1" parent="." instance=ExtResource("1_e66bb")]
 position = Vector2(14, -33)
 motion_mode = 1
+acceleration = 1000.0
 projectile_scene = ExtResource("2_g1tsu")
 
 [node name="player2" parent="." instance=ExtResource("2_akeoe")]
+acceleration = 1000.0
 projectile_scene = ExtResource("2_g1tsu")
 
 [node name="TestDummy" type="CharacterBody2D" parent="."]
-position = Vector2(31, 0)
+position = Vector2(25, 0)
 script = ExtResource("4_damageable")
 damage_number_scene = ExtResource("5_dmgnum")
 
@@ -72,7 +118,7 @@ sprite_frames = SubResource("SpriteFrames_26xnn")
 frame_progress = 0.22181119
 
 [node name="TestDummyHurt" type="CharacterBody2D" parent="."]
-position = Vector2(31, -49)
+position = Vector2(-15, -39)
 script = ExtResource("4_damageable")
 damage_number_scene = ExtResource("5_dmgnum")
 retaliation_projectile_scene = ExtResource("2_g1tsu")
@@ -86,3 +132,56 @@ shape = SubResource("RectangleShape2D_g1tsu")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="TestDummyHurt"]
 sprite_frames = SubResource("SpriteFrames_26xnn")
 frame_progress = 0.22181119
+
+[node name="GoToTutorial" type="Area2D" parent="."]
+position = Vector2(105, 0)
+collision_mask = 2
+script = ExtResource("9_startgame")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GoToTutorial"]
+visible = false
+position = Vector2(-9.5, 0)
+shape = SubResource("RectangleShape2D_8fg1o")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="GoToTutorial"]
+modulate = Color(1, 1, 1, 0.7058824)
+z_index = -1
+offset_left = -29.0
+offset_top = -67.99999
+offset_right = 11.0
+offset_bottom = 63.000008
+scale = Vector2(1, 1.0399995)
+texture = ExtResource("7_7gbdd")
+region_rect = Rect2(0, 9, 354, 85)
+patch_margin_left = 1
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="StartText" type="Label" parent="GoToTutorial"]
+offset_left = -23.0
+offset_top = -51.0
+offset_right = 8.0
+offset_bottom = -32.0
+theme_override_fonts/font = ExtResource("8_8fg1o")
+theme_override_font_sizes/font_size = 12
+text = "0/2"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="borders" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="borders"]
+position = Vector2(0.5, -75)
+shape = SubResource("RectangleShape2D_radqe")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="borders"]
+position = Vector2(0, 75)
+shape = SubResource("RectangleShape2D_radqe")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="borders"]
+position = Vector2(-125, 0)
+shape = SubResource("RectangleShape2D_rav82")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="borders"]
+position = Vector2(126, 0)
+shape = SubResource("RectangleShape2D_rav82")

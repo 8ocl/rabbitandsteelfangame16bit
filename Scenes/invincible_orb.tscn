@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://c01h2e6ncre6t"]
+
+[ext_resource type="Texture2D" uid="uid://4w0apqxsgouj" path="res://Art/Other/InvincibleOrb.png" id="1_tomav"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xqf5n"]
+radius = 16.0
+
+[node name="InvincibleOrb" type="Area2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_xqf5n")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -1
+texture = ExtResource("1_tomav")

@@ -1,0 +1,55 @@
+[gd_scene load_steps=8 format=3 uid="uid://0j01jdsvep1u"]
+
+[ext_resource type="PackedScene" uid="uid://va8ld3cvsieq" path="res://Scenes/players/player_1.tscn" id="1_p1f1o"]
+[ext_resource type="PackedScene" uid="uid://de3k3vaikl23d" path="res://Scenes/projectile.tscn" id="2_ys4pu"]
+[ext_resource type="PackedScene" uid="uid://dmv8quj68ks0a" path="res://Scenes/players/player_2.tscn" id="3_h2ono"]
+[ext_resource type="Script" uid="uid://drgmrhibp5ctt" path="res://Scripts/enable_enter_collision.gd" id="4_i6t4g"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p1f1o"]
+size = Vector2(231, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ys4pu"]
+size = Vector2(20, 170)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p8jf4"]
+size = Vector2(27, 130)
+
+[node name="tutorial" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(5, 5)
+
+[node name="player1" parent="." instance=ExtResource("1_p1f1o")]
+position = Vector2(-148, -17)
+motion_mode = 1
+projectile_scene = ExtResource("2_ys4pu")
+
+[node name="player2" parent="." instance=ExtResource("3_h2ono")]
+position = Vector2(-148, 1)
+projectile_scene = ExtResource("2_ys4pu")
+
+[node name="borders" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="borders"]
+position = Vector2(0.5, -75)
+shape = SubResource("RectangleShape2D_p1f1o")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="borders"]
+position = Vector2(0, 75)
+shape = SubResource("RectangleShape2D_p1f1o")
+
+[node name="Enter" type="CollisionShape2D" parent="borders"]
+position = Vector2(-125, 0)
+shape = SubResource("RectangleShape2D_ys4pu")
+disabled = true
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="borders"]
+position = Vector2(126, 0)
+shape = SubResource("RectangleShape2D_ys4pu")
+
+[node name="EnableEnterCollision" type="Area2D" parent="borders"]
+script = ExtResource("4_i6t4g")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="borders/EnableEnterCollision"]
+position = Vector2(-93.5, 0)
+shape = SubResource("RectangleShape2D_p8jf4")

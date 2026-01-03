@@ -1,15 +1,21 @@
 extends CharacterBody2D
 class_name PlayerBase
 
-@onready var sprite: Sprite2D = get_node_or_null("Sprite2D")
+@onready var anim: AnimatedSprite2D = get_node_or_null("AnimatedSprite2D")
+@onready var directional_arrow: Sprite2D = get_node_or_null("DirectionalArrow")
+@onready var attack_ring_cooldown: AnimatedSprite2D = get_node_or_null("AttackRingCooldown")
 
 @export var normal_speed: float = 100.0
 @export var slow_speed: float = 50.0
+@export var acceleration: float = 600.0
+@export var deceleration: float = 800.0
+@export var turn_speed: float = 8.0 # higher = faster turning
 
 @export var primary_cooldown: float = 0.2
 @export var secondary_cooldown: float = 1.0
 @export var special_cooldown: float = 3.0
 @export var defensive_cooldown: float = 2.0
+@export var global_cooldown: float = 0.15
 
 @export_group("Input")
 @export var input_prefix: String = "" # "" for player 1, "2" for player 2
@@ -30,12 +36,33 @@ class_name PlayerBase
 @export_group("Health")
 @export var max_health: float = 5.0 # 5 hearts
 
+@export_group("Directional Arrow")
+@export var arrow_orbit_radius: float = 12.0
+
+@export_group("Attack Ring Cooldown")
+@export var ring_fade_start: float = 0.85 # Start fading at 85% of cooldown
+@export var ring_total_frames: int = 15 # Frame 0 to 14
+
+@export_group("Defensive")
+@export var invincible_orb_scene: PackedScene
+@export var invincible_duration: float = 1.0
+
 var current_speed: float
 var can_primary := true
 var can_secondary := true
 var can_special := true
 var can_defensive := true
+var can_cast := true # Global cooldown
 var current_health: float
+
+var _facing: float = 1.0
+var _target_facing: float = 1.0
+
+var _cooldown_start_time: float = 0.0
+var _is_on_cooldown: bool = false
+
+var _is_invincible: bool = false
+var _invincible_orb_instance: Node2D = null
 
 func _ready() -> void:
 	randomize()
@@ -44,12 +71,38 @@ func _ready() -> void:
 	if not is_in_group("players"):
 		add_to_group("players")
 	_setup_collision()
+	
+	# Initialize attack ring as hidden
+	if attack_ring_cooldown != null:
+		attack_ring_cooldown.visible = false
 
-func _physics_process(_delta: float) -> void:
-	_handle_movement()
+func _physics_process(delta: float) -> void:
+	_handle_movement(delta)
 	_handle_actions()
 
-func _handle_movement() -> void:
+	# Face closest enemy, if any. If there are no enemies, keep current facing.
+	var aim_dir := _get_aim_direction()
+	if aim_dir != Vector2.ZERO:
+		_update_facing_from_vector(aim_dir)
+
+	# Smoothly turn towards target facing
+	var t = clamp(turn_speed * delta, 0.0, 1.0)
+	_facing = lerp(_facing, _target_facing, t)
+	if anim != null:
+		anim.flip_h = _facing < 0.0
+
+	# Update directional arrow to orbit around player toward target
+	if directional_arrow != null and aim_dir != Vector2.ZERO:
+		var orbit_position = aim_dir * arrow_orbit_radius
+		directional_arrow.position = orbit_position
+		directional_arrow.rotation = aim_dir.angle()
+
+	# Update attack ring cooldown animation
+	_update_attack_ring(delta)
+
+	_update_animation()
+
+func _handle_movement(delta: float) -> void:
 	var prefix := input_prefix
 	# Shift for slow movement
 	if Input.is_action_pressed(prefix + "sprint_slow"):
@@ -70,28 +123,29 @@ func _handle_movement() -> void:
 
 	if direction.length() > 0.0:
 		direction = direction.normalized()
-		_update_facing_from_vector(direction)
-
-	velocity = direction * current_speed
+	
+	var desired_velocity := direction * current_speed
+	var accel := acceleration if direction != Vector2.ZERO else deceleration
+	velocity = velocity.move_toward(desired_velocity, accel * delta)
 	move_and_slide()
 
 func _handle_actions() -> void:
 	var prefix := input_prefix
 
 	# Primary action - rapid fire projectiles
-	if Input.is_action_pressed(prefix + "primary_action") and can_primary:
+	if Input.is_action_pressed(prefix + "primary_action") and can_primary and can_cast:
 		primary_action()
 
 	# Secondary action - placeholder
-	if Input.is_action_just_pressed(prefix + "secondary_action") and can_secondary:
+	if Input.is_action_just_pressed(prefix + "secondary_action") and can_secondary and can_cast:
 		secondary_action()
 
 	# Special action - placeholder
-	if Input.is_action_just_pressed(prefix + "special_action") and can_special:
+	if Input.is_action_just_pressed(prefix + "special_action") and can_special and can_cast:
 		special_action()
 
 	# Defensive action - hold to keep active
-	if Input.is_action_pressed(prefix + "defensive_action") and can_defensive:
+	if Input.is_action_pressed(prefix + "defensive_action") and can_defensive and can_cast:
 		defensive_action()
 	elif Input.is_action_just_released(prefix + "defensive_action"):
 		end_defensive_action()
@@ -103,6 +157,8 @@ func primary_action() -> void:
 		return
 
 	can_primary = false
+	_trigger_global_cooldown()
+	_start_cooldown_ring()
 
 	var projectile := projectile_scene.instantiate()
 	var root := get_tree().current_scene
@@ -135,11 +191,13 @@ func primary_action() -> void:
 	get_tree().create_timer(primary_cooldown).timeout.connect(
 		func() -> void:
 			can_primary = true
+			_is_on_cooldown = false
 	)
 
 func secondary_action() -> void:
 	# Example: charged shot or melee attack hook
 	can_secondary = false
+	_trigger_global_cooldown()
 	get_tree().create_timer(secondary_cooldown).timeout.connect(
 		func() -> void:
 			can_secondary = true
@@ -148,15 +206,46 @@ func secondary_action() -> void:
 func special_action() -> void:
 	# Example: powerful ability hook
 	can_special = false
+	_trigger_global_cooldown()
 	get_tree().create_timer(special_cooldown).timeout.connect(
 		func() -> void:
 			can_special = true
 	)
 
 func defensive_action() -> void:
-	# Example: shield, damage reduction, etc.
-	# Implement your defensive behavior here if needed.
-	pass
+	if invincible_orb_scene == null:
+		return
+	
+	_trigger_global_cooldown()
+	
+	# Spawn invincible orb in the world, not attached to player
+	if _invincible_orb_instance == null:
+		_invincible_orb_instance = invincible_orb_scene.instantiate()
+		var root = get_tree().current_scene
+		root.add_child(_invincible_orb_instance)
+		_invincible_orb_instance.global_position = global_position
+		
+		# Connect orb to affect players
+		if _invincible_orb_instance.has_signal("body_entered"):
+			_invincible_orb_instance.body_entered.connect(_on_orb_body_entered)
+	
+	# Enable invincibility
+	_is_invincible = true
+	
+	# White out the player sprite more noticeably (add brightness)
+	if anim != null:
+		anim.modulate = Color(3, 3, 3, 1) # Bright white glow
+	
+	# Set timer to remove invincibility
+	get_tree().create_timer(invincible_duration).timeout.connect(
+		func() -> void:
+			_is_invincible = false
+			if _invincible_orb_instance != null:
+				_invincible_orb_instance.queue_free()
+				_invincible_orb_instance = null
+			if anim != null:
+				anim.modulate = Color(1, 1, 1, 1) # Reset to normal
+	)
 
 func end_defensive_action() -> void:
 	can_defensive = false
@@ -166,6 +255,10 @@ func end_defensive_action() -> void:
 	)
 
 func apply_damage(amount: float, _is_crit: bool = false) -> void:
+	# Ignore damage if invincible
+	if _is_invincible:
+		return
+	
 	current_health -= amount
 	# TODO: hook up player-specific damage feedback (flash, sound, UI) here.
 	if current_health <= 0.0:
@@ -176,13 +269,18 @@ func _die() -> void:
 	# Later you can add respawn or game over logic here.
 
 func _update_facing_from_vector(v: Vector2) -> void:
-	if sprite == null:
-		return
 	if abs(v.x) < 0.01:
 		return
+	# Assume default sprite faces right; facing = +1 for right, -1 for left.
+	_target_facing = -1.0 if v.x < 0.0 else 1.0
 
-	# Assume default sprite faces right; flip horizontally when aiming left.
-	sprite.flip_h = v.x < 0.0
+func _update_animation() -> void:
+	if anim == null:
+		return
+	var moving := velocity.length_squared() > 1.0
+	var target_anim := "TetoFly" if moving else "TetoIdle"
+	if anim.animation != target_anim:
+		anim.play(target_anim)
 
 func _get_aim_direction() -> Vector2:
 	# Aim towards the closest enemy in group "enemies".
@@ -217,3 +315,56 @@ func _setup_collision() -> void:
 
 	collision_layer = _layer_bit(character_layer)
 	collision_mask = _layer_bit(environment_layer) | _layer_bit(enemy_projectile_layer)
+
+func _start_cooldown_ring() -> void:
+	_cooldown_start_time = Time.get_ticks_msec() / 1000.0
+	_is_on_cooldown = true
+	if attack_ring_cooldown != null:
+		attack_ring_cooldown.visible = true
+		attack_ring_cooldown.frame = 0
+		attack_ring_cooldown.modulate.a = 0.50980395 # Reset to original alpha
+
+func _update_attack_ring(delta: float) -> void:
+	if attack_ring_cooldown == null or not _is_on_cooldown:
+		return
+	
+	var elapsed = (Time.get_ticks_msec() / 1000.0) - _cooldown_start_time
+	var progress = clamp(elapsed / primary_cooldown, 0.0, 1.0)
+	
+	# Ease in cubic for smooth acceleration
+	var eased_progress = pow(progress, 3.0)
+	
+	# Calculate frame (0 = max circle, 14 = character)
+	var target_frame = int(eased_progress * (ring_total_frames - 1))
+	attack_ring_cooldown.frame = target_frame
+	
+	# Fade out near the end
+	if progress >= ring_fade_start:
+		var fade_progress = (progress - ring_fade_start) / (1.0 - ring_fade_start)
+		var base_alpha = 0.50980395 # Original alpha from scene
+		attack_ring_cooldown.modulate.a = lerp(base_alpha, 0.0, fade_progress)
+	
+	# Hide when complete
+	if progress >= 1.0:
+		attack_ring_cooldown.visible = false
+
+func _trigger_global_cooldown() -> void:
+	can_cast = false
+	get_tree().create_timer(global_cooldown).timeout.connect(
+		func() -> void:
+			can_cast = true
+	)
+
+func _on_orb_body_entered(body: Node) -> void:
+	if body is PlayerBase and body != self:
+		body._is_invincible = true
+		if body.anim != null:
+			body.anim.modulate = Color(3, 3, 3, 1)
+		
+		# Remove invincibility after orb duration
+		get_tree().create_timer(invincible_duration).timeout.connect(
+			func() -> void:
+				if body.anim != null:
+					body.anim.modulate = Color(1, 1, 1, 1)
+				body._is_invincible = false
+		)

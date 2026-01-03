@@ -1,32 +1,146 @@
-[gd_scene load_steps=8 format=3 uid="uid://va8ld3cvsieq"]
+[gd_scene load_steps=26 format=3 uid="uid://va8ld3cvsieq"]
 
 [ext_resource type="Texture2D" uid="uid://dfcpn6prybu28" path="res://icon.svg" id="1_qjc6i"]
 [ext_resource type="Script" uid="uid://c5wl6x6cwibvj" path="res://Scripts/player_1.gd" id="1_qjs5k"]
-[ext_resource type="Texture2D" uid="uid://c6nm8mbjsb1mr" path="res://Art/temporary/16x16-Brown.png" id="3_unb0i"]
+[ext_resource type="Texture2D" uid="uid://c63deac2df610" path="res://Art/Players/Teto/TetoFly.png" id="3_uonug"]
+[ext_resource type="Texture2D" uid="uid://bo4pygxxrwpug" path="res://Art/Players/Teto/TetoIdle.png" id="4_8514p"]
+[ext_resource type="Texture2D" uid="uid://ppsuopr1c1ps" path="res://Art/Other/Arrow.png" id="5_8514p"]
+[ext_resource type="Texture2D" uid="uid://byi2vegh55cwr" path="res://Art/Other/CooldownRing.png" id="6_nsvye"]
+[ext_resource type="PackedScene" uid="uid://c01h2e6ncre6t" path="res://Scenes/invincible_orb.tscn" id="7_invicible_orb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qjs5k"]
-size = Vector2(16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_uu7dt"]
-atlas = ExtResource("3_unb0i")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_p8au8"]
-atlas = ExtResource("3_unb0i")
-region = Rect2(16, 0, 16, 16)
+size = Vector2(6, 6)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_uonug"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_uu7dt")
+"texture": ExtResource("3_uonug")
+}],
+"loop": true,
+"name": &"TetoFly",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_8514p")
+}],
+"loop": true,
+"name": &"TetoIdle",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wgx86"]
+atlas = ExtResource("6_nsvye")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ykwvr"]
+atlas = ExtResource("6_nsvye")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vnnvq"]
+atlas = ExtResource("6_nsvye")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1c1q0"]
+atlas = ExtResource("6_nsvye")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jksh3"]
+atlas = ExtResource("6_nsvye")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j5xwh"]
+atlas = ExtResource("6_nsvye")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2akim"]
+atlas = ExtResource("6_nsvye")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dbj6c"]
+atlas = ExtResource("6_nsvye")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kdhrf"]
+atlas = ExtResource("6_nsvye")
+region = Rect2(256, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sym84"]
+atlas = ExtResource("6_nsvye")
+region = Rect2(288, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4vmvd"]
+atlas = ExtResource("6_nsvye")
+region = Rect2(320, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qijai"]
+atlas = ExtResource("6_nsvye")
+region = Rect2(352, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d7r62"]
+atlas = ExtResource("6_nsvye")
+region = Rect2(384, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wwmp7"]
+atlas = ExtResource("6_nsvye")
+region = Rect2(416, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jwdd7"]
+atlas = ExtResource("6_nsvye")
+region = Rect2(448, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vt0nw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wgx86")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_p8au8")
+"texture": SubResource("AtlasTexture_ykwvr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vnnvq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1c1q0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jksh3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j5xwh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2akim")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dbj6c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kdhrf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sym84")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4vmvd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qijai")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d7r62")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wwmp7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jwdd7")
 }],
 "loop": true,
 "name": &"default",
-"speed": 5.0
+"speed": 10.0
 }]
 
 [node name="player1" type="CharacterBody2D"]
@@ -35,16 +149,34 @@ primary_cooldown = 1.0
 secondary_cooldown = 2.0
 special_cooldown = 5.0
 defensive_cooldown = 10.0
+invincible_orb_scene = ExtResource("7_invicible_orb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_qjs5k")
 
 [node name="UI" type="Node2D" parent="."]
+visible = false
 
 [node name="Sprite2D" type="Sprite2D" parent="UI"]
-visible = false
 texture = ExtResource("1_qjc6i")
+
+[node name="AnimatedSprite2DShadow" type="AnimatedSprite2D" parent="."]
+modulate = Color(0, 0, 0, 0.44313726)
+position = Vector2(-1, 1)
+sprite_frames = SubResource("SpriteFrames_uonug")
+animation = &"TetoFly"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_uonug")
-frame_progress = 0.48366386
+animation = &"TetoFly"
+
+[node name="DirectionalArrow" type="Sprite2D" parent="."]
+modulate = Color(0.9819253, 0, 0.23572612, 0.50980395)
+position = Vector2(0, -10)
+texture = ExtResource("5_8514p")
+
+[node name="AttackRingCooldown" type="AnimatedSprite2D" parent="."]
+modulate = Color(0.99999255, 0.60818404, 0.59976596, 0.50980395)
+sprite_frames = SubResource("SpriteFrames_vt0nw")
+frame_progress = 0.37042102
