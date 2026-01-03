@@ -51,6 +51,7 @@ zoom = Vector2(5, 5)
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
 [node name="Background" type="ParallaxLayer" parent="ParallaxBackground"]
+modulate = Color(0.8804394, 0.832393, 0.8549745, 1)
 texture_repeat = 2
 position = Vector2(199, 0)
 script = ExtResource("10_ia4qq")
@@ -59,6 +60,7 @@ script = ExtResource("10_ia4qq")
 texture = ExtResource("10_1ey31")
 
 [node name="Castle" type="ParallaxLayer" parent="ParallaxBackground"]
+modulate = Color(0.8804394, 0.832393, 0.8549745, 1)
 texture_repeat = 2
 position = Vector2(199, 0)
 script = ExtResource("12_n6nb1")
@@ -67,6 +69,7 @@ script = ExtResource("12_n6nb1")
 texture = ExtResource("11_1e7hw")
 
 [node name="TreeLooking" type="ParallaxLayer" parent="ParallaxBackground"]
+modulate = Color(0.8804394, 0.832393, 0.8549745, 1)
 texture_repeat = 2
 position = Vector2(199, 0)
 script = ExtResource("14_ucbsa")
@@ -75,6 +78,7 @@ script = ExtResource("14_ucbsa")
 texture = ExtResource("12_bbkgn")
 
 [node name="Spikes" type="ParallaxLayer" parent="ParallaxBackground"]
+modulate = Color(0.8804394, 0.832393, 0.8549745, 1)
 texture_repeat = 2
 position = Vector2(199, 0)
 script = ExtResource("16_o6jx8")
@@ -83,17 +87,13 @@ script = ExtResource("16_o6jx8")
 texture = ExtResource("13_vng4u")
 
 [node name="FirstLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+modulate = Color(0.8804394, 0.832393, 0.8549745, 1)
 texture_repeat = 2
 position = Vector2(199, 0)
 script = ExtResource("18_d0e7t")
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/FirstLayer"]
 texture = ExtResource("14_rsbfg")
-
-[node name="Blur_Shadow" type="Sprite2D" parent="."]
-modulate = Color(0, 0, 0, 0.4117647)
-scale = Vector2(1, 2.0800004)
-texture = ExtResource("7_7gbdd")
 
 [node name="player1" parent="." instance=ExtResource("1_e66bb")]
 position = Vector2(14, -33)

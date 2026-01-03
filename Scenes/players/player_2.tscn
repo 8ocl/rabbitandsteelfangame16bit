@@ -1,14 +1,20 @@
-[gd_scene load_steps=6 format=3 uid="uid://dmv8quj68ks0a"]
+[gd_scene load_steps=26 format=3 uid="uid://dmv8quj68ks0a"]
 
 [ext_resource type="Script" uid="uid://bpvfck4i2rcwm" path="res://Scripts/player_2.gd" id="1_4yyua"]
-[ext_resource type="Texture2D" uid="uid://bo4pygxxrwpug" path="res://Art/Players/Teto/TetoIdle.png" id="3_p8au8"]
-[ext_resource type="Texture2D" uid="uid://c63deac2df610" path="res://Art/Players/Teto/TetoFly.png" id="3_uu7dt"]
+[ext_resource type="Texture2D" uid="uid://dfcpn6prybu28" path="res://icon.svg" id="2_4mbek"]
+[ext_resource type="Texture2D" uid="uid://cjd6tjiroe4ws" path="res://Art/Players/Miku/MikuFly.png" id="3_gyfev"]
+[ext_resource type="Texture2D" uid="uid://dofswc7ip2s48" path="res://Art/Players/Miku/MikuIdle.png" id="4_dwbop"]
+[ext_resource type="Texture2D" uid="uid://ppsuopr1c1ps" path="res://Art/Other/Arrow.png" id="5_1dc8i"]
+[ext_resource type="Texture2D" uid="uid://byi2vegh55cwr" path="res://Art/Other/CooldownRing.png" id="6_xwe8u"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_ybu3q"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uu7dt"]
+size = Vector2(6, 6)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_js14x"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_uu7dt")
+"texture": ExtResource("3_gyfev")
 }],
 "loop": true,
 "name": &"TetoFly",
@@ -16,15 +22,144 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_p8au8")
+"texture": ExtResource("4_dwbop")
 }],
 "loop": true,
 "name": &"TetoIdle",
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_uu7dt"]
-size = Vector2(6, 6)
+[sub_resource type="SpriteFrames" id="SpriteFrames_ybu3q"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_gyfev")
+}],
+"loop": true,
+"name": &"TetoFly",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_dwbop")
+}],
+"loop": true,
+"name": &"TetoIdle",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wgx86"]
+atlas = ExtResource("6_xwe8u")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ykwvr"]
+atlas = ExtResource("6_xwe8u")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vnnvq"]
+atlas = ExtResource("6_xwe8u")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1c1q0"]
+atlas = ExtResource("6_xwe8u")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jksh3"]
+atlas = ExtResource("6_xwe8u")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j5xwh"]
+atlas = ExtResource("6_xwe8u")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2akim"]
+atlas = ExtResource("6_xwe8u")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dbj6c"]
+atlas = ExtResource("6_xwe8u")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kdhrf"]
+atlas = ExtResource("6_xwe8u")
+region = Rect2(256, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sym84"]
+atlas = ExtResource("6_xwe8u")
+region = Rect2(288, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4vmvd"]
+atlas = ExtResource("6_xwe8u")
+region = Rect2(320, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qijai"]
+atlas = ExtResource("6_xwe8u")
+region = Rect2(352, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d7r62"]
+atlas = ExtResource("6_xwe8u")
+region = Rect2(384, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wwmp7"]
+atlas = ExtResource("6_xwe8u")
+region = Rect2(416, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jwdd7"]
+atlas = ExtResource("6_xwe8u")
+region = Rect2(448, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_p2j4v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wgx86")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ykwvr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vnnvq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1c1q0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jksh3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j5xwh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2akim")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dbj6c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kdhrf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sym84")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4vmvd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qijai")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d7r62")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wwmp7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jwdd7")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
 
 [node name="player2" type="CharacterBody2D"]
 script = ExtResource("1_4yyua")
@@ -33,10 +168,31 @@ secondary_cooldown = 2.0
 special_cooldown = 5.0
 defensive_cooldown = 10.0
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_ybu3q")
-animation = &"TetoFly"
+[node name="UI" type="Node2D" parent="."]
+visible = false
+
+[node name="Sprite2D" type="Sprite2D" parent="UI"]
+texture = ExtResource("2_4mbek")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_uu7dt")
+
+[node name="AnimatedSprite2DShadow" type="AnimatedSprite2D" parent="."]
+modulate = Color(0, 0, 0, 0.44313726)
+position = Vector2(-1, 1)
+sprite_frames = SubResource("SpriteFrames_js14x")
+animation = &"TetoIdle"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ybu3q")
+animation = &"TetoIdle"
+
+[node name="DirectionalArrow" type="Sprite2D" parent="."]
+modulate = Color(4.5242905e-06, 0.559317, 0.848039, 0.50980395)
+position = Vector2(0, -10)
+texture = ExtResource("5_1dc8i")
+
+[node name="AttackRingCooldown" type="AnimatedSprite2D" parent="."]
+modulate = Color(0, 0.82318497, 0.92714095, 0.50980395)
+sprite_frames = SubResource("SpriteFrames_p2j4v")

@@ -2,6 +2,7 @@ extends CharacterBody2D
 class_name PlayerBase
 
 @onready var anim: AnimatedSprite2D = get_node_or_null("AnimatedSprite2D")
+@onready var shadow: AnimatedSprite2D = get_node_or_null("AnimatedSprite2DShadow")
 @onready var directional_arrow: Sprite2D = get_node_or_null("DirectionalArrow")
 @onready var attack_ring_cooldown: AnimatedSprite2D = get_node_or_null("AttackRingCooldown")
 
@@ -88,8 +89,11 @@ func _physics_process(delta: float) -> void:
 	# Smoothly turn towards target facing
 	var t = clamp(turn_speed * delta, 0.0, 1.0)
 	_facing = lerp(_facing, _target_facing, t)
+	var should_flip = _facing < 0.0
 	if anim != null:
-		anim.flip_h = _facing < 0.0
+		anim.flip_h = should_flip
+	if shadow != null:
+		shadow.flip_h = should_flip
 
 	# Update directional arrow to orbit around player toward target
 	if directional_arrow != null and aim_dir != Vector2.ZERO:
@@ -281,6 +285,13 @@ func _update_animation() -> void:
 	var target_anim := "TetoFly" if moving else "TetoIdle"
 	if anim.animation != target_anim:
 		anim.play(target_anim)
+	
+	# Sync shadow with main sprite
+	if shadow != null:
+		if shadow.animation != target_anim:
+			shadow.animation = target_anim
+			shadow.play(target_anim)
+		shadow.frame = anim.frame
 
 func _get_aim_direction() -> Vector2:
 	# Aim towards the closest enemy in group "enemies".

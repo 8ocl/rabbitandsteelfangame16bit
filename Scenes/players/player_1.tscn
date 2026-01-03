@@ -156,9 +156,26 @@ position = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_qjs5k")
 
 [node name="UI" type="Node2D" parent="."]
-visible = false
+position = Vector2(13, -10)
+scale = Vector2(0.82, 0.82)
 
 [node name="Sprite2D" type="Sprite2D" parent="UI"]
+scale = Vector2(0.065, 0.065)
+texture = ExtResource("1_qjc6i")
+
+[node name="Sprite2D2" type="Sprite2D" parent="UI"]
+position = Vector2(0, 9)
+scale = Vector2(0.065, 0.065)
+texture = ExtResource("1_qjc6i")
+
+[node name="Sprite2D3" type="Sprite2D" parent="UI"]
+position = Vector2(0, 18)
+scale = Vector2(0.065, 0.065)
+texture = ExtResource("1_qjc6i")
+
+[node name="Sprite2D4" type="Sprite2D" parent="UI"]
+position = Vector2(0, 27)
+scale = Vector2(0.065, 0.065)
 texture = ExtResource("1_qjc6i")
 
 [node name="AnimatedSprite2DShadow" type="AnimatedSprite2D" parent="."]
