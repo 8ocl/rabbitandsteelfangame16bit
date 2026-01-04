@@ -5,6 +5,8 @@ extends Area2D
 @export var damage: float = 1.0
 
 func _ready() -> void:
+	# Detect collisions with players on physics layer 2.
+	collision_mask = 1 << 1 
 	# Auto-despawn after some time
 	get_tree().create_timer(life_time).timeout.connect(queue_free)
 	body_entered.connect(_on_body_entered)

@@ -261,7 +261,6 @@ func end_defensive_action() -> void:
 	)
 
 func apply_damage(amount: float, _is_crit: bool = false) -> void:
-	# Ignore damage if invincible
 	if _is_invincible:
 		return
 
@@ -269,14 +268,16 @@ func apply_damage(amount: float, _is_crit: bool = false) -> void:
 
 	# Become invincible for 1 second after taking damage.
 	_is_invincible = true
-	# A simple visual feedback for invincibility.
+	get_tree().create_timer(1.0).timeout.connect(func(): _is_invincible = false)
+
+	# Add a red flash for 0.5s as damage feedback.
 	if anim != null:
-		anim.modulate.a = 0.5
-	get_tree().create_timer(1.0).timeout.connect(func():
-		_is_invincible = false
-		if anim != null:
-			anim.modulate.a = 1.0
-	)
+		var original_modulate = anim.modulate
+		anim.modulate = Color.RED
+		get_tree().create_timer(0.5).timeout.connect(func():
+			if anim != null:
+				anim.modulate = original_modulate
+		)
 
 func _die() -> void:
 	print("dead")
