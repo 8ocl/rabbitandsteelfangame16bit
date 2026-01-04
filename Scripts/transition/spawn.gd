@@ -17,6 +17,11 @@ extends Node2D
 
 var _flying_to_tutorial: bool = false
 
+func _ready() -> void:
+	# Match viewport clear color to the game background to avoid grey flashes
+	# when switching between scenes.
+	RenderingServer.set_default_clear_color(Color(0.8804394, 0.832393, 0.8549745, 1.0))
+
 func go_to_tutorial() -> void:
 	if _flying_to_tutorial:
 		return

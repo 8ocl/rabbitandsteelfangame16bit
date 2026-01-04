@@ -94,11 +94,16 @@ func _award_loot_box_choices_if_any() -> void:
 # In the spawn scene we want to play the fly animation on the root node script
 # (spawn.gd). If that method is missing, fall back to direct scene change.
 func _start_fly_to_tutorial() -> void:
+	_award_loot_box_choices_if_any()
 	var root := get_tree().current_scene
-	if root != null and root.has_method("go_to_tutorial"):
-		root.go_to_tutorial()
-	else:
-		_start_game()
+	if root != null:
+		if root.has_method("go_to_tutorial"):
+			root.go_to_tutorial()
+			return
+		if root.has_method("go_to_next_scene"):
+			root.go_to_next_scene()
+			return
+	_start_game()
 
 func _on_start_delay_timeout() -> void:
 	# Only start if the countdown is still active and we still have enough players.

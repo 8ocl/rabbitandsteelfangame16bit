@@ -21,6 +21,8 @@ func _ready() -> void:
 		health_bar.min_value = 0.0
 		health_bar.max_value = max_health
 		_update_health_bar()
+	# Hide GoToLevelOne gate until this loot box is destroyed (if present in scene).
+	_hide_go_to_level_gate()
 
 func apply_damage(amount: float, is_crit: bool = false) -> void:
 	if _is_broken:
@@ -41,7 +43,7 @@ func _die() -> void:
 	_is_broken = true
 	# Disable further collisions and hide health bar / normal sprite.
 	if collision_shape != null:
-		collision_shape.disabled = true
+		collision_shape.set_deferred("disabled", true)
 	if health_bar != null:
 		health_bar.visible = false
 	if normal_sprite != null:
@@ -55,6 +57,8 @@ func _die() -> void:
 		_piece2_velocity = Vector2(80, -240)
 	# Spawn the loot box UI so players can choose upgrades.
 	_spawn_loot_box_ui()
+	# Reveal GoToLevelOne gate now that the box is broken.
+	_show_go_to_level_gate()
 	# Clean up the loot box node after pieces have flown off-screen for a bit.
 	get_tree().create_timer(3.0).timeout.connect(queue_free)
 
@@ -68,6 +72,22 @@ func _physics_process(delta: float) -> void:
 		broken_piece_1.position += _piece1_velocity * delta
 	if broken_piece_2 != null:
 		broken_piece_2.position += _piece2_velocity * delta
+
+func _hide_go_to_level_gate() -> void:
+	var root := get_tree().current_scene
+	if root == null:
+		return
+	var gate := root.get_node_or_null("GoToLevelOne")
+	if gate != null:
+		gate.visible = false
+
+func _show_go_to_level_gate() -> void:
+	var root := get_tree().current_scene
+	if root == null:
+		return
+	var gate := root.get_node_or_null("GoToLevelOne")
+	if gate != null:
+		gate.visible = true
 
 func _spawn_loot_box_ui() -> void:
 	if LOOT_BOX_UI_SCENE == null:

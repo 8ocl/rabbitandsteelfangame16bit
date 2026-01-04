@@ -1,88 +1,154 @@
-[gd_scene load_steps=10 format=3 uid="uid://ckko34uixyy73"]
+[gd_scene load_steps=22 format=3 uid="uid://ckko34uixyy73"]
 
+[ext_resource type="Script" uid="uid://bwpxl5gsj6dl4" path="res://Scripts/transition/fly_in_scene.gd" id="1_flyin"]
+[ext_resource type="Script" uid="uid://bi3ccs8jxok16" path="res://Scripts/transition/sync_camera_from_meta.gd" id="1_wrf6g"]
 [ext_resource type="PackedScene" uid="uid://va8ld3cvsieq" path="res://Scenes/players/player_1.tscn" id="1_x5xfh"]
 [ext_resource type="PackedScene" uid="uid://de3k3vaikl23d" path="res://Scenes/projectile.tscn" id="2_ehyua"]
 [ext_resource type="PackedScene" uid="uid://dmv8quj68ks0a" path="res://Scenes/players/player_2.tscn" id="3_qc3lj"]
-[ext_resource type="Script" uid="uid://c1d677g62mfvu" path="res://Scripts/start_game_tutorial.gd" id="4_klft6"]
 [ext_resource type="Texture2D" uid="uid://7yvjcb08ooll" path="res://Art/Other/Shadow.png" id="5_lvy03"]
+[ext_resource type="Script" uid="uid://dfmtfgukxvthw" path="res://Scripts/parallaxBackground/background.gd" id="5_ur6of"]
+[ext_resource type="Texture2D" uid="uid://rde76ysg48uf" path="res://Art/Background/BackgroundRemade.png" id="6_0udtb"]
 [ext_resource type="FontFile" uid="uid://dbxqf84atmdf5" path="res://Font/DotGothic16/DotGothic16-Regular.ttf" id="6_mfb7r"]
+[ext_resource type="Script" uid="uid://bl7h7x8jtndw6" path="res://Scripts/parallaxBackground/castle.gd" id="7_46i22"]
+[ext_resource type="Texture2D" uid="uid://evvgwwvyqkvc" path="res://Art/Background/Castle.png" id="8_7wdht"]
+[ext_resource type="Script" uid="uid://gmhg2sw2id5x" path="res://Scripts/parallaxBackground/tree_looking.gd" id="9_2m2hc"]
+[ext_resource type="Texture2D" uid="uid://kx3pvrhajhlk" path="res://Art/Background/TreeLooking.png" id="10_3upxu"]
+[ext_resource type="Script" uid="uid://bybl3a4ug8ig8" path="res://Scripts/parallaxBackground/spikes.gd" id="11_u010o"]
+[ext_resource type="Texture2D" uid="uid://cmjx43syfmms1" path="res://Art/Background/Spikes.png" id="12_hmawu"]
+[ext_resource type="Script" uid="uid://blx7k604nli1j" path="res://Scripts/parallaxBackground/first_layer.gd" id="13_lpy12"]
+[ext_resource type="Texture2D" uid="uid://b4rrnckawicaq" path="res://Art/Background/FirstLayer.png" id="14_ec8ab"]
+[ext_resource type="Script" uid="uid://ccuc5ow7c1a5o" path="res://Scripts/start_game_area.gd" id="15_gssrv"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8fg1o"]
-size = Vector2(39, 130)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_x5xfh"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_62bek"]
 size = Vector2(231, 20)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ehyua"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jlj1w"]
 size = Vector2(20, 170)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8u6rj"]
+size = Vector2(39, 130)
+
 [node name="firstlevel" type="Node2D"]
+script = ExtResource("1_flyin")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(5, 5)
+script = ExtResource("1_wrf6g")
 
-[node name="player1" parent="." instance=ExtResource("1_x5xfh")]
-position = Vector2(-160, -17)
+[node name="borders" type="StaticBody2D" parent="."]
+position = Vector2(601, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="borders"]
+position = Vector2(0.5, -75)
+shape = SubResource("RectangleShape2D_62bek")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="borders"]
+position = Vector2(0, 75)
+shape = SubResource("RectangleShape2D_62bek")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="borders"]
+position = Vector2(-125, 0)
+shape = SubResource("RectangleShape2D_jlj1w")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="borders"]
+position = Vector2(126, 0)
+shape = SubResource("RectangleShape2D_jlj1w")
+
+[node name="players" type="Node2D" parent="."]
+
+[node name="player1" parent="players" instance=ExtResource("1_x5xfh")]
+position = Vector2(-95, -16)
 motion_mode = 1
 projectile_scene = ExtResource("2_ehyua")
 
-[node name="player2" parent="." instance=ExtResource("3_qc3lj")]
-position = Vector2(-160, 1)
+[node name="player2" parent="players" instance=ExtResource("3_qc3lj")]
+position = Vector2(-95, 16)
 projectile_scene = ExtResource("2_ehyua")
 
-[node name="StartGame" type="Area2D" parent="."]
-visible = false
-position = Vector2(105, 0)
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="Background" type="ParallaxLayer" parent="ParallaxBackground"]
+modulate = Color(0.8804394, 0.832393, 0.8549745, 1)
+texture_repeat = 2
+position = Vector2(199, 0)
+motion_mirroring = Vector2(640, 0)
+script = ExtResource("5_ur6of")
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Background"]
+texture = ExtResource("6_0udtb")
+
+[node name="Castle" type="ParallaxLayer" parent="ParallaxBackground"]
+modulate = Color(0.8804394, 0.832393, 0.8549745, 1)
+texture_repeat = 2
+position = Vector2(199, 0)
+motion_mirroring = Vector2(640, 0)
+script = ExtResource("7_46i22")
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Castle"]
+texture = ExtResource("8_7wdht")
+
+[node name="TreeLooking" type="ParallaxLayer" parent="ParallaxBackground"]
+modulate = Color(0.8804394, 0.832393, 0.8549745, 1)
+texture_repeat = 2
+position = Vector2(199, 0)
+motion_mirroring = Vector2(640, 0)
+script = ExtResource("9_2m2hc")
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/TreeLooking"]
+texture = ExtResource("10_3upxu")
+
+[node name="Spikes" type="ParallaxLayer" parent="ParallaxBackground"]
+modulate = Color(0.8804394, 0.832393, 0.8549745, 1)
+texture_repeat = 2
+position = Vector2(199, 0)
+motion_mirroring = Vector2(640, 0)
+script = ExtResource("11_u010o")
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Spikes"]
+texture = ExtResource("12_hmawu")
+
+[node name="FirstLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+modulate = Color(0.8804394, 0.832393, 0.8549745, 1)
+texture_repeat = 2
+position = Vector2(199, 0)
+motion_mirroring = Vector2(640, 0)
+script = ExtResource("13_lpy12")
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/FirstLayer"]
+texture = ExtResource("14_ec8ab")
+
+[node name="GoToLevelOne" type="Area2D" parent="."]
+position = Vector2(707, 0)
 collision_mask = 2
-script = ExtResource("4_klft6")
-next_scene_path = ""
+script = ExtResource("15_gssrv")
+next_scene_path = "res://Scenes/firstlevel.tscn"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StartGame"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GoToLevelOne"]
+visible = false
 position = Vector2(-9.5, 0)
-shape = SubResource("RectangleShape2D_8fg1o")
-disabled = true
+shape = SubResource("RectangleShape2D_8u6rj")
 
-[node name="NinePatchRect" type="NinePatchRect" parent="StartGame"]
+[node name="NinePatchRect" type="NinePatchRect" parent="GoToLevelOne"]
 modulate = Color(1, 1, 1, 0.7058824)
 z_index = -1
-offset_left = -30.0
-offset_top = -65.0
-offset_right = 10.0
-offset_bottom = 66.0
+offset_left = -29.0
+offset_top = -67.99999
+offset_right = 11.0
+offset_bottom = 63.000008
+scale = Vector2(1, 1.0399995)
 texture = ExtResource("5_lvy03")
-region_rect = Rect2(0, 0, 370, 107)
+region_rect = Rect2(0, 9, 354, 85)
 patch_margin_left = 1
-patch_margin_top = 40
-patch_margin_right = 1
-patch_margin_bottom = 40
 axis_stretch_horizontal = 2
 axis_stretch_vertical = 2
 
-[node name="StartText" type="Label" parent="StartGame"]
-offset_left = -25.0
+[node name="StartText" type="Label" parent="GoToLevelOne"]
+offset_left = -23.0
 offset_top = -51.0
-offset_right = 6.0
+offset_right = 8.0
 offset_bottom = -32.0
 theme_override_fonts/font = ExtResource("6_mfb7r")
 theme_override_font_sizes/font_size = 12
 text = "0/2"
 horizontal_alignment = 1
 autowrap_mode = 2
-
-[node name="borders" type="StaticBody2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="borders"]
-position = Vector2(0.5, -75)
-shape = SubResource("RectangleShape2D_x5xfh")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="borders"]
-position = Vector2(0, 75)
-shape = SubResource("RectangleShape2D_x5xfh")
-
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="borders"]
-position = Vector2(-125, 0)
-shape = SubResource("RectangleShape2D_ehyua")
-
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="borders"]
-position = Vector2(126, 0)
-shape = SubResource("RectangleShape2D_ehyua")

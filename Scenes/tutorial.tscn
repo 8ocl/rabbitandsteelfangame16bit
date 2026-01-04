@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://0j01jdsvep1u"]
+[gd_scene load_steps=23 format=3 uid="uid://0j01jdsvep1u"]
 
 [ext_resource type="PackedScene" uid="uid://va8ld3cvsieq" path="res://Scenes/players/player_1.tscn" id="1_p1f1o"]
 [ext_resource type="PackedScene" uid="uid://de3k3vaikl23d" path="res://Scenes/projectile.tscn" id="2_ys4pu"]
@@ -29,11 +29,10 @@ size = Vector2(20, 170)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_radxo"]
 size = Vector2(39, 130)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_dxsep"]
-size = Vector2(89, 130)
-
 [node name="tutorial" type="Node2D"]
 script = ExtResource("5_flyin")
+fly_offset_out = Vector2(300, 0)
+player_target_x = 500.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(5, 5)
@@ -125,7 +124,7 @@ texture = ExtResource("15_djl3p")
 position = Vector2(404, 0)
 collision_mask = 2
 script = ExtResource("18_lexqi")
-next_scene_path = "res://Scenes/firstlevel.tscn"
+next_scene_path = "uid://ckko34uixyy73"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GoToLevelOne"]
 visible = false
@@ -159,7 +158,3 @@ autowrap_mode = 2
 
 [node name="LootBox" parent="." instance=ExtResource("19_dxsep")]
 position = Vector2(330, 0)
-
-[node name="PreventAccidentalItem" type="CollisionShape2D" parent="LootBox"]
-position = Vector2(1.5, 0)
-shape = SubResource("RectangleShape2D_dxsep")

@@ -176,7 +176,8 @@ func _ready() -> void:
 		_item_player_chosen[i] = ""
 	_pick_random_upgrades()
 	_refresh_ui()
-	_create_pickup_areas()
+	# Defer pickup area creation so we don't modify physics state while queries are flushing.
+	call_deferred("_create_pickup_areas")
 	_store_choices_to_root() # store initial empty state
 	# Small delay before enabling picks so overlapping players don't auto-pick.
 	get_tree().create_timer(0.2).timeout.connect(
@@ -234,9 +235,10 @@ func _create_pickup_areas() -> void:
 		# Create an Area2D on each item so players can walk over them.
 		var area := Area2D.new()
 		area.name = "PickupArea"
-		# Use a wide mask so we definitely detect players; we still filter by group.
+		# Only listen for collisions with players (character layer = 2 -> bit 2).
+		# This way bullets and other areas pass through without interacting.
 		area.collision_layer = 0
-		area.collision_mask = 0x7fffffff
+		area.collision_mask = 1 << 1
 		var shape := CollisionShape2D.new()
 		var rect := RectangleShape2D.new()
 		rect.extents = Vector2(20, 20)

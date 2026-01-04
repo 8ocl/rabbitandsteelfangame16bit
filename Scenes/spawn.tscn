@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://c1v31xnafou7u"]
+[gd_scene load_steps=28 format=3 uid="uid://c1v31xnafou7u"]
 
 [ext_resource type="PackedScene" uid="uid://va8ld3cvsieq" path="res://Scenes/players/player_1.tscn" id="1_e66bb"]
 [ext_resource type="Script" uid="uid://fi7gj0p7xtl1" path="res://Scripts/transition/spawn.gd" id="1_n6nb1"]
@@ -20,7 +20,7 @@
 [ext_resource type="Script" uid="uid://gmhg2sw2id5x" path="res://Scripts/parallaxBackground/tree_looking.gd" id="14_ucbsa"]
 [ext_resource type="Script" uid="uid://bybl3a4ug8ig8" path="res://Scripts/parallaxBackground/spikes.gd" id="16_o6jx8"]
 [ext_resource type="Script" uid="uid://blx7k604nli1j" path="res://Scripts/parallaxBackground/first_layer.gd" id="18_d0e7t"]
-[ext_resource type="Texture2D" uid="uid://b05nx7y4jkp72" path="res://Art/Other/Sprite-22221222.png" id="21_ucbsa"]
+[ext_resource type="PackedScene" uid="uid://cnttea400lmhs" path="res://Scenes/lootbox/loot_box.tscn" id="21_ucbsa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g1tsu"]
 size = Vector2(16, 16)
@@ -44,6 +44,9 @@ size = Vector2(231, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rav82"]
 size = Vector2(20, 170)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o6jx8"]
+size = Vector2(39, 130)
 
 [node name="spawn" type="Node2D"]
 script = ExtResource("1_n6nb1")
@@ -193,6 +196,40 @@ shape = SubResource("RectangleShape2D_rav82")
 position = Vector2(126, 0)
 shape = SubResource("RectangleShape2D_rav82")
 
-[node name="Normal2" type="Sprite2D" parent="."]
+[node name="GoToLevelOne" type="Area2D" parent="."]
+position = Vector2(404, 0)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GoToLevelOne"]
+visible = false
+position = Vector2(-9.5, 0)
+shape = SubResource("RectangleShape2D_o6jx8")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="GoToLevelOne"]
+modulate = Color(1, 1, 1, 0.7058824)
+z_index = -1
+offset_left = -29.0
+offset_top = -67.99999
+offset_right = 11.0
+offset_bottom = 63.000008
+scale = Vector2(1, 1.0399995)
+texture = ExtResource("7_7gbdd")
+region_rect = Rect2(0, 9, 354, 85)
+patch_margin_left = 1
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="StartText" type="Label" parent="GoToLevelOne"]
+offset_left = -23.0
+offset_top = -51.0
+offset_right = 8.0
+offset_bottom = -32.0
+theme_override_fonts/font = ExtResource("8_8fg1o")
+theme_override_font_sizes/font_size = 12
+text = "0/2"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="LootBox" parent="." instance=ExtResource("21_ucbsa")]
 position = Vector2(330, 0)
-texture = ExtResource("21_ucbsa")
+script = null
