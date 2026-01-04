@@ -24,6 +24,8 @@ func _ready() -> void:
 	call_deferred("_init_and_start_pattern")
 
 func _init_and_start_pattern() -> void:
+	if anim != null:
+		anim.play("BossIdle")
 	_hide_go_to_level_two_gate()
 	var level := get_tree().current_scene
 	if level == null:

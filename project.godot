@@ -15,6 +15,10 @@ run/main_scene="uid://7tge47rfxsg1"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GlobalState="*res://Scripts/global_state.gd"
+
 [input]
 
 move_up={
@@ -116,7 +120,3 @@ renderer/rendering_method.mobile="gl_compatibility"
 lights_and_shadows/directional_shadow/soft_shadow_filter_quality=0
 lights_and_shadows/positional_shadow/soft_shadow_filter_quality=0
 environment/volumetric_fog/use_filter=0
-
-[autoload]
-
-GlobalState="*res://Scripts/global_state.gd"

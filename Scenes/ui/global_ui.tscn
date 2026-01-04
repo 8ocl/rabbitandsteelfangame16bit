@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://coblid100blbw" path="res://Art/Players/TetoFace.png" id="4_pqrst"]
 [ext_resource type="Texture2D" uid="uid://tvxw5sdj8crx" path="res://Art/Players/MikuFace.png" id="5_uvwxy"]
 [ext_resource type="Texture2D" uid="uid://3gdks5awbytq" path="res://Art/Players/Noone.png" id="6_zabcd"]
+[ext_resource type="Texture2D" path="res://Art/Players/Dummy.png" id="7_dummy"]
 
 [node name="GlobalUI" type="Node2D"]
 script = ExtResource("1_abcde")
@@ -65,51 +66,51 @@ texture = ExtResource("4_pqrst")
 [node name="Object1" type="Sprite2D" parent="PlayerPickups/Miku"]
 position = Vector2(4, 50)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("6_zabcd")
+texture = ExtResource("7_dummy")
 
 [node name="Object2" type="Sprite2D" parent="PlayerPickups/Miku"]
 position = Vector2(14, 50)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("6_zabcd")
+texture = ExtResource("7_dummy")
 
 [node name="Object3" type="Sprite2D" parent="PlayerPickups/Miku"]
 position = Vector2(24, 50)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("6_zabcd")
+texture = ExtResource("7_dummy")
 
 [node name="Object4" type="Sprite2D" parent="PlayerPickups/Miku"]
 position = Vector2(34, 50)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("6_zabcd")
+texture = ExtResource("7_dummy")
 
 [node name="Object5" type="Sprite2D" parent="PlayerPickups/Miku"]
 position = Vector2(44, 50)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("6_zabcd")
+texture = ExtResource("7_dummy")
 
 [node name="Teto" type="Node2D" parent="PlayerPickups"]
 
 [node name="Object1" type="Sprite2D" parent="PlayerPickups/Teto"]
 position = Vector2(-45, 50)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("6_zabcd")
+texture = ExtResource("7_dummy")
 
 [node name="Object2" type="Sprite2D" parent="PlayerPickups/Teto"]
 position = Vector2(-35, 50)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("6_zabcd")
+texture = ExtResource("7_dummy")
 
 [node name="Object3" type="Sprite2D" parent="PlayerPickups/Teto"]
 position = Vector2(-25, 50)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("6_zabcd")
+texture = ExtResource("7_dummy")
 
 [node name="Object4" type="Sprite2D" parent="PlayerPickups/Teto"]
 position = Vector2(-15, 50)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("6_zabcd")
+texture = ExtResource("7_dummy")
 
 [node name="Object5" type="Sprite2D" parent="PlayerPickups/Teto"]
 position = Vector2(-5, 50)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("6_zabcd")
+texture = ExtResource("7_dummy")

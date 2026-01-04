@@ -4,33 +4,33 @@
 [ext_resource type="Texture2D" uid="uid://c0ygqf1dckykq" path="res://Art/Other/32/InnerRing32.png" id="2_mvhap"]
 [ext_resource type="Texture2D" uid="uid://8m0nciqcan1b" path="res://Art/Other/32/OuterRing32.png" id="3_6b0jg"]
 [ext_resource type="Texture2D" uid="uid://cjd6tjiroe4ws" path="res://Art/Players/Miku/MikuFly.png" id="4_h70yl"]
-[ext_resource type="Texture2D" uid="uid://jttp51msdy8n" path="res://Art/Enemies/Ado/Untitle222d_Artwork.png" id="5_ejw00"]
+[ext_resource type="Texture2D" uid="uid://bgkwbd5nemov4" path="res://Art/Enemies/Ado/RenewedArt.png" id="5_the4k"]
 [ext_resource type="Texture2D" uid="uid://dfcpn6prybu28" path="res://icon.svg" id="6_458cq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m6fig"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_e15c7"]
-atlas = ExtResource("5_ejw00")
+[sub_resource type="AtlasTexture" id="AtlasTexture_mvhap"]
+atlas = ExtResource("5_the4k")
 region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ru1lo"]
-atlas = ExtResource("5_ejw00")
+[sub_resource type="AtlasTexture" id="AtlasTexture_6b0jg"]
+atlas = ExtResource("5_the4k")
 region = Rect2(16, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_p6aoh"]
-atlas = ExtResource("5_ejw00")
+[sub_resource type="AtlasTexture" id="AtlasTexture_h70yl"]
+atlas = ExtResource("5_the4k")
 region = Rect2(32, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_5y4jj"]
-atlas = ExtResource("5_ejw00")
+[sub_resource type="AtlasTexture" id="AtlasTexture_ejw00"]
+atlas = ExtResource("5_the4k")
 region = Rect2(48, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_wjr4t"]
-atlas = ExtResource("5_ejw00")
+[sub_resource type="AtlasTexture" id="AtlasTexture_458cq"]
+atlas = ExtResource("5_the4k")
 region = Rect2(64, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_7k8a4"]
-atlas = ExtResource("5_ejw00")
+[sub_resource type="AtlasTexture" id="AtlasTexture_0o4ni"]
+atlas = ExtResource("5_the4k")
 region = Rect2(80, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_e15c7"]
@@ -45,22 +45,22 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_e15c7")
+"texture": SubResource("AtlasTexture_mvhap")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ru1lo")
+"texture": SubResource("AtlasTexture_6b0jg")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_p6aoh")
+"texture": SubResource("AtlasTexture_h70yl")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_5y4jj")
+"texture": SubResource("AtlasTexture_ejw00")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_wjr4t")
+"texture": SubResource("AtlasTexture_458cq")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_7k8a4")
+"texture": SubResource("AtlasTexture_0o4ni")
 }],
 "loop": true,
 "name": &"BossIdle",
@@ -102,6 +102,6 @@ tint_progress = Color(0, 0.8091822, 0.8067789, 0.78039217)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_e15c7")
 animation = &"BossIdle"
-frame_progress = 0.7782458
+frame_progress = 0.93760276
 
 [node name="BulletSpawnPoint" type="Node2D" parent="."]

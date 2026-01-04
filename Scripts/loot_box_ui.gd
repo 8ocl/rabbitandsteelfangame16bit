@@ -266,7 +266,7 @@ func _on_item_body_entered(body: Node, item_index: int) -> void:
 	var item_data = _displayed_upgrades[item_index].duplicate()
 
 	if not item_data.has("texture_path"):
-		item_data["texture_path"] = "res://icon.svg"
+		item_data["texture_path"] = "res://Art/Players/Dummy.png"
 	
 	GlobalState.add_item_to_player(player_num, item_data)
 	
