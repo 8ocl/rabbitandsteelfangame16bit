@@ -163,9 +163,8 @@ const UPGRADES: Array = [
 @onready var items_root: Node2D = $Items
 @onready var item_nodes: Array = []
 
-var _displayed_upgrades: Array = []          # chosen upgrades (one per item)
-var _item_player_chosen: Array = []          # index -> player name who stepped on it
-var _player_choices: Dictionary = {}         # player name -> upgrade Dictionary
+var _displayed_upgrades: Array = []
+var _item_player_chosen: Array = []
 var preventaccidentalitem: bool = true
 
 func _ready() -> void:
@@ -176,16 +175,13 @@ func _ready() -> void:
 		_item_player_chosen[i] = ""
 	_pick_random_upgrades()
 	_refresh_ui()
-	# Defer pickup area creation so we don't modify physics state while queries are flushing.
 	call_deferred("_create_pickup_areas")
-	_store_choices_to_root() # store initial empty state
-	# Small delay before enabling picks so overlapping players don't auto-pick.
 	get_tree().create_timer(0.2).timeout.connect(
 		func() -> void:
 			preventaccidentalitem = false
 	)
+
 func initialize_from_loot_box(origin: Vector2) -> void:
-	# Allow the loot box to optionally reposition the UI.
 	global_position = origin
 
 func _pick_random_upgrades() -> void:
@@ -207,12 +203,19 @@ func _refresh_ui() -> void:
 		var name_label: Label = item.get_node_or_null("Name")
 		var desc_label: Label = item.get_node_or_null("Name/Description")
 		var face: AnimatedSprite2D = item.get_node_or_null("AnimatedSprite2D")
+		var item_image: Sprite2D = item.get_node_or_null("ItemImage")
 		var player_name = _item_player_chosen[i]
+		
 		# Short text: name in Name label, description in Description label.
 		if name_label != null:
 			name_label.text = String(upg.get("name", "Upgrade"))
 		if desc_label != null:
 			desc_label.text = String(upg.get("description", ""))
+			
+		# Update item image. A texture_path can be added to the UPGRADES entry.
+		if item_image and upg.has("texture_path"):
+			item_image.texture = load(upg.get("texture_path"))
+			
 		# Text color based on upgrade category.
 		var cat = String(upg.get("category", ""))
 		var col = _get_upgrade_color(cat)
@@ -220,6 +223,7 @@ func _refresh_ui() -> void:
 			name_label.add_theme_color_override("font_color", col)
 		if desc_label != null:
 			desc_label.add_theme_color_override("font_color", col)
+			
 		# Update face animation based on who chose this item.
 		if face != null:
 			var anim_name = "noone"
@@ -232,14 +236,12 @@ func _refresh_ui() -> void:
 func _create_pickup_areas() -> void:
 	for i in range(item_nodes.size()):
 		var item = item_nodes[i]
-		# Create an Area2D on each item so players can walk over them.
 		var area := Area2D.new()
 		area.name = "PickupArea"
-		# Only listen for collisions with players (character layer = 2 -> bit 2).
-		# This way bullets and other areas pass through without interacting.
 		area.collision_layer = 0
 		area.collision_mask = 1 << 1
 		var shape := CollisionShape2D.new()
+		shape.name = "CollisionShape2D"
 		var rect := RectangleShape2D.new()
 		rect.extents = Vector2(20, 20)
 		shape.shape = rect
@@ -254,67 +256,42 @@ func _on_item_body_entered(body: Node, item_index: int) -> void:
 		return
 	if preventaccidentalitem:
 		return
+	
+	var item_node = item_nodes[item_index]
+	if item_node.has_meta("taken") and item_node.get_meta("taken"):
+		return
+
 	var player_name = body.name
-	# Each player can only have one item at a time, but they can change it.
-	for i in range(_item_player_chosen.size()):
-		if _item_player_chosen[i] == player_name:
-			_item_player_chosen[i] = ""
-	# Assign this item to the player (last touch wins for the item).
+	var player_num = 1 if player_name == "player1" else 2
+	var item_data = _displayed_upgrades[item_index].duplicate()
+
+	if not item_data.has("texture_path"):
+		item_data["texture_path"] = "res://icon.svg"
+	
+	GlobalState.add_item_to_player(player_num, item_data)
+	
+	item_node.set_meta("taken", true)
+	
 	_item_player_chosen[item_index] = player_name
-	_rebuild_player_choices_from_items()
 	_refresh_ui()
-	_store_choices_to_root()
 
-func _store_choices_to_root() -> void:
-	# Persist choices on the SceneTree root so GoToLevelOne / future scenes can read them.
-	var root := get_tree().root
-	var per_item: Dictionary = {}
-	for i in range(_item_player_chosen.size()):
-		var player_name = _item_player_chosen[i]
-		if player_name == "":
-			continue
-		per_item[i] = {
-			"player": player_name,
-			"upgrade": _displayed_upgrades[i],
-		}
-	var per_player: Dictionary = {}
-	for player_name in _player_choices.keys():
-		per_player[player_name] = _player_choices[player_name]
-	var payload := {
-		"per_item": per_item,
-		"per_player": per_player,
-	}
-	root.set_meta("loot_box_choices", payload)
-
-func _rebuild_player_choices_from_items() -> void:
-	_player_choices.clear()
-	for i in range(_item_player_chosen.size()):
-		var player_name = _item_player_chosen[i]
-		if player_name == "":
-			continue
-		if i >= 0 and i < _displayed_upgrades.size():
-			_player_choices[player_name] = _displayed_upgrades[i]
-
-func debug_print_choices() -> void:
-	# Helper you can call from the console if needed.
-	print("LootBoxUI choices per player:")
-	for player_name in _player_choices.keys():
-		var upg: Dictionary = _player_choices[player_name]
-		print("  ", player_name, "->", upg.get("name", upg.get("id", "?")))
+	var pickup_area = item_node.get_node("PickupArea")
+	if pickup_area:
+		pickup_area.get_node("CollisionShape2D").set_deferred("disabled", true)
 
 func _get_upgrade_color(category: String) -> Color:
 	match category:
 		"move":
-			return Color(0.6, 0.8, 1.0, 1.0)      # light blue
+			return Color(0.6, 0.8, 1.0, 1.0)
 		"damage":
-			return Color(1.0, 0.6, 0.6, 1.0)      # light red
+			return Color(1.0, 0.6, 0.6, 1.0)
 		"attack_speed":
-			return Color(1.0, 0.9, 0.6, 1.0)      # light yellow
+			return Color(1.0, 0.9, 0.6, 1.0)
 		"cooldown":
-			return Color(0.6, 1.0, 0.9, 1.0)      # teal
+			return Color(0.6, 1.0, 0.9, 1.0)
 		"crit":
-			return Color(0.9, 0.7, 1.0, 1.0)      # purple
+			return Color(0.9, 0.7, 1.0, 1.0)
 		"defense":
-			return Color(0.7, 1.0, 0.7, 1.0)      # green
+			return Color(0.7, 1.0, 0.7, 1.0)
 		_:
 			return Color(1.0, 1.0, 1.0, 1.0)

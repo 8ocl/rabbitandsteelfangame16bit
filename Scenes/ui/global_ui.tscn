@@ -1,0 +1,115 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://Scripts/global_ui.gd" id="1_abcde"]
+[ext_resource type="Texture2D" uid="uid://cvaoqa2xojdcl" path="res://Art/UI/Background.png" id="2_fghij"]
+[ext_resource type="Texture2D" uid="uid://duxrq5qe5mjpc" path="res://Art/Other/Health.png" id="3_klmno"]
+[ext_resource type="Texture2D" uid="uid://coblid100blbw" path="res://Art/Players/TetoFace.png" id="4_pqrst"]
+[ext_resource type="Texture2D" uid="uid://tvxw5sdj8crx" path="res://Art/Players/MikuFace.png" id="5_uvwxy"]
+[ext_resource type="Texture2D" uid="uid://3gdks5awbytq" path="res://Art/Players/Noone.png" id="6_zabcd"]
+
+[node name="GlobalUI" type="Node2D"]
+script = ExtResource("1_abcde")
+
+[node name="Background" type="NinePatchRect" parent="."]
+modulate = Color(0.133333, 0.12549, 0.203922, 1)
+offset_left = -51.0
+offset_top = 41.0
+offset_right = 50.0
+offset_bottom = 58.0
+texture = ExtResource("2_fghij")
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="PlayerHealth" type="Node2D" parent="."]
+position = Vector2(-38, 43)
+
+[node name="HealthBar1" type="Sprite2D" parent="PlayerHealth"]
+texture = ExtResource("3_klmno")
+
+[node name="HealthBar2" type="Sprite2D" parent="PlayerHealth"]
+position = Vector2(15, 0)
+texture = ExtResource("3_klmno")
+
+[node name="HealthBar3" type="Sprite2D" parent="PlayerHealth"]
+position = Vector2(30, 0)
+texture = ExtResource("3_klmno")
+
+[node name="HealthBar4" type="Sprite2D" parent="PlayerHealth"]
+position = Vector2(45, 0)
+texture = ExtResource("3_klmno")
+
+[node name="HealthBar5" type="Sprite2D" parent="PlayerHealth"]
+position = Vector2(60, 0)
+texture = ExtResource("3_klmno")
+
+[node name="HealthBar6" type="Sprite2D" parent="PlayerHealth"]
+position = Vector2(75, 0)
+texture = ExtResource("3_klmno")
+
+[node name="PlayerPickups" type="Node2D" parent="."]
+
+[node name="MikuFacePicture" type="Sprite2D" parent="PlayerPickups"]
+position = Vector2(-23, 59)
+texture = ExtResource("5_uvwxy")
+
+[node name="TetoFacePicture" type="Sprite2D" parent="PlayerPickups"]
+position = Vector2(22, 59)
+texture = ExtResource("4_pqrst")
+
+[node name="Miku" type="Node2D" parent="PlayerPickups"]
+
+[node name="Object1" type="Sprite2D" parent="PlayerPickups/Miku"]
+position = Vector2(4, 50)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_zabcd")
+
+[node name="Object2" type="Sprite2D" parent="PlayerPickups/Miku"]
+position = Vector2(14, 50)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_zabcd")
+
+[node name="Object3" type="Sprite2D" parent="PlayerPickups/Miku"]
+position = Vector2(24, 50)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_zabcd")
+
+[node name="Object4" type="Sprite2D" parent="PlayerPickups/Miku"]
+position = Vector2(34, 50)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_zabcd")
+
+[node name="Object5" type="Sprite2D" parent="PlayerPickups/Miku"]
+position = Vector2(44, 50)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_zabcd")
+
+[node name="Teto" type="Node2D" parent="PlayerPickups"]
+
+[node name="Object1" type="Sprite2D" parent="PlayerPickups/Teto"]
+position = Vector2(-45, 50)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_zabcd")
+
+[node name="Object2" type="Sprite2D" parent="PlayerPickups/Teto"]
+position = Vector2(-35, 50)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_zabcd")
+
+[node name="Object3" type="Sprite2D" parent="PlayerPickups/Teto"]
+position = Vector2(-25, 50)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_zabcd")
+
+[node name="Object4" type="Sprite2D" parent="PlayerPickups/Teto"]
+position = Vector2(-15, 50)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_zabcd")
+
+[node name="Object5" type="Sprite2D" parent="PlayerPickups/Teto"]
+position = Vector2(-5, 50)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_zabcd")

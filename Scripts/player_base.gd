@@ -34,9 +34,6 @@ class_name PlayerBase
 @export var environment_layer: int = 1
 @export var enemy_projectile_layer: int = 4
 
-@export_group("Health")
-@export var max_health: float = 5.0 # 5 hearts
-
 @export_group("Directional Arrow")
 @export var arrow_orbit_radius: float = 12.0
 
@@ -55,7 +52,6 @@ var can_secondary := true
 var can_special := true
 var can_defensive := true
 var can_cast := true # Global cooldown
-var current_health: float
 
 var _facing: float = 1.0
 var _target_facing: float = 1.0
@@ -69,7 +65,6 @@ var _invincible_orb_instance: Node2D = null
 func _ready() -> void:
 	randomize()
 	current_speed = normal_speed
-	current_health = max_health
 	if not is_in_group("players"):
 		add_to_group("players")
 	_setup_collision()
@@ -269,9 +264,8 @@ func apply_damage(amount: float, _is_crit: bool = false) -> void:
 	# Ignore damage if invincible
 	if _is_invincible:
 		return
-	
-	current_health -= amount
-	# TODO: hook up player-specific damage feedback (flash, sound, UI) here.
+
+	GlobalState.apply_damage(amount)
 
 	# Become invincible for 1 second after taking damage.
 	_is_invincible = true
@@ -283,9 +277,6 @@ func apply_damage(amount: float, _is_crit: bool = false) -> void:
 		if anim != null:
 			anim.modulate.a = 1.0
 	)
-
-	if current_health <= 0.0:
-		_die()
 
 func _die() -> void:
 	print("dead")

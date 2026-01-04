@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://ckko34uixyy73"]
+[gd_scene load_steps=28 format=3 uid="uid://ckko34uixyy73"]
 
 [ext_resource type="Script" uid="uid://bwpxl5gsj6dl4" path="res://Scripts/transition/fly_in_scene.gd" id="1_flyin"]
 [ext_resource type="Script" uid="uid://bi3ccs8jxok16" path="res://Scripts/transition/sync_camera_from_meta.gd" id="1_wrf6g"]
@@ -19,6 +19,12 @@
 [ext_resource type="Texture2D" uid="uid://b4rrnckawicaq" path="res://Art/Background/FirstLayer.png" id="14_ec8ab"]
 [ext_resource type="Script" uid="uid://ccuc5ow7c1a5o" path="res://Scripts/start_game_area.gd" id="15_gssrv"]
 [ext_resource type="PackedScene" uid="uid://bda41euegdlsr" path="res://Scenes/enemies/Ado/ado.tscn" id="19_ur6of"]
+[ext_resource type="Texture2D" uid="uid://cvaoqa2xojdcl" path="res://Art/UI/Background.png" id="20_3upxu"]
+[ext_resource type="Texture2D" uid="uid://duxrq5qe5mjpc" path="res://Art/Other/Health.png" id="21_u010o"]
+[ext_resource type="Texture2D" uid="uid://coblid100blbw" path="res://Art/Players/TetoFace.png" id="22_hmawu"]
+[ext_resource type="Texture2D" uid="uid://tvxw5sdj8crx" path="res://Art/Players/MikuFace.png" id="23_lpy12"]
+[ext_resource type="Texture2D" uid="uid://3gdks5awbytq" path="res://Art/Players/Noone.png" id="24_ec8ab"]
+[ext_resource type="PackedScene" path="res://Scenes/ui/global_ui.tscn" id="25_global_ui"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_62bek"]
 size = Vector2(231, 20)
@@ -35,6 +41,8 @@ script = ExtResource("1_flyin")
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(5, 5)
 script = ExtResource("1_wrf6g")
+
+[node name="GlobalUI" parent="Camera2D" instance=ExtResource("25_global_ui")]
 
 [node name="borders" type="StaticBody2D" parent="."]
 position = Vector2(601, 0)
@@ -196,3 +204,4 @@ position = Vector2(661, -34)
 
 [node name="Bullet3Right" type="Node2D" parent="BulletPositions"]
 position = Vector2(507, -40)
+
