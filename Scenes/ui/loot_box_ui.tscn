@@ -1,0 +1,193 @@
+[gd_scene load_steps=9 format=3 uid="uid://daicljsja7lwq"]
+
+[ext_resource type="Script" uid="uid://bi3ccs8jxok16" path="res://Scripts/transition/sync_camera_from_meta.gd" id="1_w4hx7"]
+[ext_resource type="Texture2D" uid="uid://dfcpn6prybu28" path="res://icon.svg" id="4_jd0ul"]
+[ext_resource type="FontFile" uid="uid://dbxqf84atmdf5" path="res://Font/DotGothic16/DotGothic16-Regular.ttf" id="5_hbn7l"]
+[ext_resource type="Texture2D" uid="uid://tvxw5sdj8crx" path="res://Art/Players/MikuFace.png" id="6_jd0ul"]
+[ext_resource type="Script" uid="uid://b7pp6fw13xhpq" path="res://Scripts/loot_box_ui.gd" id="6_lootui"]
+[ext_resource type="Texture2D" uid="uid://3gdks5awbytq" path="res://Art/Players/Noone.png" id="7_hbn7l"]
+[ext_resource type="Texture2D" uid="uid://coblid100blbw" path="res://Art/Players/TetoFace.png" id="8_kb55k"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cdrcn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_jd0ul")
+}],
+"loop": true,
+"name": &"mikuface",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_hbn7l")
+}],
+"loop": true,
+"name": &"noone",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_kb55k")
+}],
+"loop": true,
+"name": &"tetoface",
+"speed": 5.0
+}]
+
+[node name="LootBoxUI" type="Node2D"]
+script = ExtResource("6_lootui")
+
+[node name="Items" type="Node2D" parent="."]
+position = Vector2(0, 7)
+
+[node name="Item1" type="Node2D" parent="Items"]
+position = Vector2(-39, -48)
+
+[node name="ItemImage" type="Sprite2D" parent="Items/Item1"]
+scale = Vector2(0.125, 0.125)
+texture = ExtResource("4_jd0ul")
+
+[node name="Name" type="Label" parent="Items/Item1"]
+offset_left = -12.0
+offset_top = -15.0
+offset_right = 72.0
+offset_bottom = 8.333328
+scale = Vector2(0.3, 0.3)
+size_flags_horizontal = 8
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.3529412)
+theme_override_fonts/font = ExtResource("5_hbn7l")
+theme_override_font_sizes/font_size = 14
+text = "Example Item"
+horizontal_alignment = 1
+
+[node name="Description" type="Label" parent="Items/Item1/Name"]
+layout_mode = 0
+offset_left = 86.66667
+offset_top = 36.666656
+offset_right = 170.66667
+offset_bottom = 59.999985
+size_flags_horizontal = 8
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.3529412)
+theme_override_fonts/font = ExtResource("5_hbn7l")
+theme_override_font_sizes/font_size = 14
+text = "Example Item"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="Items/Item1"]
+visible = false
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Items/Item1"]
+position = Vector2(0, 8)
+sprite_frames = SubResource("SpriteFrames_cdrcn")
+animation = &"mikuface"
+
+[node name="Item2" type="Node2D" parent="Items"]
+position = Vector2(-39, -7)
+
+[node name="ItemImage" type="Sprite2D" parent="Items/Item2"]
+scale = Vector2(0.125, 0.125)
+texture = ExtResource("4_jd0ul")
+
+[node name="Button" type="Button" parent="Items/Item2"]
+visible = false
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Items/Item2"]
+position = Vector2(0, 8)
+sprite_frames = SubResource("SpriteFrames_cdrcn")
+animation = &"mikuface"
+
+[node name="Name" type="Label" parent="Items/Item2"]
+offset_left = -12.0
+offset_top = -15.0
+offset_right = 72.0
+offset_bottom = 8.333328
+scale = Vector2(0.3, 0.3)
+size_flags_horizontal = 8
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.3529412)
+theme_override_fonts/font = ExtResource("5_hbn7l")
+theme_override_font_sizes/font_size = 14
+text = "Example Item"
+horizontal_alignment = 1
+
+[node name="Description" type="Label" parent="Items/Item2/Name"]
+layout_mode = 0
+offset_left = 86.66667
+offset_top = 36.666656
+offset_right = 170.66667
+offset_bottom = 59.999985
+size_flags_horizontal = 8
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.3529412)
+theme_override_fonts/font = ExtResource("5_hbn7l")
+theme_override_font_sizes/font_size = 14
+text = "Example Item"
+horizontal_alignment = 1
+
+[node name="Item3" type="Node2D" parent="Items"]
+position = Vector2(-39, 34)
+
+[node name="ItemImage" type="Sprite2D" parent="Items/Item3"]
+scale = Vector2(0.125, 0.125)
+texture = ExtResource("4_jd0ul")
+
+[node name="Button" type="Button" parent="Items/Item3"]
+visible = false
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Items/Item3"]
+position = Vector2(0, 8)
+sprite_frames = SubResource("SpriteFrames_cdrcn")
+animation = &"mikuface"
+
+[node name="Name" type="Label" parent="Items/Item3"]
+offset_left = -12.0
+offset_top = -15.0
+offset_right = 72.0
+offset_bottom = 8.333328
+scale = Vector2(0.3, 0.3)
+size_flags_horizontal = 8
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.3529412)
+theme_override_fonts/font = ExtResource("5_hbn7l")
+theme_override_font_sizes/font_size = 14
+text = "Example Item"
+horizontal_alignment = 1
+
+[node name="Description" type="Label" parent="Items/Item3/Name"]
+layout_mode = 0
+offset_left = 86.66667
+offset_top = 36.666656
+offset_right = 170.66667
+offset_bottom = 59.999985
+size_flags_horizontal = 8
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.3529412)
+theme_override_fonts/font = ExtResource("5_hbn7l")
+theme_override_font_sizes/font_size = 14
+text = "Example Item"
+horizontal_alignment = 1
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(5, 5)
+script = ExtResource("1_w4hx7")

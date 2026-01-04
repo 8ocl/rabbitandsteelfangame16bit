@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://c1v31xnafou7u"]
+[gd_scene load_steps=27 format=3 uid="uid://c1v31xnafou7u"]
 
 [ext_resource type="PackedScene" uid="uid://va8ld3cvsieq" path="res://Scenes/players/player_1.tscn" id="1_e66bb"]
 [ext_resource type="Script" uid="uid://fi7gj0p7xtl1" path="res://Scripts/transition/spawn.gd" id="1_n6nb1"]
@@ -20,6 +20,7 @@
 [ext_resource type="Script" uid="uid://gmhg2sw2id5x" path="res://Scripts/parallaxBackground/tree_looking.gd" id="14_ucbsa"]
 [ext_resource type="Script" uid="uid://bybl3a4ug8ig8" path="res://Scripts/parallaxBackground/spikes.gd" id="16_o6jx8"]
 [ext_resource type="Script" uid="uid://blx7k604nli1j" path="res://Scripts/parallaxBackground/first_layer.gd" id="18_d0e7t"]
+[ext_resource type="Texture2D" uid="uid://b05nx7y4jkp72" path="res://Art/Other/Sprite-22221222.png" id="21_ucbsa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g1tsu"]
 size = Vector2(16, 16)
@@ -122,6 +123,7 @@ sprite_frames = SubResource("SpriteFrames_26xnn")
 frame_progress = 0.22181119
 
 [node name="TestDummyHurt" type="CharacterBody2D" parent="."]
+visible = false
 position = Vector2(-15, -39)
 script = ExtResource("4_damageable")
 damage_number_scene = ExtResource("5_dmgnum")
@@ -132,6 +134,7 @@ retaliation_crit_multiplier = 2.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TestDummyHurt"]
 shape = SubResource("RectangleShape2D_g1tsu")
+disabled = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="TestDummyHurt"]
 sprite_frames = SubResource("SpriteFrames_26xnn")
@@ -189,3 +192,7 @@ shape = SubResource("RectangleShape2D_rav82")
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="borders"]
 position = Vector2(126, 0)
 shape = SubResource("RectangleShape2D_rav82")
+
+[node name="Normal2" type="Sprite2D" parent="."]
+position = Vector2(330, 0)
+texture = ExtResource("21_ucbsa")

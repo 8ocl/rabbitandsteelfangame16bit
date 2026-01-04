@@ -1,0 +1,65 @@
+[gd_scene load_steps=9 format=3 uid="uid://bpmj3ksiy7y8"]
+
+[ext_resource type="Texture2D" uid="uid://cjd6tjiroe4ws" path="res://Art/Players/Miku/MikuFly.png" id="1_1ypre"]
+[ext_resource type="Texture2D" uid="uid://bo4pygxxrwpug" path="res://Art/Players/Teto/TetoIdle.png" id="2_1a1lm"]
+[ext_resource type="Texture2D" uid="uid://c0ygqf1dckykq" path="res://Art/Other/32/InnerRing32.png" id="2_m6fig"]
+[ext_resource type="Texture2D" uid="uid://dfcpn6prybu28" path="res://icon.svg" id="3_betde"]
+[ext_resource type="Texture2D" uid="uid://8m0nciqcan1b" path="res://Art/Other/32/OuterRing32.png" id="3_e15c7"]
+[ext_resource type="Script" uid="uid://bc8w0ogliotaj" path="res://Scripts/enemy_template.gd" id="4_enemy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m6fig"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e15c7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_1ypre")
+}],
+"loop": true,
+"name": &"BossAttack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_1a1lm")
+}],
+"loop": true,
+"name": &"BossIdle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_betde")
+}],
+"loop": true,
+"name": &"BossWindUp",
+"speed": 5.0
+}]
+
+[node name="EnemyTemplate" type="CharacterBody2D"]
+script = ExtResource("4_enemy")
+idle_move_speed = 3.0
+phase2_bullet_multiplier = 5.0
+phase2_speed_multiplier = 3.0
+phase3_bullet_multiplier = 5.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_m6fig")
+
+[node name="HealthBar" type="TextureProgressBar" parent="."]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 24.0
+offset_bottom = 24.0
+value = 100.0
+fill_mode = 5
+texture_under = ExtResource("2_m6fig")
+texture_progress = ExtResource("3_e15c7")
+tint_under = Color(1, 0, 0.20392157, 0.3019608)
+tint_progress = Color(1, 0.90588236, 0.8980392, 0.78039217)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_e15c7")
+animation = &"BossIdle"
+
+[node name="BulletSpawnPoint" type="Node2D" parent="."]

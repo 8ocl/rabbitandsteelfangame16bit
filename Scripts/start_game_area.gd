@@ -59,6 +59,7 @@ func _process(delta: float) -> void:
 		progress_bar.value = t
 
 func _start_game() -> void:
+	_award_loot_box_choices_if_any()
 	if next_scene_path == "":
 		print("StartGame: both players in area, but next_scene_path is NOT assigned in inspector")
 		return
@@ -66,6 +67,29 @@ func _start_game() -> void:
 	var err := get_tree().change_scene_to_file(next_scene_path)
 	if err != OK:
 		print("StartGame: change_scene_to_file FAILED with code", err, "path=", next_scene_path)
+
+func _award_loot_box_choices_if_any() -> void:
+	var root := get_tree().root
+	if not root.has_meta("loot_box_choices"):
+		return
+	var data = root.get_meta("loot_box_choices")
+	if typeof(data) != TYPE_DICTIONARY:
+		return
+	if not data.has("per_player"):
+		return
+	var per_player: Dictionary = data["per_player"]
+	if per_player.is_empty():
+		print("GoToLevelOne: no loot box selections made.")
+		return
+	print("GoToLevelOne: awarding loot box choices before next level:")
+	for player_name in per_player.keys():
+		var upg = per_player[player_name]
+		if typeof(upg) == TYPE_DICTIONARY:
+			var upg_name = str(upg.get("name", upg.get("id", "?")))
+			var upg_desc = str(upg.get("description", ""))
+			print("  ", player_name, "got:", upg_name, "-", upg_desc)
+		else:
+			print("  ", player_name, "got:", str(upg))
 
 # In the spawn scene we want to play the fly animation on the root node script
 # (spawn.gd). If that method is missing, fall back to direct scene change.
