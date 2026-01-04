@@ -73,13 +73,23 @@ func _die() -> void:
 	if root != null:
 		var flash := ColorRect.new()
 		flash.color = Color(1, 1, 1, 0.8)
-		flash.size = get_viewport().get_visible_rect().size
-		flash.position = Vector2.ZERO
+		flash.size = get_viewport().size*10  
+		flash.position = Vector2(0,-100)
 		flash.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		root.add_child(flash)
 		var tween := get_tree().create_tween()
 		tween.tween_property(flash, "modulate:a", 0.0, 0.5)
 		tween.finished.connect(flash.queue_free)
+		
+		var label = Label.new()
+		label.text = "GoToLevelTwo"
+		# Center the text.
+		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+		# Make the label fill the screen so the text can be centered.
+		label.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+		root.add_child(label)
+		
 	var original_scale := Engine.time_scale
 	Engine.time_scale = 0.5
 	await get_tree().create_timer(1.0).timeout
