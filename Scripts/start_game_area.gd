@@ -93,7 +93,17 @@ func _award_loot_box_choices_if_any() -> void:
 
 # In the spawn scene we want to play the fly animation on the root node script
 # (spawn.gd). If that method is missing, fall back to direct scene change.
+func _can_progress_to_next_stage() -> bool:
+	# Block progression if Ado is still alive in this scene.
+	for e in get_tree().get_nodes_in_group("enemies"):
+		if e.name == "Ado" and "current_health" in e and e.current_health > 0.0:
+			return false
+	return true
+
 func _start_fly_to_tutorial() -> void:
+	if not _can_progress_to_next_stage():
+		print("GoToLevelOne: Ado is still alive, cannot go to next stage yet.")
+		return
 	_award_loot_box_choices_if_any()
 	var root := get_tree().current_scene
 	if root != null:

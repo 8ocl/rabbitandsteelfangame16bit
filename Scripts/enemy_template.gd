@@ -137,7 +137,7 @@ func _update_facing_to_players() -> void:
 	if dir == Vector2.ZERO:
 		return
 	# Assume default sprite faces right; flip when player is to the left.
-	anim.flip_h = dir.x < 0.0
+	anim.flip_h = dir.x > 0.0
 
 func _get_health_ratio() -> float:
 	if max_health <= 0.0:
@@ -148,6 +148,11 @@ func _update_health_bar() -> void:
 	if health_bar == null:
 		return
 	health_bar.value = clamp(current_health, 0.0, max_health)
+
+func trigger_bullethell_attack_if_above_half() -> void:
+	# For Ado we want the pattern itself to stay the same; this helper just
+	# triggers whatever _perform_circular_attack() does for the subclass.
+	_perform_circular_attack()
 
 func _perform_circular_attack() -> void:
 	if bullet_scene == null:

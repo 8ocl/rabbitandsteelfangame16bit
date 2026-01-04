@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://ckko34uixyy73"]
+[gd_scene load_steps=24 format=3 uid="uid://ckko34uixyy73"]
 
 [ext_resource type="Script" uid="uid://bwpxl5gsj6dl4" path="res://Scripts/transition/fly_in_scene.gd" id="1_flyin"]
 [ext_resource type="Script" uid="uid://bi3ccs8jxok16" path="res://Scripts/transition/sync_camera_from_meta.gd" id="1_wrf6g"]
@@ -18,6 +18,8 @@
 [ext_resource type="Script" uid="uid://blx7k604nli1j" path="res://Scripts/parallaxBackground/first_layer.gd" id="13_lpy12"]
 [ext_resource type="Texture2D" uid="uid://b4rrnckawicaq" path="res://Art/Background/FirstLayer.png" id="14_ec8ab"]
 [ext_resource type="Script" uid="uid://ccuc5ow7c1a5o" path="res://Scripts/start_game_area.gd" id="15_gssrv"]
+[ext_resource type="PackedScene" uid="uid://bda41euegdlsr" path="res://Scenes/enemies/Ado/ado.tscn" id="19_ur6of"]
+[ext_resource type="Script" uid="uid://63mbnsw8uf7c" path="res://Scripts/debug_overlay.gd" id="20_debug"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_62bek"]
 size = Vector2(231, 20)
@@ -34,6 +36,18 @@ script = ExtResource("1_flyin")
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(5, 5)
 script = ExtResource("1_wrf6g")
+
+[node name="Debug" type="CanvasLayer" parent="Camera2D"]
+
+[node name="DebugText" type="Label" parent="Camera2D/Debug"]
+offset_left = -17.0
+offset_top = -28.0
+offset_right = 23.0
+offset_bottom = 2.0
+mouse_behavior_recursive = 1
+theme_override_fonts/font = ExtResource("6_mfb7r")
+theme_override_font_sizes/font_size = 20
+script = ExtResource("20_debug")
 
 [node name="borders" type="StaticBody2D" parent="."]
 position = Vector2(601, 0)
@@ -118,6 +132,7 @@ script = ExtResource("13_lpy12")
 texture = ExtResource("14_ec8ab")
 
 [node name="GoToLevelOne" type="Area2D" parent="."]
+visible = false
 position = Vector2(707, 0)
 collision_mask = 2
 script = ExtResource("15_gssrv")
@@ -152,3 +167,46 @@ theme_override_font_sizes/font_size = 12
 text = "0/2"
 horizontal_alignment = 1
 autowrap_mode = 2
+
+[node name="Ado" parent="." instance=ExtResource("19_ur6of")]
+position = Vector2(641, -1)
+
+[node name="AdoPositionNodes" type="Node2D" parent="."]
+
+[node name="Position1" type="Node2D" parent="AdoPositionNodes"]
+position = Vector2(623, -13)
+
+[node name="Position2" type="Node2D" parent="AdoPositionNodes"]
+position = Vector2(526, -38)
+
+[node name="Position3" type="Node2D" parent="AdoPositionNodes"]
+position = Vector2(663, -48)
+
+[node name="BulletPositions" type="Node2D" parent="."]
+
+[node name="Bullet1Center" type="Node2D" parent="BulletPositions"]
+position = Vector2(623, -13)
+
+[node name="Bullet1Left" type="Node2D" parent="BulletPositions"]
+position = Vector2(705, -35)
+
+[node name="Bullet1Right" type="Node2D" parent="BulletPositions"]
+position = Vector2(500, -5)
+
+[node name="Bullet2Center" type="Node2D" parent="BulletPositions"]
+position = Vector2(583, -21)
+
+[node name="Bullet2Left" type="Node2D" parent="BulletPositions"]
+position = Vector2(702, -39)
+
+[node name="Bullet2Right" type="Node2D" parent="BulletPositions"]
+position = Vector2(498, -33)
+
+[node name="Bullet3Center" type="Node2D" parent="BulletPositions"]
+position = Vector2(630, 31)
+
+[node name="Bullet3Left" type="Node2D" parent="BulletPositions"]
+position = Vector2(661, -34)
+
+[node name="Bullet3Right" type="Node2D" parent="BulletPositions"]
+position = Vector2(507, -40)

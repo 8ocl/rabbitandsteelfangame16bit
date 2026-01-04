@@ -2,7 +2,7 @@ extends CharacterBody2D
 class_name Damageable
 
 @export var max_health: float = 100.0
-@export var damage_number_scene: PackedScene
+@export var damage_number_scene: PackedScene = preload("res://Scenes/damage_number.tscn")
 
 @export_group("Retaliation")
 @export var retaliation_projectile_scene: PackedScene

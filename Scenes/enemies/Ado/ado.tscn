@@ -1,43 +1,44 @@
-[gd_scene load_steps=15 format=3 uid="uid://bpmj3ksiy7y8"]
+[gd_scene load_steps=16 format=3 uid="uid://bda41euegdlsr"]
 
-[ext_resource type="Texture2D" uid="uid://cjd6tjiroe4ws" path="res://Art/Players/Miku/MikuFly.png" id="1_1ypre"]
-[ext_resource type="Texture2D" uid="uid://c0ygqf1dckykq" path="res://Art/Other/32/InnerRing32.png" id="2_m6fig"]
-[ext_resource type="Texture2D" uid="uid://dfcpn6prybu28" path="res://icon.svg" id="3_betde"]
-[ext_resource type="Texture2D" uid="uid://8m0nciqcan1b" path="res://Art/Other/32/OuterRing32.png" id="3_e15c7"]
-[ext_resource type="Script" uid="uid://bc8w0ogliotaj" path="res://Scripts/enemy_template.gd" id="4_enemy"]
-[ext_resource type="Texture2D" uid="uid://jttp51msdy8n" path="res://Art/Enemies/Ado/Untitle222d_Artwork.png" id="5_m6fig"]
+[ext_resource type="Script" path="res://Scripts/enemies/ado_boss.gd" id="1_the4k"]
+[ext_resource type="Texture2D" uid="uid://c0ygqf1dckykq" path="res://Art/Other/32/InnerRing32.png" id="2_mvhap"]
+[ext_resource type="Texture2D" uid="uid://8m0nciqcan1b" path="res://Art/Other/32/OuterRing32.png" id="3_6b0jg"]
+[ext_resource type="Texture2D" uid="uid://cjd6tjiroe4ws" path="res://Art/Players/Miku/MikuFly.png" id="4_h70yl"]
+[ext_resource type="Texture2D" uid="uid://jttp51msdy8n" path="res://Art/Enemies/Ado/Untitle222d_Artwork.png" id="5_ejw00"]
+[ext_resource type="Texture2D" uid="uid://dfcpn6prybu28" path="res://icon.svg" id="6_458cq"]
+[ext_resource type="PackedScene" uid="uid://dtwnt8fm2r8g6" path="res://Scenes/damage_number.tscn" id="7_dmgnum"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m6fig"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e15c7"]
-atlas = ExtResource("5_m6fig")
+atlas = ExtResource("5_ejw00")
 region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ru1lo"]
-atlas = ExtResource("5_m6fig")
+atlas = ExtResource("5_ejw00")
 region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p6aoh"]
-atlas = ExtResource("5_m6fig")
+atlas = ExtResource("5_ejw00")
 region = Rect2(32, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5y4jj"]
-atlas = ExtResource("5_m6fig")
+atlas = ExtResource("5_ejw00")
 region = Rect2(48, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wjr4t"]
-atlas = ExtResource("5_m6fig")
+atlas = ExtResource("5_ejw00")
 region = Rect2(64, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7k8a4"]
-atlas = ExtResource("5_m6fig")
+atlas = ExtResource("5_ejw00")
 region = Rect2(80, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_e15c7"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_1ypre")
+"texture": ExtResource("4_h70yl")
 }],
 "loop": true,
 "name": &"BossAttack",
@@ -68,21 +69,25 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_betde")
+"texture": ExtResource("6_458cq")
 }],
 "loop": true,
 "name": &"BossWindUp",
 "speed": 5.0
 }]
 
-[node name="EnemyTemplate" type="CharacterBody2D"]
-script = ExtResource("4_enemy")
+[node name="Ado" type="CharacterBody2D"]
+script = ExtResource("1_the4k")
 idle_move_speed = 3.0
 phase2_bullet_multiplier = 5.0
 phase2_speed_multiplier = 3.0
 phase3_bullet_multiplier = 5.0
+max_health = 500.0
+damage_number_scene = ExtResource("7_dmgnum")
+auto_start_attacking = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("RectangleShape2D_m6fig")
 
 [node name="HealthBar" type="TextureProgressBar" parent="."]
@@ -92,14 +97,14 @@ offset_right = 24.0
 offset_bottom = 24.0
 value = 100.0
 fill_mode = 5
-texture_under = ExtResource("2_m6fig")
-texture_progress = ExtResource("3_e15c7")
-tint_under = Color(1, 0, 0.20392157, 0.3019608)
-tint_progress = Color(1, 0.90588236, 0.8980392, 0.78039217)
+texture_under = ExtResource("2_mvhap")
+texture_progress = ExtResource("3_6b0jg")
+tint_under = Color(4.235506e-06, 0.59097487, 0.76686424, 0.3019608)
+tint_progress = Color(0, 0.8091822, 0.8067789, 0.78039217)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_e15c7")
 animation = &"BossIdle"
-frame_progress = 0.43752116
+frame_progress = 0.7782458
 
 [node name="BulletSpawnPoint" type="Node2D" parent="."]
