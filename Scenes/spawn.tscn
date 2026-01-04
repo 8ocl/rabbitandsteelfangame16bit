@@ -1,12 +1,14 @@
-[gd_scene load_steps=28 format=3 uid="uid://c1v31xnafou7u"]
+[gd_scene load_steps=32 format=3 uid="uid://c1v31xnafou7u"]
 
 [ext_resource type="PackedScene" uid="uid://va8ld3cvsieq" path="res://Scenes/players/player_1.tscn" id="1_e66bb"]
 [ext_resource type="Script" uid="uid://fi7gj0p7xtl1" path="res://Scripts/transition/spawn.gd" id="1_n6nb1"]
 [ext_resource type="PackedScene" uid="uid://dmv8quj68ks0a" path="res://Scenes/players/player_2.tscn" id="2_akeoe"]
+[ext_resource type="Texture2D" uid="uid://duxrq5qe5mjpc" path="res://Art/Other/Health.png" id="2_d0e7t"]
 [ext_resource type="PackedScene" uid="uid://de3k3vaikl23d" path="res://Scenes/projectile.tscn" id="2_g1tsu"]
+[ext_resource type="Texture2D" uid="uid://coblid100blbw" path="res://Art/Players/TetoFace.png" id="3_mbdul"]
 [ext_resource type="Texture2D" uid="uid://rde76ysg48uf" path="res://Art/Background/BackgroundRemade.png" id="3_n6nb1"]
 [ext_resource type="Script" uid="uid://dubysrqwndoul" path="res://Scripts/damageable.gd" id="4_damageable"]
-[ext_resource type="PackedScene" uid="uid://dtwnt8fm2r8g6" path="res://Scenes/damage_number.tscn" id="5_dmgnum"]
+[ext_resource type="Texture2D" uid="uid://tvxw5sdj8crx" path="res://Art/Players/MikuFace.png" id="4_tohnr"]
 [ext_resource type="Texture2D" uid="uid://dbhxxhuwrsr5v" path="res://Art/Players/Dummy.png" id="6_8fg1o"]
 [ext_resource type="Texture2D" uid="uid://7yvjcb08ooll" path="res://Art/Other/Shadow.png" id="7_7gbdd"]
 [ext_resource type="FontFile" uid="uid://dbxqf84atmdf5" path="res://Font/DotGothic16/DotGothic16-Regular.ttf" id="8_8fg1o"]
@@ -20,7 +22,9 @@
 [ext_resource type="Script" uid="uid://gmhg2sw2id5x" path="res://Scripts/parallaxBackground/tree_looking.gd" id="14_ucbsa"]
 [ext_resource type="Script" uid="uid://bybl3a4ug8ig8" path="res://Scripts/parallaxBackground/spikes.gd" id="16_o6jx8"]
 [ext_resource type="Script" uid="uid://blx7k604nli1j" path="res://Scripts/parallaxBackground/first_layer.gd" id="18_d0e7t"]
+[ext_resource type="Texture2D" uid="uid://cvaoqa2xojdcl" path="res://Art/UI/Background.png" id="21_tohnr"]
 [ext_resource type="PackedScene" uid="uid://cnttea400lmhs" path="res://Scenes/lootbox/loot_box.tscn" id="21_ucbsa"]
+[ext_resource type="Texture2D" uid="uid://3gdks5awbytq" path="res://Art/Players/Noone.png" id="25_08nho"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g1tsu"]
 size = Vector2(16, 16)
@@ -116,7 +120,6 @@ projectile_scene = ExtResource("2_g1tsu")
 [node name="TestDummy" type="CharacterBody2D" parent="."]
 position = Vector2(25, 0)
 script = ExtResource("4_damageable")
-damage_number_scene = ExtResource("5_dmgnum")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TestDummy"]
 shape = SubResource("RectangleShape2D_g1tsu")
@@ -129,7 +132,6 @@ frame_progress = 0.22181119
 visible = false
 position = Vector2(-15, -39)
 script = ExtResource("4_damageable")
-damage_number_scene = ExtResource("5_dmgnum")
 retaliation_projectile_scene = ExtResource("2_g1tsu")
 retaliation_damage = 1.0
 retaliation_crit_chance = 0.1
@@ -233,3 +235,110 @@ autowrap_mode = 2
 [node name="LootBox" parent="." instance=ExtResource("21_ucbsa")]
 position = Vector2(330, 0)
 script = null
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Background" type="NinePatchRect" parent="UI"]
+modulate = Color(0.13333334, 0.1254902, 0.20392157, 1)
+offset_left = -51.0
+offset_top = 32.0
+offset_right = 50.0
+offset_bottom = 49.0
+texture = ExtResource("21_tohnr")
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="PlayerHealth" type="Node2D" parent="UI"]
+position = Vector2(-38, 34)
+
+[node name="HealthBar1" type="Sprite2D" parent="UI/PlayerHealth"]
+texture = ExtResource("2_d0e7t")
+
+[node name="HealthBar2" type="Sprite2D" parent="UI/PlayerHealth"]
+position = Vector2(15, 0)
+texture = ExtResource("2_d0e7t")
+
+[node name="HealthBar3" type="Sprite2D" parent="UI/PlayerHealth"]
+position = Vector2(30, 0)
+texture = ExtResource("2_d0e7t")
+
+[node name="HealthBar4" type="Sprite2D" parent="UI/PlayerHealth"]
+position = Vector2(45, 0)
+texture = ExtResource("2_d0e7t")
+
+[node name="HealthBar5" type="Sprite2D" parent="UI/PlayerHealth"]
+position = Vector2(60, 0)
+texture = ExtResource("2_d0e7t")
+
+[node name="HealthBar6" type="Sprite2D" parent="UI/PlayerHealth"]
+position = Vector2(75, 0)
+texture = ExtResource("2_d0e7t")
+
+[node name="PlayerPickups" type="Node2D" parent="UI"]
+position = Vector2(0, -9)
+
+[node name="MikuFacePicture" type="Sprite2D" parent="UI/PlayerPickups"]
+position = Vector2(-23, 59)
+texture = ExtResource("3_mbdul")
+
+[node name="TetoFacePicture" type="Sprite2D" parent="UI/PlayerPickups"]
+position = Vector2(22, 59)
+texture = ExtResource("4_tohnr")
+
+[node name="Miku" type="Node2D" parent="UI/PlayerPickups"]
+
+[node name="Object1" type="Sprite2D" parent="UI/PlayerPickups/Miku"]
+position = Vector2(4, 50)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("25_08nho")
+
+[node name="Object2" type="Sprite2D" parent="UI/PlayerPickups/Miku"]
+position = Vector2(14, 50)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("25_08nho")
+
+[node name="Object3" type="Sprite2D" parent="UI/PlayerPickups/Miku"]
+position = Vector2(24, 50)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("25_08nho")
+
+[node name="Object4" type="Sprite2D" parent="UI/PlayerPickups/Miku"]
+position = Vector2(34, 50)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("25_08nho")
+
+[node name="Object5" type="Sprite2D" parent="UI/PlayerPickups/Miku"]
+position = Vector2(44, 50)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("25_08nho")
+
+[node name="Teto" type="Node2D" parent="UI/PlayerPickups"]
+
+[node name="Object1" type="Sprite2D" parent="UI/PlayerPickups/Teto"]
+position = Vector2(-45, 50)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("25_08nho")
+
+[node name="Object2" type="Sprite2D" parent="UI/PlayerPickups/Teto"]
+position = Vector2(-35, 50)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("25_08nho")
+
+[node name="Object3" type="Sprite2D" parent="UI/PlayerPickups/Teto"]
+position = Vector2(-25, 50)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("25_08nho")
+
+[node name="Object4" type="Sprite2D" parent="UI/PlayerPickups/Teto"]
+position = Vector2(-15, 50)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("25_08nho")
+
+[node name="Object5" type="Sprite2D" parent="UI/PlayerPickups/Teto"]
+position = Vector2(-5, 50)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("25_08nho")

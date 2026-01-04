@@ -80,6 +80,9 @@ func _hide_go_to_level_gate() -> void:
 	var gate := root.get_node_or_null("GoToLevelOne")
 	if gate != null:
 		gate.visible = false
+		var collision_shape = gate.get_node_or_null("CollisionShape2D")
+		if collision_shape != null:
+			collision_shape.set_deferred("disabled", true)
 
 func _show_go_to_level_gate() -> void:
 	var root := get_tree().current_scene
@@ -88,6 +91,9 @@ func _show_go_to_level_gate() -> void:
 	var gate := root.get_node_or_null("GoToLevelOne")
 	if gate != null:
 		gate.visible = true
+		var collision_shape = gate.get_node_or_null("CollisionShape2D")
+		if collision_shape != null:
+			collision_shape.set_deferred("disabled", false)
 
 func _spawn_loot_box_ui() -> void:
 	if LOOT_BOX_UI_SCENE == null:

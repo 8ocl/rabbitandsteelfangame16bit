@@ -13,6 +13,9 @@ var _positions: Array = []
 var _current_index: int = 0
 var _pattern_running: bool = false
 
+var _is_dying: bool = false
+const _gravity: float = 400.0
+
 func _ready() -> void:
 	# Initialize base enemy behaviour (health, groups, etc.).
 	super()
@@ -21,6 +24,7 @@ func _ready() -> void:
 	call_deferred("_init_and_start_pattern")
 
 func _init_and_start_pattern() -> void:
+	_hide_go_to_level_two_gate()
 	var level := get_tree().current_scene
 	if level == null:
 		return
@@ -44,7 +48,7 @@ func _init_and_start_pattern() -> void:
 	_pattern_running = false
 
 func _pattern_loop() -> void:
-	while is_instance_valid(self):
+	while is_instance_valid(self) and not _is_dying:
 		# Keep this looping for the whole fight for now; later you can branch
 		# on health ratio for different phases.
 		var ratio := _get_health_ratio()
@@ -68,33 +72,66 @@ func _pattern_loop() -> void:
 		await get_tree().create_timer(ado_time_between_positions).timeout
 
 func _die() -> void:
-	# Cinematic death: slow time and flash the screen, then remove Ado.
+	if _is_dying:
+		return
+	_is_dying = true
+
+	# --- Physics Part ---
+	# Disable collisions.
+	collision_layer = 0
+	collision_mask = 0
+
+	# Hide health bar.
+	if health_bar != null:
+		health_bar.visible = false
+
+	# A stronger upward "jump" to make the effect more visible.
+	velocity.y = -300
+
+	# After 3 seconds, the instance is removed from the scene.
+	get_tree().create_timer(3.0).timeout.connect(queue_free)
+
+	# --- Cinematic Part ---
+	# Screen Flash and Time Slowdown.
+	_show_go_to_level_two_gate()
 	var root := get_tree().current_scene
 	if root != null:
 		var flash := ColorRect.new()
 		flash.color = Color(1, 1, 1, 0.8)
-		flash.size = get_viewport().size*10  
-		flash.position = Vector2(0,-100)
+		flash.size = get_viewport().size * 10
+		flash.position = Vector2(0, -100)
 		flash.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		root.add_child(flash)
 		var tween := get_tree().create_tween()
 		tween.tween_property(flash, "modulate:a", 0.0, 0.5)
 		tween.finished.connect(flash.queue_free)
-		
-		var label = Label.new()
-		label.text = "GoToLevelTwo"
-		# Center the text.
-		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-		# Make the label fill the screen so the text can be centered.
-		label.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-		root.add_child(label)
-		
+
 	var original_scale := Engine.time_scale
 	Engine.time_scale = 0.5
+	# This timer will be affected by time_scale unless configured otherwise.
 	await get_tree().create_timer(1.0).timeout
 	Engine.time_scale = original_scale
-	queue_free()
+
+func _physics_process(delta: float) -> void:
+	if _is_dying:
+		velocity.y += _gravity * delta
+		move_and_slide()
+
+func _hide_go_to_level_two_gate() -> void:
+	var gate := get_tree().current_scene.get_node_or_null("GoToLevelTwo")
+	if gate != null:
+		gate.visible = false
+		var collision_shape = gate.get_node_or_null("CollisionShape2D")
+		if collision_shape != null:
+			collision_shape.set_deferred("disabled", true)
+
+func _show_go_to_level_two_gate() -> void:
+	var gate := get_tree().current_scene.get_node_or_null("GoToLevelTwo")
+	if gate != null:
+		gate.visible = true
+		var collision_shape = gate.get_node_or_null("CollisionShape2D")
+		if collision_shape != null:
+			collision_shape.set_deferred("disabled", false)
 
 # Override the base circular attack so Ado's bullethell pattern stays the same
 # (same number of bullets), but moves more slowly and only speeds up a bit near
@@ -152,30 +189,40 @@ func _do_big_planet_for_index(index: int) -> void:
 		return
 	var target_pos: Vector2 = target_player.global_position
 	print("[AdoBoss] BigPlanet aimed at", target_player.name, target_pos)
-	# Warning indicator circle at the target position.
-	var warning := Node2D.new()
-	if warning_texture != null:
-		var sprite := Sprite2D.new()
-		sprite.texture = warning_texture
-		sprite.centered = true
-		warning.add_child(sprite)
-	else:
-		var warning_rect := ColorRect.new()
-		warning_rect.color = Color(1, 0, 0, 0.8)
-		warning_rect.size = Vector2(16, 16)
-		warning_rect.position = Vector2(-8, -8)
-		warning.add_child(warning_rect)
-	get_tree().current_scene.add_child(warning)
-	warning.global_position = target_pos
+
+	var origin: Vector2 = global_position
+	if bullet_spawn != null:
+		origin = bullet_spawn.global_position
+
+	# New warning indicator using a "sprite" (ColorRect) that extends off-screen.
+	var dir := (target_pos - origin).normalized()
+	# A large distance to ensure the path goes off-screen.
+	var off_screen_endpoint := origin + dir * 2000
+
+	var path_length := (off_screen_endpoint - origin).length()
+	var path_width := 20.0 # Reduced width as requested
+
+	var warning_sprite := ColorRect.new()
+	warning_sprite.color = Color(1, 0, 0, 0.5) # Red, semi-transparent
+	warning_sprite.size = Vector2(path_width, path_length)
+	# Set pivot to the middle of the top edge, so it rotates from Ado's center.
+	warning_sprite.pivot_offset = Vector2(path_width / 2, 0)
+	warning_sprite.global_position = origin
+	# Align the rect with the direction vector. The angle is adjusted by PI/2
+	# because a Control node's default "forward" is down.
+	warning_sprite.rotation = dir.angle() - PI / 2.0
+	warning_sprite.z_index = -2 # Set z_index below Ado
+	get_tree().current_scene.add_child(warning_sprite)
+
+
 	await get_tree().create_timer(warning_duration).timeout
-	warning.queue_free()
+	warning_sprite.queue_free()
+
 	# Spawn BigPlanet at Ado (or her bullet spawn) and move it toward the target.
 	var root := get_tree().current_scene
 	if root == null:
 		return
-	var origin: Vector2 = global_position
-	if bullet_spawn != null:
-		origin = bullet_spawn.global_position
+	
 	var big_planet := big_planet_scene.instantiate()
 	root.add_child(big_planet)
 	big_planet.global_position = origin

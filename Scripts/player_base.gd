@@ -272,6 +272,18 @@ func apply_damage(amount: float, _is_crit: bool = false) -> void:
 	
 	current_health -= amount
 	# TODO: hook up player-specific damage feedback (flash, sound, UI) here.
+
+	# Become invincible for 1 second after taking damage.
+	_is_invincible = true
+	# A simple visual feedback for invincibility.
+	if anim != null:
+		anim.modulate.a = 0.5
+	get_tree().create_timer(1.0).timeout.connect(func():
+		_is_invincible = false
+		if anim != null:
+			anim.modulate.a = 1.0
+	)
+
 	if current_health <= 0.0:
 		_die()
 

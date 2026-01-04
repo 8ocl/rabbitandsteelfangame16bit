@@ -1,6 +1,6 @@
 [gd_scene load_steps=55 format=3 uid="uid://c8nacrlrg75cf"]
 
-[ext_resource type="Script" uid="uid://c3sjwxee5nakb" path="res://Scripts/small_bullet.gd" id="1_vojw7"]
+[ext_resource type="Script" path="res://Scripts/enemies/big_planet.gd" id="1_vojw7"]
 [ext_resource type="Texture2D" uid="uid://pfvco8rl5c3u" path="res://Art/Enemies/Ado/earthspin-sheet-sheet.png" id="2_nbtwj"]
 [ext_resource type="Texture2D" uid="uid://4w0apqxsgouj" path="res://Art/Other/InvincibleOrb.png" id="3_nbtwj"]
 
@@ -366,7 +366,7 @@ shape = SubResource("CircleShape2D_vojw7")
 
 [node name="Earth" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_md12g")
-frame_progress = 0.39615873
+autoplay = "default"
 
 [node name="Warning" type="Sprite2D" parent="."]
 visible = false
