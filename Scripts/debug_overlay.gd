@@ -19,7 +19,6 @@ func _update_player_lines(lines: Array[String]) -> void:
 		if not (p is Node):
 			continue
 		var name_str := String(p.name)
-		# We expect players to derive from PlayerBase, but guard against other nodes.
 		var hp_line := "  %s" % name_str
 		if "current_health" in p and "max_health" in p:
 			var cur_hp := float(p.current_health)
@@ -41,7 +40,6 @@ func _update_player_lines(lines: Array[String]) -> void:
 		if "can_cast" in p and "global_cooldown" in p:
 			spells_line += "GCD[%s cd=%.2fs]" % ["READY" if p.can_cast else "CD", float(p.global_cooldown)]
 		lines.append(spells_line)
-		# Movement-related stats
 		var move_line := "    Move: "
 		if "current_speed" in p and "normal_speed" in p and "slow_speed" in p:
 			move_line += "cur=%.1f norm=%.1f slow=%.1f" % [float(p.current_speed), float(p.normal_speed), float(p.slow_speed)]

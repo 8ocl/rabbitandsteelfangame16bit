@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://ckko34uixyy73"]
+[gd_scene load_steps=25 format=3 uid="uid://ckko34uixyy73"]
 
 [ext_resource type="Script" uid="uid://bwpxl5gsj6dl4" path="res://Scripts/transition/fly_in_scene.gd" id="1_flyin"]
 [ext_resource type="Script" uid="uid://bi3ccs8jxok16" path="res://Scripts/transition/sync_camera_from_meta.gd" id="1_wrf6g"]
@@ -19,12 +19,8 @@
 [ext_resource type="Texture2D" uid="uid://b4rrnckawicaq" path="res://Art/Background/FirstLayer.png" id="14_ec8ab"]
 [ext_resource type="Script" uid="uid://ccuc5ow7c1a5o" path="res://Scripts/start_game_area.gd" id="15_gssrv"]
 [ext_resource type="PackedScene" uid="uid://bda41euegdlsr" path="res://Scenes/enemies/Ado/ado.tscn" id="19_ur6of"]
-[ext_resource type="Texture2D" uid="uid://cvaoqa2xojdcl" path="res://Art/UI/Background.png" id="20_3upxu"]
-[ext_resource type="Texture2D" uid="uid://duxrq5qe5mjpc" path="res://Art/Other/Health.png" id="21_u010o"]
-[ext_resource type="Texture2D" uid="uid://coblid100blbw" path="res://Art/Players/TetoFace.png" id="22_hmawu"]
-[ext_resource type="Texture2D" uid="uid://tvxw5sdj8crx" path="res://Art/Players/MikuFace.png" id="23_lpy12"]
-[ext_resource type="Texture2D" uid="uid://3gdks5awbytq" path="res://Art/Players/Noone.png" id="24_ec8ab"]
-[ext_resource type="PackedScene" path="res://Scenes/ui/global_ui.tscn" id="25_global_ui"]
+[ext_resource type="PackedScene" uid="uid://bqui5hqtuq3eh" path="res://Scenes/enemies/Ado/small_note_bullet.tscn" id="21_46i22"]
+[ext_resource type="PackedScene" uid="uid://brgksdlowkk3h" path="res://Scenes/ui/global_ui.tscn" id="25_global_ui"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_62bek"]
 size = Vector2(231, 20)
@@ -37,6 +33,16 @@ size = Vector2(39, 130)
 
 [node name="firstlevel" type="Node2D"]
 script = ExtResource("1_flyin")
+next_scene_path = "uid://bbpg7sn8vacji"
+fly_offset_out = Vector2(300, 0)
+player_target_x = 820.0
+
+[node name="Shadow" type="Sprite2D" parent="."]
+visible = false
+z_index = -3
+position = Vector2(600, 1)
+scale = Vector2(0.78378373, 1.8037384)
+texture = ExtResource("5_lvy03")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(5, 5)
@@ -130,7 +136,7 @@ texture = ExtResource("14_ec8ab")
 position = Vector2(707, 0)
 collision_mask = 2
 script = ExtResource("15_gssrv")
-next_scene_path = "res://Scenes/firstlevel.tscn"
+next_scene_path = "uid://bbpg7sn8vacji"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GoToLevelTwo"]
 visible = false
@@ -164,6 +170,8 @@ autowrap_mode = 2
 
 [node name="Ado" parent="." instance=ExtResource("19_ur6of")]
 position = Vector2(641, -1)
+bullet_scene = ExtResource("21_46i22")
+max_health = 300.0
 
 [node name="AdoPositionNodes" type="Node2D" parent="."]
 
@@ -204,4 +212,3 @@ position = Vector2(661, -34)
 
 [node name="Bullet3Right" type="Node2D" parent="BulletPositions"]
 position = Vector2(507, -40)
-

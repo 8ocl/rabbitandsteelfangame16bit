@@ -9,15 +9,14 @@ var current_health: int
 var player1_items: Array = []
 var player2_items: Array = []
 
-const MAX_ITEMS_PER_PLAYER = 5 # Assuming 5 slots per player
+const MAX_ITEMS_PER_PLAYER = 5 
 
 var is_damage_effect_running: bool = false
 var is_invincible: bool = false
-const I_FRAME_DURATION = 0.1 # seconds
+const I_FRAME_DURATION = 0.1 
 
 func _ready() -> void:
 	current_health = max_health
-	# This singleton persists across scene changes.
 	pass
 
 func apply_damage(amount: int) -> void:
@@ -26,7 +25,7 @@ func apply_damage(amount: int) -> void:
 	
 	set_current_health(current_health - amount)
 	
-	# Start global i-frames
+
 	is_invincible = true
 	get_tree().create_timer(I_FRAME_DURATION).timeout.connect(func(): is_invincible = false)
 
@@ -40,7 +39,7 @@ func set_current_health(value: int) -> void:
 	current_health = clamp(value, 0, max_health)
 	emit_signal("health_changed", current_health, max_health)
 	if current_health == 0:
-		# Handle game over logic
+
 		print("Game Over")
 
 func trigger_damage_effect() -> void:
@@ -48,9 +47,8 @@ func trigger_damage_effect() -> void:
 
 	var root = get_tree().current_scene
 	if root != null:
-		# Screen Flash
 		var flash := ColorRect.new()
-		flash.color = Color(1, 0, 0, 0.4) # Red, semi-transparent
+		flash.color = Color(1, 0, 0, 0.4) 
 		flash.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 		flash.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		root.add_child(flash)
@@ -58,10 +56,9 @@ func trigger_damage_effect() -> void:
 		tween.tween_property(flash, "modulate:a", 0.0, 0.3)
 		tween.finished.connect(flash.queue_free)
 
-	# Time Slowdown
 	var original_scale := Engine.time_scale
 	Engine.time_scale = 0.5
-	var timer := get_tree().create_timer(0.3, true) # process_always = true
+	var timer := get_tree().create_timer(0.3, true) 
 	await timer.timeout
 	
 	if abs(Engine.time_scale - 0.5) < 0.01:

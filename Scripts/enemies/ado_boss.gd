@@ -12,6 +12,7 @@ extends "res://Scripts/enemy_template.gd"
 var _positions: Array = []
 var _current_index: int = 0
 var _pattern_running: bool = false
+var _shadow: Sprite2D
 
 var _is_dying: bool = false
 const _gravity: float = 400.0
@@ -21,6 +22,10 @@ func _ready() -> void:
 	super()
 	# We will manually trigger attacks from the pattern; keep base auto loop off.
 	auto_start_attacking = false
+	_shadow = get_tree().current_scene.get_node_or_null("Shadow")
+	if _shadow != null:
+		_shadow.visible = true
+		_shadow.modulate.a = 0.0
 	call_deferred("_init_and_start_pattern")
 
 func _init_and_start_pattern() -> void:
@@ -46,6 +51,9 @@ func _init_and_start_pattern() -> void:
 	_pattern_running = true
 	# Small delay so players finish flying in before the pattern starts.
 	await get_tree().create_timer(ado_move_delay).timeout
+	if _shadow != null:
+		var tween := create_tween()
+		tween.tween_property(_shadow, "modulate:a", 0.9, 1.0)
 	await _pattern_loop()
 	_pattern_running = false
 
@@ -94,6 +102,9 @@ func _die() -> void:
 	get_tree().create_timer(3.0).timeout.connect(queue_free)
 
 	# --- Cinematic Part ---
+	if _shadow != null:
+		var tween := create_tween()
+		tween.tween_property(_shadow, "modulate:a", 0.0, 1.0)
 	# Screen Flash and Time Slowdown.
 	_show_go_to_level_two_gate()
 	var root := get_tree().current_scene

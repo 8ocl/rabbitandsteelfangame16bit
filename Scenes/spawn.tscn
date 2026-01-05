@@ -1,14 +1,11 @@
-[gd_scene load_steps=33 format=3 uid="uid://c1v31xnafou7u"]
+[gd_scene load_steps=27 format=3 uid="uid://c1v31xnafou7u"]
 
 [ext_resource type="PackedScene" uid="uid://va8ld3cvsieq" path="res://Scenes/players/player_1.tscn" id="1_e66bb"]
 [ext_resource type="Script" uid="uid://fi7gj0p7xtl1" path="res://Scripts/transition/spawn.gd" id="1_n6nb1"]
 [ext_resource type="PackedScene" uid="uid://dmv8quj68ks0a" path="res://Scenes/players/player_2.tscn" id="2_akeoe"]
-[ext_resource type="Texture2D" uid="uid://duxrq5qe5mjpc" path="res://Art/Other/Health.png" id="2_d0e7t"]
 [ext_resource type="PackedScene" uid="uid://de3k3vaikl23d" path="res://Scenes/projectile.tscn" id="2_g1tsu"]
-[ext_resource type="Texture2D" uid="uid://coblid100blbw" path="res://Art/Players/TetoFace.png" id="3_mbdul"]
 [ext_resource type="Texture2D" uid="uid://rde76ysg48uf" path="res://Art/Background/BackgroundRemade.png" id="3_n6nb1"]
 [ext_resource type="Script" uid="uid://dubysrqwndoul" path="res://Scripts/damageable.gd" id="4_damageable"]
-[ext_resource type="Texture2D" uid="uid://tvxw5sdj8crx" path="res://Art/Players/MikuFace.png" id="4_tohnr"]
 [ext_resource type="Texture2D" uid="uid://dbhxxhuwrsr5v" path="res://Art/Players/Dummy.png" id="6_8fg1o"]
 [ext_resource type="Texture2D" uid="uid://7yvjcb08ooll" path="res://Art/Other/Shadow.png" id="7_7gbdd"]
 [ext_resource type="FontFile" uid="uid://dbxqf84atmdf5" path="res://Font/DotGothic16/DotGothic16-Regular.ttf" id="8_8fg1o"]
@@ -22,11 +19,8 @@
 [ext_resource type="Script" uid="uid://gmhg2sw2id5x" path="res://Scripts/parallaxBackground/tree_looking.gd" id="14_ucbsa"]
 [ext_resource type="Script" uid="uid://bybl3a4ug8ig8" path="res://Scripts/parallaxBackground/spikes.gd" id="16_o6jx8"]
 [ext_resource type="Script" uid="uid://blx7k604nli1j" path="res://Scripts/parallaxBackground/first_layer.gd" id="18_d0e7t"]
-[ext_resource type="Texture2D" uid="uid://cvaoqa2xojdcl" path="res://Art/UI/Background.png" id="21_tohnr"]
 [ext_resource type="PackedScene" uid="uid://cnttea400lmhs" path="res://Scenes/lootbox/loot_box.tscn" id="21_ucbsa"]
-[ext_resource type="Texture2D" uid="uid://3gdks5awbytq" path="res://Art/Players/Noone.png" id="25_08nho"]
-[ext_resource type="Script" uid="uid://cya1j5yix0h4f" path="res://Scripts/global_ui.gd" id="26_ui_script"]
-[ext_resource type="PackedScene" uid="uid://cya1j5yix0h4f" path="res://Scenes/ui/global_ui.tscn" id="27_global_ui"]
+[ext_resource type="PackedScene" uid="uid://brgksdlowkk3h" path="res://Scenes/ui/global_ui.tscn" id="27_global_ui"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g1tsu"]
 size = Vector2(16, 16)
@@ -50,9 +44,6 @@ size = Vector2(231, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rav82"]
 size = Vector2(20, 170)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_o6jx8"]
-size = Vector2(39, 130)
 
 [node name="spawn" type="Node2D"]
 script = ExtResource("1_n6nb1")
@@ -132,30 +123,12 @@ shape = SubResource("RectangleShape2D_g1tsu")
 sprite_frames = SubResource("SpriteFrames_26xnn")
 frame_progress = 0.22181119
 
-[node name="TestDummyHurt" type="CharacterBody2D" parent="."]
-visible = false
-position = Vector2(-15, -39)
-script = ExtResource("4_damageable")
-retaliation_projectile_scene = ExtResource("2_g1tsu")
-retaliation_damage = 1.0
-retaliation_crit_chance = 0.1
-retaliation_crit_multiplier = 2.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TestDummyHurt"]
-shape = SubResource("RectangleShape2D_g1tsu")
-disabled = true
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="TestDummyHurt"]
-sprite_frames = SubResource("SpriteFrames_26xnn")
-frame_progress = 0.22181119
-
 [node name="GoToTutorial" type="Area2D" parent="."]
 position = Vector2(105, 0)
 collision_mask = 2
 script = ExtResource("9_startgame")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GoToTutorial"]
-visible = false
 position = Vector2(-9.5, 0)
 shape = SubResource("RectangleShape2D_8fg1o")
 
@@ -202,41 +175,6 @@ shape = SubResource("RectangleShape2D_rav82")
 position = Vector2(126, 0)
 shape = SubResource("RectangleShape2D_rav82")
 
-[node name="GoToLevelOne" type="Area2D" parent="."]
-position = Vector2(404, 0)
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GoToLevelOne"]
-visible = false
-position = Vector2(-9.5, 0)
-shape = SubResource("RectangleShape2D_o6jx8")
-
-[node name="NinePatchRect" type="NinePatchRect" parent="GoToLevelOne"]
-modulate = Color(1, 1, 1, 0.7058824)
-z_index = -1
-offset_left = -29.0
-offset_top = -67.99999
-offset_right = 11.0
-offset_bottom = 63.000008
-scale = Vector2(1, 1.0399995)
-texture = ExtResource("7_7gbdd")
-region_rect = Rect2(0, 9, 354, 85)
-patch_margin_left = 1
-axis_stretch_horizontal = 2
-axis_stretch_vertical = 2
-
-[node name="StartText" type="Label" parent="GoToLevelOne"]
-offset_left = -23.0
-offset_top = -51.0
-offset_right = 8.0
-offset_bottom = -32.0
-theme_override_fonts/font = ExtResource("8_8fg1o")
-theme_override_font_sizes/font_size = 12
-text = "0/2"
-horizontal_alignment = 1
-autowrap_mode = 2
-
 [node name="LootBox" parent="." instance=ExtResource("21_ucbsa")]
 position = Vector2(330, 0)
 script = null
-

@@ -1,12 +1,21 @@
-[gd_scene load_steps=8 format=3]
+[gd_scene load_steps=17 format=3 uid="uid://brgksdlowkk3h"]
 
-[ext_resource type="Script" path="res://Scripts/global_ui.gd" id="1_abcde"]
+[ext_resource type="Script" uid="uid://bnaroqgfsh5ca" path="res://Scripts/global_ui.gd" id="1_abcde"]
 [ext_resource type="Texture2D" uid="uid://cvaoqa2xojdcl" path="res://Art/UI/Background.png" id="2_fghij"]
 [ext_resource type="Texture2D" uid="uid://duxrq5qe5mjpc" path="res://Art/Other/Health.png" id="3_klmno"]
 [ext_resource type="Texture2D" uid="uid://coblid100blbw" path="res://Art/Players/TetoFace.png" id="4_pqrst"]
 [ext_resource type="Texture2D" uid="uid://tvxw5sdj8crx" path="res://Art/Players/MikuFace.png" id="5_uvwxy"]
-[ext_resource type="Texture2D" uid="uid://3gdks5awbytq" path="res://Art/Players/Noone.png" id="6_zabcd"]
-[ext_resource type="Texture2D" path="res://Art/Players/Dummy.png" id="7_dummy"]
+[ext_resource type="Texture2D" uid="uid://cwgbx4qxup2ox" path="res://Art/Players/Teto/TetoUJlt.png" id="6_y75cg"]
+[ext_resource type="Script" uid="uid://dfmtfgukxvthw" path="res://Scripts/parallaxBackground/background.gd" id="7_17iqt"]
+[ext_resource type="Texture2D" uid="uid://rde76ysg48uf" path="res://Art/Background/BackgroundRemade.png" id="8_1ovn1"]
+[ext_resource type="Script" uid="uid://bl7h7x8jtndw6" path="res://Scripts/parallaxBackground/castle.gd" id="9_letcr"]
+[ext_resource type="Texture2D" uid="uid://evvgwwvyqkvc" path="res://Art/Background/Castle.png" id="10_4ty4y"]
+[ext_resource type="Script" uid="uid://gmhg2sw2id5x" path="res://Scripts/parallaxBackground/tree_looking.gd" id="11_ewlph"]
+[ext_resource type="Texture2D" uid="uid://kx3pvrhajhlk" path="res://Art/Background/TreeLooking.png" id="12_t87aq"]
+[ext_resource type="Script" uid="uid://bybl3a4ug8ig8" path="res://Scripts/parallaxBackground/spikes.gd" id="13_24ic0"]
+[ext_resource type="Texture2D" uid="uid://cmjx43syfmms1" path="res://Art/Background/Spikes.png" id="14_dlbj3"]
+[ext_resource type="Script" uid="uid://blx7k604nli1j" path="res://Scripts/parallaxBackground/first_layer.gd" id="15_pntin"]
+[ext_resource type="Texture2D" uid="uid://b4rrnckawicaq" path="res://Art/Background/FirstLayer.png" id="16_vbiea"]
 
 [node name="GlobalUI" type="Node2D"]
 script = ExtResource("1_abcde")
@@ -65,52 +74,94 @@ texture = ExtResource("4_pqrst")
 
 [node name="Object1" type="Sprite2D" parent="PlayerPickups/Miku"]
 position = Vector2(4, 50)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("7_dummy")
+texture = ExtResource("6_y75cg")
 
 [node name="Object2" type="Sprite2D" parent="PlayerPickups/Miku"]
 position = Vector2(14, 50)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("7_dummy")
+texture = ExtResource("6_y75cg")
 
 [node name="Object3" type="Sprite2D" parent="PlayerPickups/Miku"]
 position = Vector2(24, 50)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("7_dummy")
+texture = ExtResource("6_y75cg")
 
 [node name="Object4" type="Sprite2D" parent="PlayerPickups/Miku"]
 position = Vector2(34, 50)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("7_dummy")
+texture = ExtResource("6_y75cg")
 
 [node name="Object5" type="Sprite2D" parent="PlayerPickups/Miku"]
 position = Vector2(44, 50)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("7_dummy")
+texture = ExtResource("6_y75cg")
 
 [node name="Teto" type="Node2D" parent="PlayerPickups"]
 
 [node name="Object1" type="Sprite2D" parent="PlayerPickups/Teto"]
 position = Vector2(-45, 50)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("7_dummy")
+texture = ExtResource("6_y75cg")
 
 [node name="Object2" type="Sprite2D" parent="PlayerPickups/Teto"]
 position = Vector2(-35, 50)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("7_dummy")
+texture = ExtResource("6_y75cg")
 
 [node name="Object3" type="Sprite2D" parent="PlayerPickups/Teto"]
 position = Vector2(-25, 50)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("7_dummy")
+texture = ExtResource("6_y75cg")
 
 [node name="Object4" type="Sprite2D" parent="PlayerPickups/Teto"]
 position = Vector2(-15, 50)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("7_dummy")
+texture = ExtResource("6_y75cg")
 
 [node name="Object5" type="Sprite2D" parent="PlayerPickups/Teto"]
 position = Vector2(-5, 50)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("7_dummy")
+texture = ExtResource("6_y75cg")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="PlayerPickups/Teto/Object5"]
+
+[node name="Background" type="ParallaxLayer" parent="PlayerPickups/Teto/Object5/ParallaxBackground"]
+modulate = Color(0.8804394, 0.832393, 0.8549745, 1)
+texture_repeat = 2
+position = Vector2(199, 0)
+motion_mirroring = Vector2(640, 0)
+script = ExtResource("7_17iqt")
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayerPickups/Teto/Object5/ParallaxBackground/Background"]
+texture = ExtResource("8_1ovn1")
+
+[node name="Castle" type="ParallaxLayer" parent="PlayerPickups/Teto/Object5/ParallaxBackground"]
+modulate = Color(0.8804394, 0.832393, 0.8549745, 1)
+texture_repeat = 2
+position = Vector2(199, 0)
+motion_mirroring = Vector2(640, 0)
+script = ExtResource("9_letcr")
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayerPickups/Teto/Object5/ParallaxBackground/Castle"]
+texture = ExtResource("10_4ty4y")
+
+[node name="TreeLooking" type="ParallaxLayer" parent="PlayerPickups/Teto/Object5/ParallaxBackground"]
+modulate = Color(0.8804394, 0.832393, 0.8549745, 1)
+texture_repeat = 2
+position = Vector2(199, 0)
+motion_mirroring = Vector2(640, 0)
+script = ExtResource("11_ewlph")
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayerPickups/Teto/Object5/ParallaxBackground/TreeLooking"]
+texture = ExtResource("12_t87aq")
+
+[node name="Spikes" type="ParallaxLayer" parent="PlayerPickups/Teto/Object5/ParallaxBackground"]
+modulate = Color(0.8804394, 0.832393, 0.8549745, 1)
+texture_repeat = 2
+position = Vector2(199, 0)
+motion_mirroring = Vector2(640, 0)
+script = ExtResource("13_24ic0")
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayerPickups/Teto/Object5/ParallaxBackground/Spikes"]
+texture = ExtResource("14_dlbj3")
+
+[node name="FirstLayer" type="ParallaxLayer" parent="PlayerPickups/Teto/Object5/ParallaxBackground"]
+modulate = Color(0.8804394, 0.832393, 0.8549745, 1)
+texture_repeat = 2
+position = Vector2(199, 0)
+motion_mirroring = Vector2(640, 0)
+script = ExtResource("15_pntin")
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayerPickups/Teto/Object5/ParallaxBackground/FirstLayer"]
+texture = ExtResource("16_vbiea")

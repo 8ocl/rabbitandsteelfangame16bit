@@ -96,12 +96,12 @@ value = 100.0
 fill_mode = 5
 texture_under = ExtResource("2_mvhap")
 texture_progress = ExtResource("3_6b0jg")
-tint_under = Color(4.235506e-06, 0.59097487, 0.76686424, 0.3019608)
-tint_progress = Color(0, 0.8091822, 0.8067789, 0.78039217)
+tint_under = Color(0.48416078, 0.23502705, 1, 0.3019608)
+tint_progress = Color(0.30804798, 0.30350778, 1, 0.78039217)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_e15c7")
 animation = &"BossIdle"
-frame_progress = 0.93760276
+frame_progress = 0.5700818
 
 [node name="BulletSpawnPoint" type="Node2D" parent="."]

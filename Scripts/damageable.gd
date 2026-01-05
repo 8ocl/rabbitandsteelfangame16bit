@@ -11,8 +11,6 @@ class_name Damageable
 @export var retaliation_crit_multiplier: float = 1.5
 @export var retaliation_cooldown: float = 0.5
 @export var retaliation_target_group: String = "players"
-# Physics layers for retaliation projectiles so they can hit players but not other enemies.
-# These should match your global layer setup (e.g. 2 = Characters, 4 = EnemyProjectiles).
 @export var retaliation_projectile_layer_index: int = 4
 @export var retaliation_target_layer_index: int = 2
 
@@ -54,8 +52,6 @@ func _retaliate() -> void:
 	if dir == Vector2.ZERO:
 		return
 
-	# Defer spawning the projectile so we don't modify physics state while
-	# queries are being flushed (fixes the area_set_shape_disabled error).
 	_can_retaliate = false
 	call_deferred("_spawn_retaliation_projectile", dir)
 
@@ -65,8 +61,6 @@ func _spawn_retaliation_projectile(dir: Vector2) -> void:
 	root.add_child(projectile)
 	projectile.global_position = global_position
 
-	# Configure physics so these projectiles can hit players but not other enemies.
-	# We assume the projectile is an Area2D/CollisionObject2D.
 	if "collision_layer" in projectile and "collision_mask" in projectile:
 		var proj_bit: int = 1 << int(max(retaliation_projectile_layer_index - 1, 0))
 		var target_bit: int = 1 << int(max(retaliation_target_layer_index - 1, 0))
