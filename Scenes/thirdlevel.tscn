@@ -1,0 +1,213 @@
+[gd_scene load_steps=24 format=3 uid="uid://cl0pmh6dk6r1g"]
+
+[ext_resource type="Texture2D" uid="uid://7yvjcb08ooll" path="res://Art/Other/Shadow.png" id="1_fvi8e"]
+[ext_resource type="Script" uid="uid://bi3ccs8jxok16" path="res://Scripts/transition/sync_camera_from_meta.gd" id="2_ob7yv"]
+[ext_resource type="PackedScene" uid="uid://brgksdlowkk3h" path="res://Scenes/ui/global_ui.tscn" id="3_t2cvv"]
+[ext_resource type="PackedScene" uid="uid://va8ld3cvsieq" path="res://Scenes/players/player_1.tscn" id="4_13h47"]
+[ext_resource type="PackedScene" uid="uid://de3k3vaikl23d" path="res://Scenes/projectile.tscn" id="5_tdg22"]
+[ext_resource type="PackedScene" uid="uid://dmv8quj68ks0a" path="res://Scenes/players/player_2.tscn" id="6_mmbav"]
+[ext_resource type="Script" uid="uid://dfmtfgukxvthw" path="res://Scripts/parallaxBackground/background.gd" id="7_hletl"]
+[ext_resource type="Texture2D" uid="uid://rde76ysg48uf" path="res://Art/Background/BackgroundRemade.png" id="8_nhe57"]
+[ext_resource type="Script" uid="uid://bl7h7x8jtndw6" path="res://Scripts/parallaxBackground/castle.gd" id="9_g4u3s"]
+[ext_resource type="Texture2D" uid="uid://evvgwwvyqkvc" path="res://Art/Background/Castle.png" id="10_jg7hf"]
+[ext_resource type="Script" uid="uid://gmhg2sw2id5x" path="res://Scripts/parallaxBackground/tree_looking.gd" id="11_3nh6m"]
+[ext_resource type="Texture2D" uid="uid://kx3pvrhajhlk" path="res://Art/Background/TreeLooking.png" id="12_bwfvj"]
+[ext_resource type="Script" uid="uid://bybl3a4ug8ig8" path="res://Scripts/parallaxBackground/spikes.gd" id="13_7avj4"]
+[ext_resource type="Texture2D" uid="uid://cmjx43syfmms1" path="res://Art/Background/Spikes.png" id="14_mspdo"]
+[ext_resource type="Script" uid="uid://blx7k604nli1j" path="res://Scripts/parallaxBackground/first_layer.gd" id="15_6gb5p"]
+[ext_resource type="Texture2D" uid="uid://b4rrnckawicaq" path="res://Art/Background/FirstLayer.png" id="16_6owqs"]
+[ext_resource type="Script" uid="uid://ccuc5ow7c1a5o" path="res://Scripts/start_game_area.gd" id="17_r2dmx"]
+[ext_resource type="FontFile" uid="uid://dbxqf84atmdf5" path="res://Font/DotGothic16/DotGothic16-Regular.ttf" id="18_au36t"]
+[ext_resource type="PackedScene" uid="uid://bda41euegdlsr" path="res://Scenes/enemies/Ado/ado.tscn" id="19_k7c2w"]
+[ext_resource type="PackedScene" uid="uid://bqui5hqtuq3eh" path="res://Scenes/enemies/Ado/small_note_bullet.tscn" id="20_nl3kh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kjpv7"]
+size = Vector2(231, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yukhm"]
+size = Vector2(20, 170)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6ktfe"]
+size = Vector2(39, 130)
+
+[node name="thirdlevel" type="Node2D"]
+
+[node name="Shadow" type="Sprite2D" parent="."]
+visible = false
+z_index = -3
+position = Vector2(600, 1)
+scale = Vector2(0.78378373, 1.8037384)
+texture = ExtResource("1_fvi8e")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(1, 0)
+zoom = Vector2(5, 5)
+script = ExtResource("2_ob7yv")
+
+[node name="GlobalUI" parent="Camera2D" instance=ExtResource("3_t2cvv")]
+
+[node name="borders" type="StaticBody2D" parent="."]
+position = Vector2(602, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="borders"]
+position = Vector2(0.5, -75)
+shape = SubResource("RectangleShape2D_kjpv7")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="borders"]
+position = Vector2(0, 75)
+shape = SubResource("RectangleShape2D_kjpv7")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="borders"]
+position = Vector2(-125, 0)
+shape = SubResource("RectangleShape2D_yukhm")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="borders"]
+position = Vector2(126, 0)
+shape = SubResource("RectangleShape2D_yukhm")
+
+[node name="players" type="Node2D" parent="."]
+position = Vector2(1, 0)
+
+[node name="player1" parent="players" instance=ExtResource("4_13h47")]
+position = Vector2(-95, -16)
+motion_mode = 1
+projectile_scene = ExtResource("5_tdg22")
+
+[node name="player2" parent="players" instance=ExtResource("6_mmbav")]
+position = Vector2(-95, 16)
+projectile_scene = ExtResource("5_tdg22")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="Background" type="ParallaxLayer" parent="ParallaxBackground"]
+modulate = Color(0.8804394, 0.832393, 0.8549745, 1)
+texture_repeat = 2
+position = Vector2(199, 0)
+motion_mirroring = Vector2(640, 0)
+script = ExtResource("7_hletl")
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Background"]
+texture = ExtResource("8_nhe57")
+
+[node name="Castle" type="ParallaxLayer" parent="ParallaxBackground"]
+modulate = Color(0.8804394, 0.832393, 0.8549745, 1)
+texture_repeat = 2
+position = Vector2(199, 0)
+motion_mirroring = Vector2(640, 0)
+script = ExtResource("9_g4u3s")
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Castle"]
+texture = ExtResource("10_jg7hf")
+
+[node name="TreeLooking" type="ParallaxLayer" parent="ParallaxBackground"]
+modulate = Color(0.8804394, 0.832393, 0.8549745, 1)
+texture_repeat = 2
+position = Vector2(199, 0)
+motion_mirroring = Vector2(640, 0)
+script = ExtResource("11_3nh6m")
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/TreeLooking"]
+texture = ExtResource("12_bwfvj")
+
+[node name="Spikes" type="ParallaxLayer" parent="ParallaxBackground"]
+modulate = Color(0.8804394, 0.832393, 0.8549745, 1)
+texture_repeat = 2
+position = Vector2(199, 0)
+motion_mirroring = Vector2(640, 0)
+script = ExtResource("13_7avj4")
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Spikes"]
+texture = ExtResource("14_mspdo")
+
+[node name="FirstLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+modulate = Color(0.8804394, 0.832393, 0.8549745, 1)
+texture_repeat = 2
+position = Vector2(199, 0)
+motion_mirroring = Vector2(640, 0)
+script = ExtResource("15_6gb5p")
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/FirstLayer"]
+texture = ExtResource("16_6owqs")
+
+[node name="GoToLevelTwo" type="Area2D" parent="."]
+position = Vector2(708, 0)
+collision_mask = 2
+script = ExtResource("17_r2dmx")
+next_scene_path = "uid://bbpg7sn8vacji"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GoToLevelTwo"]
+visible = false
+position = Vector2(-9.5, 0)
+shape = SubResource("RectangleShape2D_6ktfe")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="GoToLevelTwo"]
+modulate = Color(1, 1, 1, 0.7058824)
+z_index = -1
+offset_left = -29.0
+offset_top = -67.99999
+offset_right = 11.0
+offset_bottom = 63.000008
+scale = Vector2(1, 1.0399995)
+texture = ExtResource("1_fvi8e")
+region_rect = Rect2(0, 9, 354, 85)
+patch_margin_left = 1
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="StartText" type="Label" parent="GoToLevelTwo"]
+offset_left = -23.0
+offset_top = -51.0
+offset_right = 8.0
+offset_bottom = -32.0
+theme_override_fonts/font = ExtResource("18_au36t")
+theme_override_font_sizes/font_size = 12
+text = "0/2"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Ado" parent="." instance=ExtResource("19_k7c2w")]
+position = Vector2(642, -1)
+bullet_scene = ExtResource("20_nl3kh")
+max_health = 300.0
+
+[node name="AdoPositionNodes" type="Node2D" parent="."]
+position = Vector2(1, 0)
+
+[node name="Position1" type="Node2D" parent="AdoPositionNodes"]
+position = Vector2(623, -13)
+
+[node name="Position2" type="Node2D" parent="AdoPositionNodes"]
+position = Vector2(526, -38)
+
+[node name="Position3" type="Node2D" parent="AdoPositionNodes"]
+position = Vector2(663, -48)
+
+[node name="BulletPositions" type="Node2D" parent="."]
+position = Vector2(1, 0)
+
+[node name="Bullet1Center" type="Node2D" parent="BulletPositions"]
+position = Vector2(623, -13)
+
+[node name="Bullet1Left" type="Node2D" parent="BulletPositions"]
+position = Vector2(705, -35)
+
+[node name="Bullet1Right" type="Node2D" parent="BulletPositions"]
+position = Vector2(500, -5)
+
+[node name="Bullet2Center" type="Node2D" parent="BulletPositions"]
+position = Vector2(583, -21)
+
+[node name="Bullet2Left" type="Node2D" parent="BulletPositions"]
+position = Vector2(702, -39)
+
+[node name="Bullet2Right" type="Node2D" parent="BulletPositions"]
+position = Vector2(498, -33)
+
+[node name="Bullet3Center" type="Node2D" parent="BulletPositions"]
+position = Vector2(630, 31)
+
+[node name="Bullet3Left" type="Node2D" parent="BulletPositions"]
+position = Vector2(661, -34)
+
+[node name="Bullet3Right" type="Node2D" parent="BulletPositions"]
+position = Vector2(507, -40)

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bwpxl5gsj6dl4" path="res://Scripts/transition/fly_in_scene.gd" id="1_3vwvj"]
 [ext_resource type="Script" uid="uid://bi3ccs8jxok16" path="res://Scripts/transition/sync_camera_from_meta.gd" id="1_gnipa"]
-[ext_resource type="PackedScene" path="res://Scenes/ui/global_ui.tscn" id="2_3vwvj"]
+[ext_resource type="PackedScene" uid="uid://brgksdlowkk3h" path="res://Scenes/ui/global_ui.tscn" id="2_3vwvj"]
 [ext_resource type="PackedScene" uid="uid://va8ld3cvsieq" path="res://Scenes/players/player_1.tscn" id="3_2idfl"]
 [ext_resource type="PackedScene" uid="uid://de3k3vaikl23d" path="res://Scenes/projectile.tscn" id="4_65v45"]
 [ext_resource type="PackedScene" uid="uid://dmv8quj68ks0a" path="res://Scenes/players/player_2.tscn" id="5_nr145"]
@@ -33,7 +33,7 @@ size = Vector2(39, 130)
 [node name="secondlevel" type="Node2D"]
 script = ExtResource("1_3vwvj")
 fly_offset_out = Vector2(300, 0)
-player_target_x = 1000.0
+player_target_x = 1220.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(5, 5)

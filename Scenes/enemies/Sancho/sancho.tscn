@@ -1,0 +1,100 @@
+[gd_scene load_steps=14 format=3 uid="uid://cjtgu1fy3i4pr"]
+
+[ext_resource type="Texture2D" uid="uid://c0ygqf1dckykq" path="res://Art/Other/32/InnerRing32.png" id="1_wsw5v"]
+[ext_resource type="Texture2D" uid="uid://8m0nciqcan1b" path="res://Art/Other/32/OuterRing32.png" id="2_2yool"]
+[ext_resource type="Texture2D" uid="uid://cjd6tjiroe4ws" path="res://Art/Players/Miku/MikuFly.png" id="3_6dqt8"]
+[ext_resource type="Texture2D" uid="uid://dha8tm57yldc2" path="res://Art/Enemies/Sancho/Untitled_222222Artwork.png" id="4_wsw5v"]
+[ext_resource type="Texture2D" uid="uid://dfcpn6prybu28" path="res://icon.svg" id="5_kofkt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ew5ql"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2yool"]
+atlas = ExtResource("4_wsw5v")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6dqt8"]
+atlas = ExtResource("4_wsw5v")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rop2q"]
+atlas = ExtResource("4_wsw5v")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kofkt"]
+atlas = ExtResource("4_wsw5v")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ew5ql"]
+atlas = ExtResource("4_wsw5v")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_28twe"]
+atlas = ExtResource("4_wsw5v")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_28twe"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_6dqt8")
+}],
+"loop": true,
+"name": &"BossAttack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2yool")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6dqt8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rop2q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kofkt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ew5ql")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_28twe")
+}],
+"loop": true,
+"name": &"BossIdle",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_kofkt")
+}],
+"loop": true,
+"name": &"BossWindUp",
+"speed": 5.0
+}]
+
+[node name="Sancho" type="CharacterBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_ew5ql")
+
+[node name="HealthBar" type="TextureProgressBar" parent="."]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 24.0
+offset_bottom = 24.0
+value = 100.0
+fill_mode = 5
+texture_under = ExtResource("1_wsw5v")
+texture_progress = ExtResource("2_2yool")
+tint_under = Color(0.7758417, 0.20006391, 0.38787723, 0.3019608)
+tint_progress = Color(0.8133591, 0.04377582, 0.22800821, 0.78039217)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_28twe")
+animation = &"BossIdle"
+frame_progress = 0.6519975
+
+[node name="BulletSpawnPoint" type="Node2D" parent="."]
