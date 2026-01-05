@@ -157,108 +157,21 @@ func _handle_actions() -> void:
 		end_defensive_action()
 
 func primary_action() -> void:
-	# Shoots a projectile towards the closest enemy in group "enemies".
-	if projectile_scene == null:
-		push_warning("No projectile_scene assigned on %s" % name)
-		return
-
-	can_primary = false
-	_trigger_global_cooldown()
-	_start_cooldown_ring()
-
-	var projectile := projectile_scene.instantiate()
-	var root := get_tree().current_scene
-	root.add_child(projectile)
-	projectile.global_position = global_position
-
-	var dir := _get_aim_direction()
-	if dir == Vector2.ZERO:
-		# Fallback direction if no enemies are found
-		dir = Vector2.RIGHT
-
-	_update_facing_from_vector(dir)
-
-	# Preferred path: projectile has an initialize() method
-	if projectile.has_method("initialize"):
-		projectile.initialize(dir, base_damage, crit_chance, crit_multiplier, self)
-	else:
-		# Fallback: try to set common fields directly
-		if "direction" in projectile:
-			projectile.direction = dir
-		if "base_damage" in projectile:
-			projectile.base_damage = base_damage
-		if "crit_chance" in projectile:
-			projectile.crit_chance = crit_chance
-		if "crit_multiplier" in projectile:
-			projectile.crit_multiplier = crit_multiplier
-		if "shooter" in projectile:
-			projectile.shooter = self
-
-	get_tree().create_timer(primary_cooldown).timeout.connect(
-		func() -> void:
-			can_primary = true
-			_is_on_cooldown = false
-	)
+	pass
 
 func secondary_action() -> void:
-	# Example: charged shot or melee attack hook
-	can_secondary = false
-	_trigger_global_cooldown()
-	get_tree().create_timer(secondary_cooldown).timeout.connect(
-		func() -> void:
-			can_secondary = true
-	)
+	pass
 
 func special_action() -> void:
-	# Example: powerful ability hook
-	can_special = false
-	_trigger_global_cooldown()
-	get_tree().create_timer(special_cooldown).timeout.connect(
-		func() -> void:
-			can_special = true
-	)
+	pass
 
 func defensive_action() -> void:
-	if invincible_orb_scene == null:
-		return
-	
-	_trigger_global_cooldown()
-	
-	# Spawn invincible orb in the world, not attached to player
-	if _invincible_orb_instance == null:
-		_invincible_orb_instance = invincible_orb_scene.instantiate()
-		var root = get_tree().current_scene
-		root.add_child(_invincible_orb_instance)
-		_invincible_orb_instance.global_position = global_position
-		
-		# Connect orb to affect players
-		if _invincible_orb_instance.has_signal("body_entered"):
-			_invincible_orb_instance.body_entered.connect(_on_orb_body_entered)
-	
-	# Enable invincibility
-	_is_invincible = true
-	
-	# White out the player sprite more noticeably (add brightness)
-	if anim != null:
-		anim.modulate = Color(3, 3, 3, 1) # Bright white glow
-	
-	# Set timer to remove invincibility
-	get_tree().create_timer(invincible_duration).timeout.connect(
-		func() -> void:
-			_is_invincible = false
-			if _invincible_orb_instance != null:
-				_invincible_orb_instance.queue_free()
-				_invincible_orb_instance = null
-			if anim != null:
-				anim.modulate = Color(1, 1, 1, 1) # Reset to normal
-	)
+	pass
 
 func end_defensive_action() -> void:
-	can_defensive = false
-	get_tree().create_timer(defensive_cooldown).timeout.connect(
-		func() -> void:
-			can_defensive = true
-	)
+	pass
+
+
 
 func apply_damage(amount: float, _is_crit: bool = false) -> void:
 	if _is_invincible:
