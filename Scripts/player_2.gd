@@ -1,12 +1,48 @@
 extends PlayerBase
 
-# Player 2 also uses PlayerBase, but forces input_prefix = "2" in code so it
-# reads actions like "2move_right", "2primary_action", etc.
-# You only need to assign projectile_scene and damage values in the inspector.
+@onready var primary_cooldown_ui: TextureProgressBar = $UI/Primary/PrimaryCooldown
+@onready var secondary_cooldown_ui: TextureProgressBar = $UI/Secondary/SecondaryCooldown
+@onready var special_cooldown_ui: TextureProgressBar = $UI/Special/SpecialCooldown
+@onready var defensive_cooldown_ui: TextureProgressBar = $UI/Defensive/DefensiveCooldown
+
+var primary_cooldown_timer: Timer
+var secondary_cooldown_timer: Timer
+var special_cooldown_timer: Timer
+var defensive_cooldown_timer: Timer
 
 func _ready() -> void:
 	input_prefix = "2"
-	super()
+	primary_cooldown_timer = Timer.new()
+	add_child(primary_cooldown_timer)
+	primary_cooldown_timer.one_shot = true
+
+	secondary_cooldown_timer = Timer.new()
+	add_child(secondary_cooldown_timer)
+	secondary_cooldown_timer.one_shot = true
+
+	special_cooldown_timer = Timer.new()
+	add_child(special_cooldown_timer)
+	special_cooldown_timer.one_shot = true
+
+	defensive_cooldown_timer = Timer.new()
+	add_child(defensive_cooldown_timer)
+	defensive_cooldown_timer.one_shot = true
+	
+	super._ready()
+
+func _physics_process(delta: float) -> void:
+	super._physics_process(delta)
+	_update_cooldown_ui()
+
+func _update_cooldown_ui() -> void:
+	if primary_cooldown > 0:
+		primary_cooldown_ui.value = primary_cooldown_timer.time_left / primary_cooldown * primary_cooldown_ui.max_value
+	if secondary_cooldown > 0:
+		secondary_cooldown_ui.value = secondary_cooldown_timer.time_left / secondary_cooldown * secondary_cooldown_ui.max_value
+	if special_cooldown > 0:
+		special_cooldown_ui.value = special_cooldown_timer.time_left / special_cooldown * special_cooldown_ui.max_value
+	if defensive_cooldown > 0:
+		defensive_cooldown_ui.value = defensive_cooldown_timer.time_left / defensive_cooldown * defensive_cooldown_ui.max_value
 
 func primary_action() -> void:
 	# Shoots a projectile towards the closest enemy in group "enemies".
@@ -17,6 +53,8 @@ func primary_action() -> void:
 	can_primary = false
 	_trigger_global_cooldown()
 	_start_cooldown_ring()
+
+	primary_cooldown_timer.start(primary_cooldown)
 
 	var projectile := projectile_scene.instantiate()
 	var root := get_tree().current_scene
@@ -62,6 +100,8 @@ func secondary_action() -> void:
 	_trigger_global_cooldown()
 	_start_cooldown_ring()
 
+	secondary_cooldown_timer.start(secondary_cooldown)
+
 	var projectile := projectile_scene.instantiate()
 	var root := get_tree().current_scene
 	root.add_child(projectile)
@@ -106,6 +146,8 @@ func special_action() -> void:
 	_trigger_global_cooldown()
 	_start_cooldown_ring()
 
+	special_cooldown_timer.start(special_cooldown)
+
 	var projectile := projectile_scene.instantiate()
 	var root := get_tree().current_scene
 	root.add_child(projectile)
@@ -149,6 +191,8 @@ func defensive_action() -> void:
 	can_defensive = false
 	_trigger_global_cooldown()
 	_start_cooldown_ring()
+
+	defensive_cooldown_timer.start(defensive_cooldown)
 
 	var projectile := projectile_scene.instantiate()
 	var root := get_tree().current_scene
