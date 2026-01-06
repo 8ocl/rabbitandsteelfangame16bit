@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://cl0pmh6dk6r1g"]
+[gd_scene load_steps=29 format=3 uid="uid://cl0pmh6dk6r1g"]
 
 [ext_resource type="Texture2D" uid="uid://7yvjcb08ooll" path="res://Art/Other/Shadow.png" id="1_fvi8e"]
 [ext_resource type="Script" uid="uid://bwpxl5gsj6dl4" path="res://Scripts/transition/fly_in_scene.gd" id="1_ob7yv"]
@@ -23,6 +23,7 @@
 [ext_resource type="Script" uid="uid://dxqen6naulytg" path="res://Scripts/enemies/sancho_boss.gd" id="21_t2cvv"]
 [ext_resource type="PackedScene" uid="uid://daoldt8sd8a46" path="res://Scenes/enemies/Sancho/arrow_sancho.tscn" id="22_t2cvv"]
 [ext_resource type="PackedScene" uid="uid://cnttea400lmhs" path="res://Scenes/lootbox/loot_box.tscn" id="23_13h47"]
+[ext_resource type="PackedScene" uid="uid://dp2y2pxy0640" path="res://Scenes/enemies/Sancho/warning_slice.tscn" id="23_tdg22"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kjpv7"]
 size = Vector2(231, 20)
@@ -32,6 +33,8 @@ size = Vector2(20, 170)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6ktfe"]
 size = Vector2(39, 130)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_13h47"]
 
 [node name="thirdlevel" type="Node2D"]
 script = ExtResource("1_ob7yv")
@@ -189,14 +192,40 @@ script = ExtResource("21_t2cvv")
 move_delay = 2.0
 position_move_time = 1.0
 time_between_positions = 2.0
+phase_two_health_ratio = 0.5
 small_bullet_scene = ExtResource("22_t2cvv")
+warning_slice_scene = ExtResource("23_tdg22")
 idle_move_speed = 3.0
+phase2_health_ratio = 0.2
+phase3_health_ratio = 0.0
 
 [node name="LootBox" parent="." instance=ExtResource("23_13h47")]
 position = Vector2(1521, 0)
 script = null
 
-[node name="SanchoTransformNodes" type="Node2D" parent="."]
+[node name="StartingPositionForTransform" type="Node2D" parent="."]
 position = Vector2(1200, -1)
 
-[node name="StartingPosition" type="Node2D" parent="SanchoTransformNodes"]
+[node name="SafeSpots" type="Node2D" parent="."]
+position = Vector2(1201, 0)
+
+[node name="Safespot1" type="Area2D" parent="SafeSpots"]
+position = Vector2(-1, -1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SafeSpots/Safespot1"]
+shape = SubResource("CircleShape2D_13h47")
+
+[node name="Phase2MovementNodes" type="Node2D" parent="."]
+position = Vector2(1196, -5)
+
+[node name="Position1" type="Node2D" parent="Phase2MovementNodes"]
+position = Vector2(-114, 69)
+
+[node name="Position2" type="Node2D" parent="Phase2MovementNodes"]
+position = Vector2(125, 42)
+
+[node name="Position3" type="Node2D" parent="Phase2MovementNodes"]
+position = Vector2(-118, 6)
+
+[node name="Position4" type="Node2D" parent="Phase2MovementNodes"]
+position = Vector2(130, -66)
