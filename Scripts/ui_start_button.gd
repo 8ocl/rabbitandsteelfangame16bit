@@ -8,6 +8,9 @@ var _default_modulate: Color = Color(1, 1, 1, 1)
 var _hover_modulate: Color = Color(1, 1, 1, 1)
 
 func _ready() -> void:
+	if get_tree().root.has_meta("player_positions"):
+		get_tree().root.remove_meta("player_positions")
+
 	if background != null:
 		_default_modulate = background.modulate
 		# Stronger glow

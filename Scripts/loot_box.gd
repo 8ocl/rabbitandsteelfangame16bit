@@ -77,7 +77,7 @@ func _hide_go_to_level_gate() -> void:
 	var root := get_tree().current_scene
 	if root == null:
 		return
-	var gate := root.get_node_or_null("GoToLevelOne")
+	var gate := root.get_node_or_null("GoToNextScene")
 	if gate != null:
 		gate.visible = false
 		var collision_shape = gate.get_node_or_null("CollisionShape2D")
@@ -88,7 +88,7 @@ func _show_go_to_level_gate() -> void:
 	var root := get_tree().current_scene
 	if root == null:
 		return
-	var gate := root.get_node_or_null("GoToLevelOne")
+	var gate := root.get_node_or_null("GoToNextScene")
 	if gate != null:
 		gate.visible = true
 		var collision_shape = gate.get_node_or_null("CollisionShape2D")

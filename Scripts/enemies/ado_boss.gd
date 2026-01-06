@@ -131,7 +131,7 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 
 func _hide_go_to_level_two_gate() -> void:
-	var gate := get_tree().current_scene.get_node_or_null("GoToLevelTwo")
+	var gate := get_tree().current_scene.get_node_or_null("GoToNextScene")
 	if gate != null:
 		gate.visible = false
 		var collision_shape = gate.get_node_or_null("CollisionShape2D")
@@ -139,7 +139,7 @@ func _hide_go_to_level_two_gate() -> void:
 			collision_shape.set_deferred("disabled", true)
 
 func _show_go_to_level_two_gate() -> void:
-	var gate := get_tree().current_scene.get_node_or_null("GoToLevelTwo")
+	var gate := get_tree().current_scene.get_node_or_null("GoToNextScene")
 	if gate != null:
 		gate.visible = true
 		var collision_shape = gate.get_node_or_null("CollisionShape2D")

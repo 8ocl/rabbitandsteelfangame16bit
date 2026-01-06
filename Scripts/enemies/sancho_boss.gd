@@ -44,7 +44,7 @@ func _perform_circular_attack() -> void:
 				bullet.queue_free()
 		return
 
-	var target_pos = random_player.global_position
+	var target_pos = player_pos
 	
 	var health_ratio = _get_health_ratio()
 	var speed_multiplier = 0.8 + (1.0 - health_ratio) * 2.0

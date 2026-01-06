@@ -48,7 +48,9 @@ size = Vector2(20, 170)
 [node name="spawn" type="Node2D"]
 script = ExtResource("1_ucbsa")
 fly_in_time = 0.5
-player_target_x = 300.0
+next_scene_path = "uid://0j01jdsvep1u"
+fly_offset_out = Vector2(300, 0)
+player_target_x = 220.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(5, 5)
@@ -103,13 +105,13 @@ script = ExtResource("18_d0e7t")
 texture = ExtResource("14_rsbfg")
 
 [node name="player1" parent="." instance=ExtResource("1_e66bb")]
-position = Vector2(-149, -22)
+position = Vector2(-93, -22)
 motion_mode = 1
 acceleration = 1000.0
 projectile_scene = ExtResource("2_g1tsu")
 
 [node name="player2" parent="." instance=ExtResource("2_akeoe")]
-position = Vector2(-149, 11)
+position = Vector2(-93, 11)
 acceleration = 1000.0
 projectile_scene = ExtResource("2_g1tsu")
 
@@ -124,16 +126,16 @@ shape = SubResource("RectangleShape2D_g1tsu")
 sprite_frames = SubResource("SpriteFrames_26xnn")
 frame_progress = 0.22181119
 
-[node name="GoToTutorial" type="Area2D" parent="."]
+[node name="GoToNextScene" type="Area2D" parent="."]
 position = Vector2(105, 0)
 collision_mask = 2
 script = ExtResource("9_startgame")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GoToTutorial"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GoToNextScene"]
 position = Vector2(-9.5, 0)
 shape = SubResource("RectangleShape2D_8fg1o")
 
-[node name="NinePatchRect" type="NinePatchRect" parent="GoToTutorial"]
+[node name="NinePatchRect" type="NinePatchRect" parent="GoToNextScene"]
 modulate = Color(1, 1, 1, 0.7058824)
 z_index = -1
 offset_left = -29.0
@@ -147,7 +149,7 @@ patch_margin_left = 1
 axis_stretch_horizontal = 2
 axis_stretch_vertical = 2
 
-[node name="StartText" type="Label" parent="GoToTutorial"]
+[node name="StartText" type="Label" parent="GoToNextScene"]
 offset_left = -23.0
 offset_top = -51.0
 offset_right = 8.0
@@ -180,7 +182,8 @@ shape = SubResource("RectangleShape2D_rav82")
 position = Vector2(330, 0)
 script = null
 
-[node name="StartText" type="Label" parent="."]
+[node name="Player1Controls" type="Label" parent="."]
+z_index = -2
 offset_left = -117.0
 offset_top = -62.0
 offset_right = -23.0
@@ -192,7 +195,8 @@ text = "Player 1: WASD, Z, X"
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="StartText2" type="Label" parent="."]
+[node name="Player2Controls" type="Label" parent="."]
+z_index = -2
 offset_left = -117.0
 offset_right = -23.0
 offset_bottom = 39.0

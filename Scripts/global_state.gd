@@ -39,8 +39,25 @@ func set_current_health(value: int) -> void:
 	current_health = clamp(value, 0, max_health)
 	emit_signal("health_changed", current_health, max_health)
 	if current_health == 0:
+		_start_death_sequence()
 
-		print("Game Over")
+func _start_death_sequence() -> void:
+	Engine.time_scale = 0.5
+
+	var fade_to_black := ColorRect.new()
+	fade_to_black.color = Color(0, 0, 0, 0)
+	fade_to_black.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	get_tree().current_scene.add_child(fade_to_black)
+
+	var tween := create_tween()
+	tween.tween_property(fade_to_black, "color:a", 1.0, 1.0)
+	tween.finished.connect(func():
+		Engine.time_scale = 1.0
+		if get_tree().root.has_meta("player_positions"):
+			get_tree().root.remove_meta("player_positions")
+		get_tree().change_scene_to_file("res://Scenes/deathscreen/deathscreen.tscn")
+	)
+
 
 func trigger_damage_effect() -> void:
 	is_damage_effect_running = true

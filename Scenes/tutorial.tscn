@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://0j01jdsvep1u"]
+[gd_scene load_steps=25 format=3 uid="uid://0j01jdsvep1u"]
 
 [ext_resource type="PackedScene" uid="uid://va8ld3cvsieq" path="res://Scenes/players/player_1.tscn" id="1_p1f1o"]
 [ext_resource type="PackedScene" uid="uid://de3k3vaikl23d" path="res://Scenes/projectile.tscn" id="2_ys4pu"]
@@ -16,9 +16,10 @@
 [ext_resource type="Script" uid="uid://blx7k604nli1j" path="res://Scripts/parallaxBackground/first_layer.gd" id="14_1cu4j"]
 [ext_resource type="Texture2D" uid="uid://b4rrnckawicaq" path="res://Art/Background/FirstLayer.png" id="15_djl3p"]
 [ext_resource type="Script" uid="uid://bi3ccs8jxok16" path="res://Scripts/transition/sync_camera_from_meta.gd" id="16_camsync"]
-[ext_resource type="Script" uid="uid://ccuc5ow7c1a5o" path="res://Scripts/start_game_area.gd" id="18_lexqi"]
+[ext_resource type="Script" uid="uid://hachotsyvgei" path="res://Scripts/go_to_level_sero.gd" id="17_pkgwa"]
 [ext_resource type="PackedScene" uid="uid://cnttea400lmhs" path="res://Scenes/lootbox/loot_box.tscn" id="19_dxsep"]
 [ext_resource type="Texture2D" uid="uid://7yvjcb08ooll" path="res://Art/Other/Shadow.png" id="19_pkgwa"]
+[ext_resource type="PackedScene" uid="uid://bda41euegdlsr" path="res://Scenes/enemies/Ado/ado.tscn" id="21_pkgwa"]
 [ext_resource type="PackedScene" uid="uid://brgksdlowkk3h" path="res://Scenes/ui/global_ui.tscn" id="26_global_ui"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ap3ea"]
@@ -123,18 +124,17 @@ script = ExtResource("14_1cu4j")
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/FirstLayer"]
 texture = ExtResource("15_djl3p")
 
-[node name="GoToLevelOne" type="Area2D" parent="."]
+[node name="GoToNextScene" type="Area2D" parent="."]
 position = Vector2(404, 0)
 collision_mask = 2
-script = ExtResource("18_lexqi")
-next_scene_path = "uid://ckko34uixyy73"
+script = ExtResource("17_pkgwa")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GoToLevelOne"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GoToNextScene"]
 visible = false
 position = Vector2(-9.5, 0)
 shape = SubResource("RectangleShape2D_radxo")
 
-[node name="NinePatchRect" type="NinePatchRect" parent="GoToLevelOne"]
+[node name="NinePatchRect" type="NinePatchRect" parent="GoToNextScene"]
 modulate = Color(1, 1, 1, 0.7058824)
 z_index = -1
 offset_left = -29.0
@@ -148,7 +148,7 @@ patch_margin_left = 1
 axis_stretch_horizontal = 2
 axis_stretch_vertical = 2
 
-[node name="StartText" type="Label" parent="GoToLevelOne"]
+[node name="StartText" type="Label" parent="GoToNextScene"]
 offset_left = -23.0
 offset_top = -51.0
 offset_right = 8.0
@@ -161,3 +161,7 @@ autowrap_mode = 2
 
 [node name="LootBox" parent="." instance=ExtResource("19_dxsep")]
 position = Vector2(330, 0)
+
+[node name="Ado" parent="." instance=ExtResource("21_pkgwa")]
+position = Vector2(641, -1)
+script = null

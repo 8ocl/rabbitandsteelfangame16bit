@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://cvd46sruipbu2"]
+[gd_scene load_steps=23 format=3 uid="uid://cvd46sruipbu2"]
 
 [ext_resource type="Script" uid="uid://bi3ccs8jxok16" path="res://Scripts/transition/sync_camera_from_meta.gd" id="1_53lbg"]
 [ext_resource type="PackedScene" uid="uid://brgksdlowkk3h" path="res://Scenes/ui/global_ui.tscn" id="2_4ehw6"]
@@ -28,12 +28,6 @@ size = Vector2(20, 170)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pkkuq"]
 size = Vector2(39, 130)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_24q4t"]
-size = Vector2(231, 20)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_cfl3l"]
-size = Vector2(20, 170)
 
 [node name="fourthlevel" type="Node2D"]
 
@@ -73,18 +67,18 @@ projectile_scene = ExtResource("4_7oktr")
 position = Vector2(-95, 16)
 projectile_scene = ExtResource("4_7oktr")
 
-[node name="GoToLevelThree" type="Area2D" parent="."]
+[node name="GoToNextScene" type="Area2D" parent="."]
 position = Vector2(1595, 0)
 collision_mask = 2
 script = ExtResource("6_dknmk")
 next_scene_path = "uid://ckko34uixyy73"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GoToLevelThree"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GoToNextScene"]
 visible = false
 position = Vector2(-9.5, 0)
 shape = SubResource("RectangleShape2D_pkkuq")
 
-[node name="NinePatchRect" type="NinePatchRect" parent="GoToLevelThree"]
+[node name="NinePatchRect" type="NinePatchRect" parent="GoToNextScene"]
 modulate = Color(1, 1, 1, 0.7058824)
 z_index = -1
 offset_left = -29.0
@@ -98,7 +92,7 @@ patch_margin_left = 1
 axis_stretch_horizontal = 2
 axis_stretch_vertical = 2
 
-[node name="StartText" type="Label" parent="GoToLevelThree"]
+[node name="StartText" type="Label" parent="GoToNextScene"]
 offset_left = -23.0
 offset_top = -51.0
 offset_right = 8.0
@@ -163,22 +157,3 @@ script = ExtResource("18_n4px6")
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/FirstLayer"]
 texture = ExtResource("19_hacvj")
-
-[node name="borders2" type="StaticBody2D" parent="."]
-position = Vector2(1200, 0.5)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="borders2"]
-position = Vector2(0.5, -75)
-shape = SubResource("RectangleShape2D_24q4t")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="borders2"]
-position = Vector2(0, 75)
-shape = SubResource("RectangleShape2D_24q4t")
-
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="borders2"]
-position = Vector2(-125, 0)
-shape = SubResource("RectangleShape2D_cfl3l")
-
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="borders2"]
-position = Vector2(126, 0)
-shape = SubResource("RectangleShape2D_cfl3l")

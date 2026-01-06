@@ -12,10 +12,6 @@ extends Node2D
 # from wherever they are standing when the transition starts.
 @export var player_target_x: float = 200.0
 
-
-@export var fly_in_time: float = 1.0
-@export var fly_in_offset: Vector2 = Vector2(-200, 0)
-
 # In this scene the Camera2D is a direct child of the root
 @onready var camera: Camera2D = $Camera2D
 
@@ -25,32 +21,6 @@ func _ready() -> void:
 	# Match viewport clear color to the game background to avoid grey flashes
 	# when switching between scenes.
 	RenderingServer.set_default_clear_color(Color(0.8804394, 0.832393, 0.8549745, 1.0))
-	call_deferred("_init_players")
-
-func _init_players() -> void:
-	var players := get_tree().get_nodes_in_group("players")
-	if players.is_empty():
-		return
-
-	var tween := create_tween()
-	tween.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-
-	for p in players:
-		if "set_controls_enabled" in p:
-			p.set_controls_enabled(false)
-		var node2d := p as Node2D
-		var target_pos: Vector2 = node2d.global_position
-		var start_pos: Vector2 = target_pos + fly_in_offset
-		node2d.global_position = start_pos
-		tween.tween_property(node2d, "global_position", target_pos, fly_in_time)
-
-	tween.finished.connect(_on_fly_in_finished)
-
-func _on_fly_in_finished() -> void:
-	for p in get_tree().get_nodes_in_group("players"):
-		if "set_controls_enabled" in p:
-			p.set_controls_enabled(true)
-
 
 func go_to_tutorial() -> void:
 	if _flying_to_tutorial:
