@@ -171,7 +171,7 @@ autowrap_mode = 2
 [node name="Ado" parent="." instance=ExtResource("19_ur6of")]
 position = Vector2(641, -1)
 bullet_scene = ExtResource("21_46i22")
-max_health = 300.0
+max_health = 200.0
 
 [node name="AdoPositionNodes" type="Node2D" parent="."]
 

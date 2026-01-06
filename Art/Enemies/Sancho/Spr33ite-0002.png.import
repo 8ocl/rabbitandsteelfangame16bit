@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dha8tm57yldc2"
-path="res://.godot/imported/Untitled_222222Artwork.png-7937c44e2c91b9415310b85ef6761273.ctex"
+uid="uid://b0na1glf2gn76"
+path="res://.godot/imported/Spr33ite-0002.png-2507100ebaa4ac9ab66cf8294e2df85b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/Enemies/Sancho/Untitled_222222Artwork.png"
-dest_files=["res://.godot/imported/Untitled_222222Artwork.png-7937c44e2c91b9415310b85ef6761273.ctex"]
+source_file="res://Art/Enemies/Sancho/Spr33ite-0002.png"
+dest_files=["res://.godot/imported/Spr33ite-0002.png-2507100ebaa4ac9ab66cf8294e2df85b.ctex"]
 
 [params]
 

@@ -1,11 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://bda41euegdlsr"]
+[gd_scene load_steps=13 format=3 uid="uid://bda41euegdlsr"]
 
 [ext_resource type="Script" uid="uid://cwlsccodj56m6" path="res://Scripts/enemies/ado_boss.gd" id="1_the4k"]
 [ext_resource type="Texture2D" uid="uid://c0ygqf1dckykq" path="res://Art/Other/32/InnerRing32.png" id="2_mvhap"]
 [ext_resource type="Texture2D" uid="uid://8m0nciqcan1b" path="res://Art/Other/32/OuterRing32.png" id="3_6b0jg"]
-[ext_resource type="Texture2D" uid="uid://cjd6tjiroe4ws" path="res://Art/Players/Miku/MikuFly.png" id="4_h70yl"]
 [ext_resource type="Texture2D" uid="uid://bgkwbd5nemov4" path="res://Art/Enemies/Ado/RenewedArt.png" id="5_the4k"]
-[ext_resource type="Texture2D" uid="uid://dfcpn6prybu28" path="res://icon.svg" id="6_458cq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m6fig"]
 
@@ -37,14 +35,6 @@ region = Rect2(80, 0, 16, 16)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("4_h70yl")
-}],
-"loop": true,
-"name": &"BossAttack",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_mvhap")
 }, {
 "duration": 1.0,
@@ -64,15 +54,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"BossIdle",
-"speed": 10.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("6_458cq")
-}],
-"loop": true,
-"name": &"BossWindUp",
-"speed": 5.0
+"speed": 12.0
 }]
 
 [node name="Ado" type="CharacterBody2D"]
@@ -102,6 +84,6 @@ tint_progress = Color(0.30804798, 0.30350778, 1, 0.78039217)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_e15c7")
 animation = &"BossIdle"
-frame_progress = 0.5700818
+frame_progress = 0.7903677
 
 [node name="BulletSpawnPoint" type="Node2D" parent="."]

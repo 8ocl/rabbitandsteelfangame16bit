@@ -1,13 +1,11 @@
-[gd_scene load_steps=30 format=3 uid="uid://dmv8quj68ks0a"]
+[gd_scene load_steps=28 format=3 uid="uid://dmv8quj68ks0a"]
 
 [ext_resource type="Script" uid="uid://bpvfck4i2rcwm" path="res://Scripts/player_2.gd" id="1_4yyua"]
 [ext_resource type="Texture2D" uid="uid://vr3asskx80p5" path="res://Art/Players/Teto/TetoDrill.png" id="2_xwe8u"]
 [ext_resource type="Texture2D" uid="uid://cjd6tjiroe4ws" path="res://Art/Players/Miku/MikuFly.png" id="3_gyfev"]
 [ext_resource type="Texture2D" uid="uid://b8eyl5j7aib1b" path="res://Art/Players/Cooldown.png" id="3_js14x"]
 [ext_resource type="Texture2D" uid="uid://dofswc7ip2s48" path="res://Art/Players/Miku/MikuIdle.png" id="4_dwbop"]
-[ext_resource type="Texture2D" uid="uid://cmx63747lgval" path="res://Art/Players/Teto/TetoPear.png" id="4_p2j4v"]
 [ext_resource type="Texture2D" uid="uid://cj6iucid0n2br" path="res://Art/Other/Arrow.png" id="5_1dc8i"]
-[ext_resource type="Texture2D" uid="uid://d0pcwusbot6vx" path="res://Art/Players/Teto/TetoSpecial.png" id="5_k5yn2"]
 [ext_resource type="Texture2D" uid="uid://cwgbx4qxup2ox" path="res://Art/Players/Teto/TetoUJlt.png" id="6_j3lpk"]
 [ext_resource type="Texture2D" uid="uid://byi2vegh55cwr" path="res://Art/Other/CooldownRing.png" id="6_xwe8u"]
 
@@ -172,61 +170,6 @@ secondary_cooldown = 2.0
 special_cooldown = 5.0
 defensive_cooldown = 10.0
 
-[node name="UI" type="Node2D" parent="."]
-position = Vector2(13, -11)
-scale = Vector2(0.82, 0.82)
-
-[node name="Primary" type="Sprite2D" parent="UI"]
-texture = ExtResource("2_xwe8u")
-
-[node name="PrimaryCooldown" type="TextureProgressBar" parent="UI/Primary"]
-offset_left = -3.6585367
-offset_top = -3.6585367
-offset_right = 4.341463
-offset_bottom = 4.341463
-max_value = 8.0
-value = 8.0
-texture_progress = ExtResource("3_js14x")
-
-[node name="Secondary" type="Sprite2D" parent="UI"]
-position = Vector2(0, 9)
-texture = ExtResource("4_p2j4v")
-
-[node name="SecondaryCooldown" type="TextureProgressBar" parent="UI/Secondary"]
-offset_left = -3.6585367
-offset_top = -3.6585367
-offset_right = 4.341463
-offset_bottom = 4.341463
-max_value = 8.0
-value = 8.0
-texture_progress = ExtResource("3_js14x")
-
-[node name="Special" type="Sprite2D" parent="UI"]
-position = Vector2(0, 18)
-texture = ExtResource("5_k5yn2")
-
-[node name="SpecialCooldown" type="TextureProgressBar" parent="UI/Special"]
-offset_left = -3.6585367
-offset_top = -3.6585367
-offset_right = 4.341463
-offset_bottom = 4.341463
-max_value = 8.0
-value = 8.0
-texture_progress = ExtResource("3_js14x")
-
-[node name="Defensive" type="Sprite2D" parent="UI"]
-position = Vector2(0, 27)
-texture = ExtResource("6_j3lpk")
-
-[node name="DefensiveCooldown" type="TextureProgressBar" parent="UI/Defensive"]
-offset_left = -3.6585367
-offset_top = -3.6585367
-offset_right = 4.341463
-offset_bottom = 4.341463
-max_value = 8.0
-value = 8.0
-texture_progress = ExtResource("3_js14x")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_uu7dt")
@@ -249,3 +192,33 @@ texture = ExtResource("5_1dc8i")
 [node name="AttackRingCooldown" type="AnimatedSprite2D" parent="."]
 modulate = Color(0, 0.82318497, 0.92714095, 0.50980395)
 sprite_frames = SubResource("SpriteFrames_p2j4v")
+
+[node name="UI" type="Node2D" parent="."]
+position = Vector2(13, -11)
+scale = Vector2(0.82, 0.82)
+
+[node name="Primary" type="Sprite2D" parent="UI"]
+position = Vector2(0, 8.536586)
+texture = ExtResource("2_xwe8u")
+
+[node name="PrimaryCooldown" type="TextureProgressBar" parent="UI/Primary"]
+offset_left = -3.6585367
+offset_top = -3.6585367
+offset_right = 4.341463
+offset_bottom = 4.341463
+max_value = 8.0
+value = 8.0
+texture_progress = ExtResource("3_js14x")
+
+[node name="Defensive" type="Sprite2D" parent="UI"]
+position = Vector2(0, 18.292683)
+texture = ExtResource("6_j3lpk")
+
+[node name="DefensiveCooldown" type="TextureProgressBar" parent="UI/Defensive"]
+offset_left = -3.6585367
+offset_top = -3.6585367
+offset_right = 4.341463
+offset_bottom = 4.341463
+max_value = 8.0
+value = 8.0
+texture_progress = ExtResource("3_js14x")

@@ -1,0 +1,184 @@
+[gd_scene load_steps=25 format=3 uid="uid://cvd46sruipbu2"]
+
+[ext_resource type="Script" uid="uid://bi3ccs8jxok16" path="res://Scripts/transition/sync_camera_from_meta.gd" id="1_53lbg"]
+[ext_resource type="PackedScene" uid="uid://brgksdlowkk3h" path="res://Scenes/ui/global_ui.tscn" id="2_4ehw6"]
+[ext_resource type="PackedScene" uid="uid://va8ld3cvsieq" path="res://Scenes/players/player_1.tscn" id="3_0wkhx"]
+[ext_resource type="PackedScene" uid="uid://de3k3vaikl23d" path="res://Scenes/projectile.tscn" id="4_7oktr"]
+[ext_resource type="PackedScene" uid="uid://dmv8quj68ks0a" path="res://Scenes/players/player_2.tscn" id="5_cxi6m"]
+[ext_resource type="Script" uid="uid://ccuc5ow7c1a5o" path="res://Scripts/start_game_area.gd" id="6_dknmk"]
+[ext_resource type="Texture2D" uid="uid://7yvjcb08ooll" path="res://Art/Other/Shadow.png" id="7_a26s1"]
+[ext_resource type="FontFile" uid="uid://dbxqf84atmdf5" path="res://Font/DotGothic16/DotGothic16-Regular.ttf" id="8_ih27m"]
+[ext_resource type="PackedScene" uid="uid://cnttea400lmhs" path="res://Scenes/lootbox/loot_box.tscn" id="9_3mlo5"]
+[ext_resource type="Script" uid="uid://dfmtfgukxvthw" path="res://Scripts/parallaxBackground/background.gd" id="10_qvatw"]
+[ext_resource type="Texture2D" uid="uid://rde76ysg48uf" path="res://Art/Background/BackgroundRemade.png" id="11_um2io"]
+[ext_resource type="Script" uid="uid://bl7h7x8jtndw6" path="res://Scripts/parallaxBackground/castle.gd" id="12_266jn"]
+[ext_resource type="Texture2D" uid="uid://evvgwwvyqkvc" path="res://Art/Background/Castle.png" id="13_rkdwb"]
+[ext_resource type="Script" uid="uid://gmhg2sw2id5x" path="res://Scripts/parallaxBackground/tree_looking.gd" id="14_2h6ag"]
+[ext_resource type="Texture2D" uid="uid://kx3pvrhajhlk" path="res://Art/Background/TreeLooking.png" id="15_xavde"]
+[ext_resource type="Script" uid="uid://bybl3a4ug8ig8" path="res://Scripts/parallaxBackground/spikes.gd" id="16_p71vf"]
+[ext_resource type="Texture2D" uid="uid://cmjx43syfmms1" path="res://Art/Background/Spikes.png" id="17_8vnwv"]
+[ext_resource type="Script" uid="uid://blx7k604nli1j" path="res://Scripts/parallaxBackground/first_layer.gd" id="18_n4px6"]
+[ext_resource type="Texture2D" uid="uid://b4rrnckawicaq" path="res://Art/Background/FirstLayer.png" id="19_hacvj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dt8mt"]
+size = Vector2(231, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2amaq"]
+size = Vector2(20, 170)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pkkuq"]
+size = Vector2(39, 130)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_24q4t"]
+size = Vector2(231, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cfl3l"]
+size = Vector2(20, 170)
+
+[node name="fourthlevel" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(5, 5)
+script = ExtResource("1_53lbg")
+
+[node name="GlobalUI" parent="Camera2D" instance=ExtResource("2_4ehw6")]
+
+[node name="borders" type="StaticBody2D" parent="."]
+position = Vector2(1489, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="borders"]
+position = Vector2(0.5, -75)
+shape = SubResource("RectangleShape2D_dt8mt")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="borders"]
+position = Vector2(0, 75)
+shape = SubResource("RectangleShape2D_dt8mt")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="borders"]
+position = Vector2(-125, 0)
+shape = SubResource("RectangleShape2D_2amaq")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="borders"]
+position = Vector2(126, 0)
+shape = SubResource("RectangleShape2D_2amaq")
+
+[node name="players" type="Node2D" parent="."]
+
+[node name="player1" parent="players" instance=ExtResource("3_0wkhx")]
+position = Vector2(-95, -16)
+motion_mode = 1
+projectile_scene = ExtResource("4_7oktr")
+
+[node name="player2" parent="players" instance=ExtResource("5_cxi6m")]
+position = Vector2(-95, 16)
+projectile_scene = ExtResource("4_7oktr")
+
+[node name="GoToLevelThree" type="Area2D" parent="."]
+position = Vector2(1595, 0)
+collision_mask = 2
+script = ExtResource("6_dknmk")
+next_scene_path = "uid://ckko34uixyy73"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GoToLevelThree"]
+visible = false
+position = Vector2(-9.5, 0)
+shape = SubResource("RectangleShape2D_pkkuq")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="GoToLevelThree"]
+modulate = Color(1, 1, 1, 0.7058824)
+z_index = -1
+offset_left = -29.0
+offset_top = -67.99999
+offset_right = 11.0
+offset_bottom = 63.000008
+scale = Vector2(1, 1.0399995)
+texture = ExtResource("7_a26s1")
+region_rect = Rect2(0, 9, 354, 85)
+patch_margin_left = 1
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="StartText" type="Label" parent="GoToLevelThree"]
+offset_left = -23.0
+offset_top = -51.0
+offset_right = 8.0
+offset_bottom = -32.0
+theme_override_fonts/font = ExtResource("8_ih27m")
+theme_override_font_sizes/font_size = 12
+text = "0/2"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="LootBox" parent="." instance=ExtResource("9_3mlo5")]
+position = Vector2(1521, 0)
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="Background" type="ParallaxLayer" parent="ParallaxBackground"]
+modulate = Color(0.8804394, 0.832393, 0.8549745, 1)
+texture_repeat = 2
+position = Vector2(199, 0)
+motion_mirroring = Vector2(640, 0)
+script = ExtResource("10_qvatw")
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Background"]
+texture = ExtResource("11_um2io")
+
+[node name="Castle" type="ParallaxLayer" parent="ParallaxBackground"]
+modulate = Color(0.8804394, 0.832393, 0.8549745, 1)
+texture_repeat = 2
+position = Vector2(199, 0)
+motion_mirroring = Vector2(640, 0)
+script = ExtResource("12_266jn")
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Castle"]
+texture = ExtResource("13_rkdwb")
+
+[node name="TreeLooking" type="ParallaxLayer" parent="ParallaxBackground"]
+modulate = Color(0.8804394, 0.832393, 0.8549745, 1)
+texture_repeat = 2
+position = Vector2(199, 0)
+motion_mirroring = Vector2(640, 0)
+script = ExtResource("14_2h6ag")
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/TreeLooking"]
+texture = ExtResource("15_xavde")
+
+[node name="Spikes" type="ParallaxLayer" parent="ParallaxBackground"]
+modulate = Color(0.8804394, 0.832393, 0.8549745, 1)
+texture_repeat = 2
+position = Vector2(199, 0)
+motion_mirroring = Vector2(640, 0)
+script = ExtResource("16_p71vf")
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Spikes"]
+texture = ExtResource("17_8vnwv")
+
+[node name="FirstLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+modulate = Color(0.8804394, 0.832393, 0.8549745, 1)
+texture_repeat = 2
+position = Vector2(199, 0)
+motion_mirroring = Vector2(640, 0)
+script = ExtResource("18_n4px6")
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/FirstLayer"]
+texture = ExtResource("19_hacvj")
+
+[node name="borders2" type="StaticBody2D" parent="."]
+position = Vector2(1200, 0.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="borders2"]
+position = Vector2(0.5, -75)
+shape = SubResource("RectangleShape2D_24q4t")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="borders2"]
+position = Vector2(0, 75)
+shape = SubResource("RectangleShape2D_24q4t")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="borders2"]
+position = Vector2(-125, 0)
+shape = SubResource("RectangleShape2D_cfl3l")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="borders2"]
+position = Vector2(126, 0)
+shape = SubResource("RectangleShape2D_cfl3l")

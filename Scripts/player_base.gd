@@ -142,14 +142,6 @@ func _handle_actions() -> void:
 	if Input.is_action_pressed(prefix + "primary_action") and can_primary and can_cast:
 		primary_action()
 
-	# Secondary action - placeholder
-	if Input.is_action_just_pressed(prefix + "secondary_action") and can_secondary and can_cast:
-		secondary_action()
-
-	# Special action - placeholder
-	if Input.is_action_just_pressed(prefix + "special_action") and can_special and can_cast:
-		special_action()
-
 	# Defensive action - hold to keep active
 	if Input.is_action_pressed(prefix + "defensive_action") and can_defensive and can_cast:
 		defensive_action()

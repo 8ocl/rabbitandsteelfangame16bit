@@ -1,7 +1,7 @@
 [gd_scene load_steps=27 format=3 uid="uid://c1v31xnafou7u"]
 
 [ext_resource type="PackedScene" uid="uid://va8ld3cvsieq" path="res://Scenes/players/player_1.tscn" id="1_e66bb"]
-[ext_resource type="Script" uid="uid://fi7gj0p7xtl1" path="res://Scripts/transition/spawn.gd" id="1_n6nb1"]
+[ext_resource type="Script" uid="uid://bwpxl5gsj6dl4" path="res://Scripts/transition/fly_in_scene.gd" id="1_ucbsa"]
 [ext_resource type="PackedScene" uid="uid://dmv8quj68ks0a" path="res://Scenes/players/player_2.tscn" id="2_akeoe"]
 [ext_resource type="PackedScene" uid="uid://de3k3vaikl23d" path="res://Scenes/projectile.tscn" id="2_g1tsu"]
 [ext_resource type="Texture2D" uid="uid://rde76ysg48uf" path="res://Art/Background/BackgroundRemade.png" id="3_n6nb1"]
@@ -46,9 +46,9 @@ size = Vector2(231, 20)
 size = Vector2(20, 170)
 
 [node name="spawn" type="Node2D"]
-script = ExtResource("1_n6nb1")
-tutorial_scene_path = "uid://0j01jdsvep1u"
-fly_offset = Vector2(300, 0)
+script = ExtResource("1_ucbsa")
+fly_in_time = 0.5
+player_target_x = 300.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(5, 5)
@@ -103,12 +103,13 @@ script = ExtResource("18_d0e7t")
 texture = ExtResource("14_rsbfg")
 
 [node name="player1" parent="." instance=ExtResource("1_e66bb")]
-position = Vector2(14, -33)
+position = Vector2(-149, -22)
 motion_mode = 1
 acceleration = 1000.0
 projectile_scene = ExtResource("2_g1tsu")
 
 [node name="player2" parent="." instance=ExtResource("2_akeoe")]
+position = Vector2(-149, 11)
 acceleration = 1000.0
 projectile_scene = ExtResource("2_g1tsu")
 
@@ -178,3 +179,26 @@ shape = SubResource("RectangleShape2D_rav82")
 [node name="LootBox" parent="." instance=ExtResource("21_ucbsa")]
 position = Vector2(330, 0)
 script = null
+
+[node name="StartText" type="Label" parent="."]
+offset_left = -117.0
+offset_top = -62.0
+offset_right = -23.0
+offset_bottom = -23.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.27058825)
+theme_override_fonts/font = ExtResource("8_8fg1o")
+theme_override_font_sizes/font_size = 12
+text = "Player 1: WASD, Z, X"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="StartText2" type="Label" parent="."]
+offset_left = -117.0
+offset_right = -23.0
+offset_bottom = 39.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.27058825)
+theme_override_fonts/font = ExtResource("8_8fg1o")
+theme_override_font_sizes/font_size = 12
+text = "Player 2: IJKL, N, M"
+horizontal_alignment = 1
+autowrap_mode = 2

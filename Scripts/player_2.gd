@@ -1,8 +1,6 @@
 extends PlayerBase
 
 @onready var primary_cooldown_ui: TextureProgressBar = $UI/Primary/PrimaryCooldown
-@onready var secondary_cooldown_ui: TextureProgressBar = $UI/Secondary/SecondaryCooldown
-@onready var special_cooldown_ui: TextureProgressBar = $UI/Special/SpecialCooldown
 @onready var defensive_cooldown_ui: TextureProgressBar = $UI/Defensive/DefensiveCooldown
 
 var primary_cooldown_timer: Timer
@@ -37,10 +35,6 @@ func _physics_process(delta: float) -> void:
 func _update_cooldown_ui() -> void:
 	if primary_cooldown > 0:
 		primary_cooldown_ui.value = primary_cooldown_timer.time_left / primary_cooldown * primary_cooldown_ui.max_value
-	if secondary_cooldown > 0:
-		secondary_cooldown_ui.value = secondary_cooldown_timer.time_left / secondary_cooldown * secondary_cooldown_ui.max_value
-	if special_cooldown > 0:
-		special_cooldown_ui.value = special_cooldown_timer.time_left / special_cooldown * special_cooldown_ui.max_value
 	if defensive_cooldown > 0:
 		defensive_cooldown_ui.value = defensive_cooldown_timer.time_left / defensive_cooldown * defensive_cooldown_ui.max_value
 

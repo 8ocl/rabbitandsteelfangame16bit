@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://cl0pmh6dk6r1g"]
+[gd_scene load_steps=26 format=3 uid="uid://cl0pmh6dk6r1g"]
 
 [ext_resource type="Texture2D" uid="uid://7yvjcb08ooll" path="res://Art/Other/Shadow.png" id="1_fvi8e"]
 [ext_resource type="Script" uid="uid://bwpxl5gsj6dl4" path="res://Scripts/transition/fly_in_scene.gd" id="1_ob7yv"]
@@ -20,6 +20,8 @@
 [ext_resource type="Script" uid="uid://ccuc5ow7c1a5o" path="res://Scripts/start_game_area.gd" id="17_r2dmx"]
 [ext_resource type="FontFile" uid="uid://dbxqf84atmdf5" path="res://Font/DotGothic16/DotGothic16-Regular.ttf" id="18_au36t"]
 [ext_resource type="PackedScene" uid="uid://cjtgu1fy3i4pr" path="res://Scenes/enemies/Sancho/sancho.tscn" id="19_ix33b"]
+[ext_resource type="Script" uid="uid://dxqen6naulytg" path="res://Scripts/enemies/sancho_boss.gd" id="21_t2cvv"]
+[ext_resource type="PackedScene" uid="uid://daoldt8sd8a46" path="res://Scenes/enemies/Sancho/arrow_sancho.tscn" id="22_t2cvv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kjpv7"]
 size = Vector2(231, 20)
@@ -34,9 +36,9 @@ size = Vector2(39, 130)
 script = ExtResource("1_ob7yv")
 
 [node name="Shadow" type="Sprite2D" parent="."]
-visible = false
+modulate = Color(1, 0.6770114, 0.6694553, 1)
 z_index = -3
-position = Vector2(600, 1)
+position = Vector2(1201, 1.5)
 scale = Vector2(0.78378373, 1.8037384)
 texture = ExtResource("1_fvi8e")
 
@@ -48,7 +50,7 @@ script = ExtResource("2_ob7yv")
 [node name="GlobalUI" parent="Camera2D" instance=ExtResource("3_t2cvv")]
 
 [node name="borders" type="StaticBody2D" parent="."]
-position = Vector2(1190, 0)
+position = Vector2(1200, 0.5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="borders"]
 position = Vector2(0.5, -75)
@@ -130,18 +132,18 @@ script = ExtResource("15_6gb5p")
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/FirstLayer"]
 texture = ExtResource("16_6owqs")
 
-[node name="GoToLevelTwo" type="Area2D" parent="."]
-position = Vector2(1296, 0)
+[node name="GoToLevelFour" type="Area2D" parent="."]
+position = Vector2(1306, 0.5)
 collision_mask = 2
 script = ExtResource("17_r2dmx")
 next_scene_path = "uid://bbpg7sn8vacji"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GoToLevelTwo"]
-visible = false
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GoToLevelFour"]
 position = Vector2(-9.5, 0)
 shape = SubResource("RectangleShape2D_6ktfe")
+disabled = true
 
-[node name="NinePatchRect" type="NinePatchRect" parent="GoToLevelTwo"]
+[node name="NinePatchRect" type="NinePatchRect" parent="GoToLevelFour"]
 modulate = Color(1, 1, 1, 0.7058824)
 z_index = -1
 offset_left = -29.0
@@ -155,7 +157,7 @@ patch_margin_left = 1
 axis_stretch_horizontal = 2
 axis_stretch_vertical = 2
 
-[node name="StartText" type="Label" parent="GoToLevelTwo"]
+[node name="StartText" type="Label" parent="GoToLevelFour"]
 offset_left = -23.0
 offset_top = -51.0
 offset_right = 8.0
@@ -166,17 +168,22 @@ text = "0/2"
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="AdoPositionNodes" type="Node2D" parent="."]
-position = Vector2(589, 0)
+[node name="SanchoPositionNodes" type="Node2D" parent="."]
+position = Vector2(599, 0.5)
 
-[node name="Position1" type="Node2D" parent="AdoPositionNodes"]
+[node name="Position1" type="Node2D" parent="SanchoPositionNodes"]
 position = Vector2(534, 38)
 
-[node name="Position2" type="Node2D" parent="AdoPositionNodes"]
+[node name="Position2" type="Node2D" parent="SanchoPositionNodes"]
 position = Vector2(516, -2)
 
-[node name="Position3" type="Node2D" parent="AdoPositionNodes"]
+[node name="Position3" type="Node2D" parent="SanchoPositionNodes"]
 position = Vector2(687, 0)
 
 [node name="Sancho" parent="." instance=ExtResource("19_ix33b")]
-position = Vector2(1239, -1)
+position = Vector2(1249, -0.5)
+script = ExtResource("21_t2cvv")
+move_delay = 2.0
+position_move_time = 1.0
+time_between_positions = 2.0
+small_bullet_scene = ExtResource("22_t2cvv")

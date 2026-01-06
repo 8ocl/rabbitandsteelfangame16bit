@@ -1,14 +1,12 @@
-[gd_scene load_steps=30 format=3 uid="uid://va8ld3cvsieq"]
+[gd_scene load_steps=28 format=3 uid="uid://va8ld3cvsieq"]
 
 [ext_resource type="Script" uid="uid://c5wl6x6cwibvj" path="res://Scripts/player_1.gd" id="1_qjs5k"]
 [ext_resource type="Texture2D" uid="uid://c63deac2df610" path="res://Art/Players/Teto/TetoFly.png" id="3_uonug"]
 [ext_resource type="Texture2D" uid="uid://vr3asskx80p5" path="res://Art/Players/Teto/TetoDrill.png" id="3_ykwvr"]
-[ext_resource type="Texture2D" uid="uid://cmx63747lgval" path="res://Art/Players/Teto/TetoPear.png" id="4_1c1q0"]
 [ext_resource type="Texture2D" uid="uid://bo4pygxxrwpug" path="res://Art/Players/Teto/TetoIdle.png" id="4_8514p"]
 [ext_resource type="Texture2D" uid="uid://b8eyl5j7aib1b" path="res://Art/Players/Cooldown.png" id="4_jksh3"]
 [ext_resource type="Texture2D" uid="uid://cwgbx4qxup2ox" path="res://Art/Players/Teto/TetoUJlt.png" id="4_ykwvr"]
 [ext_resource type="Texture2D" uid="uid://cj6iucid0n2br" path="res://Art/Other/Arrow.png" id="5_8514p"]
-[ext_resource type="Texture2D" uid="uid://d0pcwusbot6vx" path="res://Art/Players/Teto/TetoSpecial.png" id="5_vnnvq"]
 [ext_resource type="Texture2D" uid="uid://byi2vegh55cwr" path="res://Art/Other/CooldownRing.png" id="6_nsvye"]
 [ext_resource type="PackedScene" uid="uid://c01h2e6ncre6t" path="res://Scenes/invincible_orb.tscn" id="7_invicible_orb"]
 
@@ -164,6 +162,7 @@ position = Vector2(13, -11)
 scale = Vector2(0.82, 0.82)
 
 [node name="Primary" type="Sprite2D" parent="UI"]
+position = Vector2(0, 8.536586)
 texture = ExtResource("3_ykwvr")
 
 [node name="PrimaryCooldown" type="TextureProgressBar" parent="UI/Primary"]
@@ -175,34 +174,8 @@ max_value = 8.0
 value = 8.0
 texture_progress = ExtResource("4_jksh3")
 
-[node name="Secondary" type="Sprite2D" parent="UI"]
-position = Vector2(0, 9)
-texture = ExtResource("4_1c1q0")
-
-[node name="SecondaryCooldown" type="TextureProgressBar" parent="UI/Secondary"]
-offset_left = -3.6585367
-offset_top = -3.6585367
-offset_right = 4.341463
-offset_bottom = 4.341463
-max_value = 8.0
-value = 8.0
-texture_progress = ExtResource("4_jksh3")
-
-[node name="Special" type="Sprite2D" parent="UI"]
-position = Vector2(0, 18)
-texture = ExtResource("5_vnnvq")
-
-[node name="SpecialCooldown" type="TextureProgressBar" parent="UI/Special"]
-offset_left = -3.6585367
-offset_top = -3.6585367
-offset_right = 4.341463
-offset_bottom = 4.341463
-max_value = 8.0
-value = 8.0
-texture_progress = ExtResource("4_jksh3")
-
 [node name="Defensive" type="Sprite2D" parent="UI"]
-position = Vector2(0, 27)
+position = Vector2(0, 18.292683)
 texture = ExtResource("4_ykwvr")
 
 [node name="DefensiveCooldown" type="TextureProgressBar" parent="UI/Defensive"]
