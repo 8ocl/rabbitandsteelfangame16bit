@@ -1,21 +1,50 @@
-[gd_scene load_steps=8 format=3 uid="uid://7tge47rfxsg1"]
+[gd_scene load_steps=11 format=3 uid="uid://7tge47rfxsg1"]
 
-[ext_resource type="Texture2D" uid="uid://kdrwts0yemdh" path="res://Art/temporary/Sprite-0001.png" id="1_m6uer"]
+[ext_resource type="Texture2D" uid="uid://dkrcw47ub884j" path="res://Art/Other/StartMenu/Untitled_Araatwork.png" id="1_lfskg"]
+[ext_resource type="Texture2D" uid="uid://trav14dhwfq" path="res://Art/Other/StartMenu/Adobe Express - file.png" id="2_77ila"]
 [ext_resource type="FontFile" uid="uid://dbxqf84atmdf5" path="res://Font/DotGothic16/DotGothic16-Regular.ttf" id="2_a43kq"]
-[ext_resource type="Texture2D" uid="uid://7yvjcb08ooll" path="res://Art/Other/Shadow.png" id="3_626he"]
-[ext_resource type="PackedScene" uid="uid://c1v31xnafou7u" path="res://Scenes/spawn.tscn" id="4_spawn_scene"]
-[ext_resource type="Script" uid="uid://rmpwlh5ptayd" path="res://Scripts/ui_start_button.gd" id="5_start_button"]
-[ext_resource type="Script" uid="uid://bn5djg81nrphw" path="res://Scripts/ui_settings_button.gd" id="6_settings_button"]
-[ext_resource type="Script" uid="uid://bgchi17t0o33a" path="res://Scripts/ui_quit_button.gd" id="7_quit_button"]
+[ext_resource type="Texture2D" uid="uid://tvkvqmtb6gh5" path="res://Art/Other/StartMenu/Adobe Express - file (1).png" id="3_ru7em"]
+[ext_resource type="Texture2D" uid="uid://7yvjcb08ooll" path="res://Art/Other/Shadow.png" id="4_626he"]
+[ext_resource type="PackedScene" uid="uid://c1v31xnafou7u" path="res://Scenes/spawn.tscn" id="5_spawn_scene"]
+[ext_resource type="Script" uid="uid://rmpwlh5ptayd" path="res://Scripts/ui_start_button.gd" id="6_start_button"]
+[ext_resource type="Script" uid="uid://bn5djg81nrphw" path="res://Scripts/ui_settings_button.gd" id="7_settings_button"]
+[ext_resource type="Script" uid="uid://bgchi17t0o33a" path="res://Scripts/ui_quit_button.gd" id="8_quit_button"]
+[ext_resource type="Script" uid="uid://h8lbqc03odbi" path="res://Scripts/start_ui.gd" id="9_start_ui"]
 
 [node name="StartUI" type="Node2D"]
+script = ExtResource("9_start_ui")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(5, 5)
+[node name="RainingSprites" type="CPUParticles2D" parent="."]
+position = Vector2(0, -100)
+scale = Vector2(0.2, 0.2)
+amount = 100
+texture = ExtResource("2_77ila")
+lifetime = 2.26
+preprocess = 5.0
+speed_scale = 0.5
+emission_shape = 3
+emission_rect_extents = Vector2(600, 0.2)
+direction = Vector2(0, 1)
+spread = 10.0
+gravity = Vector2(0, 100)
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
+angular_velocity_min = -293.59
+angular_velocity_max = 209.71
+scale_amount_min = 0.0
+scale_amount_max = 0.01
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Background" type="Sprite2D" parent="."]
+z_index = -1
 texture_filter = 1
-texture = ExtResource("1_m6uer")
+scale = Vector2(0.115, 0.115)
+texture = ExtResource("1_lfskg")
+
+[node name="Teto" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-17.999998, 0)
+scale = Vector2(0.085, 0.085)
+texture = ExtResource("3_ru7em")
 
 [node name="MenuText" type="Label" parent="."]
 offset_left = -27.0
@@ -34,7 +63,7 @@ autowrap_mode = 2
 modulate = Color(1, 1, 1, 0.91764706)
 position = Vector2(66.25, -9.824999)
 scale = Vector2(0.16891892, 0.2462617)
-texture = ExtResource("3_626he")
+texture = ExtResource("4_626he")
 
 [node name="StartText" type="Label" parent="Buttons"]
 offset_left = 51.0
@@ -52,14 +81,14 @@ offset_left = 35.0
 offset_top = -23.0
 offset_right = 97.0
 offset_bottom = 3.0
-script = ExtResource("5_start_button")
-game_scene = ExtResource("4_spawn_scene")
+script = ExtResource("6_start_button")
+game_scene = ExtResource("5_spawn_scene")
 
 [node name="SettingsBackground" type="Sprite2D" parent="Buttons"]
 modulate = Color(1, 1, 1, 0.91764706)
 position = Vector2(62.5, 19.35)
 scale = Vector2(0.16486487, 0.19345795)
-texture = ExtResource("3_626he")
+texture = ExtResource("4_626he")
 
 [node name="SettingsText" type="Label" parent="Buttons"]
 offset_left = 38.5
@@ -78,13 +107,13 @@ offset_left = 32.0
 offset_top = 9.0
 offset_right = 93.0
 offset_bottom = 30.0
-script = ExtResource("6_settings_button")
+script = ExtResource("7_settings_button")
 
 [node name="QuitGameBackground" type="Sprite2D" parent="Buttons"]
 modulate = Color(1, 1, 1, 0.91764706)
 position = Vector2(57.5, 46.35)
 scale = Vector2(0.16486487, 0.19345795)
-texture = ExtResource("3_626he")
+texture = ExtResource("4_626he")
 
 [node name="QuitGameText" type="Label" parent="Buttons"]
 offset_left = 30.5
@@ -103,4 +132,7 @@ offset_left = 27.0
 offset_top = 36.0
 offset_right = 88.0
 offset_bottom = 57.0
-script = ExtResource("7_quit_button")
+script = ExtResource("8_quit_button")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(5, 5)

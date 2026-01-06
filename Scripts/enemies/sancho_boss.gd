@@ -9,14 +9,11 @@ extends "res://Scripts/enemy_template.gd"
 @export var warning_slice_scene: PackedScene = preload("res://Scenes/enemies/Sancho/warning_slice.tscn")
 
 var _active_warning_areas: Array[Area2D] = []
-
 var _positions: Array[Node2D] = []
 var _current_index := 0
 var _is_dying := false
-
 var in_phase_two := false
 var _phase_two_running := false
-
 var _shadow: Sprite2D
 const _gravity := 400.0
 
@@ -30,7 +27,6 @@ func _ready() -> void:
 		_shadow.modulate.a = 0.0
 
 	call_deferred("_init_and_start_pattern")
-	_hide_go_to_level_two_gate()
 
 
 func _process(delta: float) -> void:
@@ -113,88 +109,149 @@ func _start_phase_two() -> void:
 
 
 func _phase_two_loop() -> void:
-	var level := get_tree().current_scene
+	var arena := get_tree().current_scene
+	var start_pos: Node2D = arena.get_node("StartingPositionForTransform")
+	var move_nodes_parent = arena.get_node("Phase2MovementNodes")
 
-	var start_pos: Node2D = level.get_node("StartingPositionForTransform")
-	var move_root: Node2D = level.get_node("Phase2MovementNodes")
-	var safe_root: Node2D = level.get_node("SafeSpots")
+	# Play transition animation when moving to start
+	if anim:
+		anim.play("BossTransition")
 
-	var move_nodes := move_root.get_children()
-	var safe_spots := safe_root.get_children()
+	await _tween_to(start_pos.global_position, 0.8)
+	await get_tree().create_timer(1.0).timeout
+
+	# Switch to looping Phase 2 animation
+	if anim:
+		anim.play("BossDidIt")
 
 	while is_instance_valid(self) and not _is_dying:
-		await _tween_to(start_pos.global_position, 0.8)
-		await get_tree().create_timer(1.0).timeout
-
+		# Fly up
 		await _tween_to(global_position + Vector2(0, -700), 0.6)
 		await get_tree().create_timer(1.0).timeout
 
-		var safe_spot: Node2D = safe_spots.pick_random()
+		# Spawn slices **await the coroutine**
+		var warnings = await _spawn_warning_rectangles()
 
-		var warnings := _spawn_warning_rectangles(safe_spot)
-		await get_tree().create_timer(1.0).timeout
-
-		_apply_slice_damage()
-		_flash_screen_red()
-
-		for w in warnings:
-			w.queue_free()
-
+		# Randomize and dash through slices
+		var move_nodes = move_nodes_parent.get_children()
+		move_nodes.shuffle()
 		for n in move_nodes:
 			await _tween_to(n.global_position, 0.06)
 
+		# Flash screen red to indicate the slash
+		_flash_screen_red()
+
+		# Now, apply damage to players within the slices
+		for w in warnings:
+			if not is_instance_valid(w):
+				continue
+			var area: Area2D = w
+			for body in area.get_overlapping_bodies():
+				if body.is_in_group("players") and body.has_method("apply_damage"):
+					body.apply_damage(1.0)
+
+		# Return to start
 		await _tween_to(start_pos.global_position, 0.8)
 		await get_tree().create_timer(2.0).timeout
 
 
-func _spawn_warning_rectangles(safe_spot: Node2D) -> Array:
+
+
+func _spawn_warning_rectangles() -> Array:
+	if not warning_slice_scene:
+		warning_slice_scene = preload("res://Scenes/enemies/Sancho/warning_slice.tscn")
+
 	var warnings: Array = []
 	_active_warning_areas.clear()
 
 	var viewport := get_viewport().get_visible_rect()
-	var safe_radius := 160.0
-	var safe_center := safe_spot.global_position
+	var safe_spots := get_tree().current_scene.get_node("SafeSpots").get_children()
+	var slice_count := 30
 
-	# Grid size for spawning slices
-	var cols := 8
-	var rows := 3
-	var x_step := viewport.size.x / cols
-	var y_step := viewport.size.y / rows
+	# Use the shadow sprite as the spawning area
+	var shadow_sprite := get_tree().current_scene.get_node_or_null("Shadow")
+	if not shadow_sprite:
+		push_error("Could not find Shadow sprite to define spawn area!")
+		return []
+	
+	var shadow_size: Vector2 = shadow_sprite.texture.get_size() * shadow_sprite.scale
+	var shadow_top_left: Vector2 = shadow_sprite.global_position - shadow_size / 2
+	var spawn_rect := Rect2(shadow_top_left, shadow_size)
 
-	for i in range(cols):
-		for j in range(rows):
-			var slice := warning_slice_scene.instantiate()
-			var sprite: Sprite2D = slice.get_node("Sprite2D")
-			var area: Area2D = slice.get_node("Area2D")
-			var shape: RectangleShape2D = area.get_node("CollisionShape2D").shape
 
-			var thickness := randf_range(6.0, 12.0)
-			var length := viewport.size.length() * 1.2
-			sprite.scale = Vector2(length, thickness)
-			sprite.modulate = Color(1, 0, 0, 0.7)
-			shape.size = Vector2(length, thickness)
+	for i in range(slice_count):
+		var slice = warning_slice_scene.instantiate()
+		
+		# Get AnimatedSprite2D
+		var sprite: AnimatedSprite2D = slice.get_node_or_null("AnimatedSprite2D")
+		if not sprite:
+			push_error("WarningSlice has no AnimatedSprite2D!")
+			continue
 
-			# Position slice with small random offset within the grid cell
-			var pos_x := i * x_step + randf_range(-x_step * 0.4, x_step * 0.4)
-			var pos_y := j * y_step + randf_range(-y_step * 0.4, y_step * 0.4)
-			slice.global_position = Vector2(pos_x, pos_y)
+		var area: Area2D = slice
+		if not area:
+			push_error("WarningSlice root is not an Area2D!")
+			continue
 
-			# Random rotation
-			slice.rotation = randf_range(0, TAU)
+		var shape_node := area.get_node_or_null("CollisionShape2D")
+		if not shape_node:
+			push_error("WarningSlice has no CollisionShape2D!")
+			slice.queue_free()
+			continue
+		var shape: RectangleShape2D = shape_node.shape
 
-			# Skip slice if it intersects safe spot
-			if slice.global_position.distance_to(safe_center) < safe_radius:
-				continue
+		# Make slices long and skinny
+		var thickness := randf_range(2.0, 5.0)
+		var length: float = get_viewport().get_visible_rect().size.length() * 1.2
+		var frame_texture = sprite.sprite_frames.get_frame_texture("default", 0)
+		if frame_texture:
+			sprite.scale = Vector2(length / frame_texture.get_width(), thickness / frame_texture.get_height())
+		else:
+			push_error("WarningSlice default animation has no texture!")
+			slice.queue_free()
+			continue
+		shape.size = Vector2(length, thickness)
 
-			get_tree().current_scene.add_child(slice)
-			warnings.append(slice)
-			_active_warning_areas.append(area)
+		# Random rotation
+		slice.rotation = randf_range(0, TAU)
 
-			# Fade in
-			sprite.modulate.a = 0.0
-			create_tween().tween_property(sprite, "modulate:a", 0.7, 0.2)
+		# Random position within the shadow sprite
+		var pos := Vector2(
+			randf_range(spawn_rect.position.x, spawn_rect.end.x),
+			randf_range(spawn_rect.position.y, spawn_rect.end.y)
+		)
+		slice.global_position = pos
+
+		# Skip slice if too close to a safe spot
+		var safe := false
+		for s in safe_spots:
+			if slice.global_position.distance_to(s.global_position) < 100:
+				safe = true
+				break
+		if safe:
+			slice.queue_free()
+			continue
+
+		get_tree().current_scene.add_child(slice)
+		warnings.append(slice)
+		_active_warning_areas.append(area)
+
+		# Fade in animation, wait, and fade out
+		sprite.modulate.a = 0.0
+		var life_tween := create_tween()
+		life_tween.tween_property(sprite, "modulate:a", 0.7, 0.25)
+		life_tween.tween_interval(1.5) # Time for player to react
+		life_tween.tween_property(sprite, "modulate:a", 0.0, 0.25)
+		life_tween.tween_callback(slice.queue_free)
+
+	# Wait a bit before boss slices through
+	await get_tree().create_timer(1.0).timeout
 
 	return warnings
+
+
+
+
 
 
 func _tween_to(pos: Vector2, time: float) -> void:
@@ -221,8 +278,6 @@ func _die() -> void:
 	if _shadow:
 		create_tween().tween_property(_shadow, "modulate:a", 0.0, 1.0)
 
-	_show_go_to_level_two_gate()
-
 
 func _physics_process(delta: float) -> void:
 	if _is_dying:
@@ -230,32 +285,9 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 
 
-func _hide_go_to_level_two_gate() -> void:
-	var gate := get_tree().current_scene.get_node_or_null("GoToLevelFour")
-	if gate:
-		gate.visible = false
-		gate.get_node("CollisionShape2D").disabled = true
-
-
-func _show_go_to_level_two_gate() -> void:
-	var gate := get_tree().current_scene.get_node_or_null("GoToLevelFour")
-	if gate:
-		gate.visible = true
-		gate.get_node("CollisionShape2D").disabled = false
-
-
-func _apply_slice_damage():
-	var players := get_tree().get_nodes_in_group("players")
-	for area in _active_warning_areas:
-		for body in area.get_overlapping_bodies():
-			if body in players:
-				if body.has_method("take_damage"):
-					body.take_damage(1)
-
-
 func _flash_screen_red():
 	var layer := CanvasLayer.new()
-	layer.layer = 100  # Always on top
+	layer.layer = 100
 	get_tree().current_scene.add_child(layer)
 
 	var rect := ColorRect.new()
@@ -265,6 +297,9 @@ func _flash_screen_red():
 	layer.add_child(rect)
 
 	var tween := create_tween()
-	tween.tween_property(rect, "modulate:a", 0.45, 0.25)
-	tween.tween_property(rect, "modulate:a", 0.0, 0.25)
-	tween.finished.connect(func(): layer.queue_free())
+	tween.tween_property(rect, "modulate:a", 0.6, 0.5)
+	tween.tween_property(rect, "modulate:a", 0.0, 0.5)
+
+	tween.finished.connect(func():
+		layer.queue_free()
+	)

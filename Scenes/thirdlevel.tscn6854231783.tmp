@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://cl0pmh6dk6r1g"]
+[gd_scene load_steps=29 format=3 uid="uid://cl0pmh6dk6r1g"]
 
 [ext_resource type="Texture2D" uid="uid://7yvjcb08ooll" path="res://Art/Other/Shadow.png" id="1_fvi8e"]
 [ext_resource type="Script" uid="uid://bwpxl5gsj6dl4" path="res://Scripts/transition/fly_in_scene.gd" id="1_ob7yv"]
@@ -23,6 +23,7 @@
 [ext_resource type="Script" uid="uid://dxqen6naulytg" path="res://Scripts/enemies/sancho_boss.gd" id="21_t2cvv"]
 [ext_resource type="PackedScene" uid="uid://daoldt8sd8a46" path="res://Scenes/enemies/Sancho/arrow_sancho.tscn" id="22_t2cvv"]
 [ext_resource type="PackedScene" uid="uid://cnttea400lmhs" path="res://Scenes/lootbox/loot_box.tscn" id="23_13h47"]
+[ext_resource type="PackedScene" uid="uid://dp2y2pxy0640" path="res://Scenes/enemies/Sancho/warning_slice.tscn" id="23_tdg22"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kjpv7"]
 size = Vector2(231, 20)
@@ -188,36 +189,15 @@ position = Vector2(687, 0)
 [node name="Sancho" parent="." instance=ExtResource("19_ix33b")]
 position = Vector2(1249, -0.5)
 script = ExtResource("21_t2cvv")
-move_delay = null
-position_move_time = null
+move_delay = 2.0
+position_move_time = 1.0
 time_between_positions = 2.0
-phase_two_health_ratio = null
+phase_two_health_ratio = 0.5
 small_bullet_scene = ExtResource("22_t2cvv")
-warning_slice_scene = null
-bullet_scene = null
-idle_time_between_attacks = null
-windup_duration = null
-attack_recover_time = null
-bullets_in_circle = null
-bullet_speed = null
-auto_start_attacking = null
-idle_move_radius = null
+warning_slice_scene = ExtResource("23_tdg22")
 idle_move_speed = 3.0
 phase2_health_ratio = 0.2
 phase3_health_ratio = 0.0
-phase2_bullet_multiplier = null
-phase2_speed_multiplier = null
-phase3_bullet_multiplier = null
-phase3_speed_multiplier = null
-max_health = null
-damage_number_scene = null
-retaliation_damage = null
-retaliation_crit_chance = null
-retaliation_crit_multiplier = null
-retaliation_cooldown = null
-retaliation_target_group = null
-retaliation_projectile_layer_index = null
-retaliation_target_layer_index = null
 
 [node name="LootBox" parent="." instance=ExtResource("23_13h47")]
 position = Vector2(1521, 0)
