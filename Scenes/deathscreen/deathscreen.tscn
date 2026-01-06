@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cb141nyw72d1k"]
+[gd_scene load_steps=15 format=3 uid="uid://cb141nyw72d1k"]
 
 [ext_resource type="PackedScene" uid="uid://brgksdlowkk3h" path="res://Scenes/ui/global_ui.tscn" id="1_d8blm"]
 [ext_resource type="Script" uid="uid://bwpxl5gsj6dl4" path="res://Scripts/transition/fly_in_scene.gd" id="1_x8jew"]
@@ -13,6 +13,9 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0ogdd"]
 size = Vector2(66, 29)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x8jew"]
+size = Vector2(44, 146)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3qe7x"]
 size = Vector2(231, 20)
@@ -47,7 +50,6 @@ collision_mask = 2
 script = ExtResource("6_x8jew")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="QuitGame"]
-visible = false
 position = Vector2(-11, 42.5)
 shape = SubResource("RectangleShape2D_0ogdd")
 
@@ -81,11 +83,7 @@ autowrap_mode = 2
 position = Vector2(105, 0)
 collision_mask = 2
 script = ExtResource("9_x8jew")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Retry"]
-visible = false
-position = Vector2(-9.5, 0)
-shape = SubResource("RectangleShape2D_0ogdd")
+restart_scene_path = "uid://c1v31xnafou7u"
 
 [node name="NinePatchRect" type="NinePatchRect" parent="Retry"]
 modulate = Color(1, 1, 1, 0.7058824)
@@ -111,6 +109,10 @@ theme_override_font_sizes/font_size = 12
 text = "0/2"
 horizontal_alignment = 1
 autowrap_mode = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Retry"]
+position = Vector2(-8, 4)
+shape = SubResource("RectangleShape2D_x8jew")
 
 [node name="borders" type="StaticBody2D" parent="."]
 

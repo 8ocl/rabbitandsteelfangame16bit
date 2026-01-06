@@ -1,8 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://cjtgu1fy3i4pr"]
+[gd_scene load_steps=34 format=3 uid="uid://cjtgu1fy3i4pr"]
 
 [ext_resource type="Texture2D" uid="uid://c0ygqf1dckykq" path="res://Art/Other/32/InnerRing32.png" id="1_wsw5v"]
 [ext_resource type="Texture2D" uid="uid://8m0nciqcan1b" path="res://Art/Other/32/OuterRing32.png" id="2_2yool"]
 [ext_resource type="Texture2D" uid="uid://b82nc25f4hyp8" path="res://Art/Enemies/Sancho/SanchoGIF.png" id="3_cejsg"]
+[ext_resource type="Texture2D" uid="uid://c3abujrcdkkqb" path="res://Art/Enemies/Sancho/title.png" id="3_wsw5v"]
+[ext_resource type="Texture2D" uid="uid://c4dg0650lr3ii" path="res://Art/Enemies/Sancho/Transition.png" id="5_2yool"]
 
 [sub_resource type="GDScript" id="GDScript_wsw5v"]
 script/source = "extends \"res://Scripts/enemy_template.gd\"
@@ -279,8 +281,92 @@ region = Rect2(64, 0, 16, 16)
 atlas = ExtResource("3_cejsg")
 region = Rect2(80, 0, 16, 16)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ew5ql"]
+atlas = ExtResource("5_2yool")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_28twe"]
+atlas = ExtResource("5_2yool")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mo0ga"]
+atlas = ExtResource("5_2yool")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w4qwj"]
+atlas = ExtResource("5_2yool")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n04vu"]
+atlas = ExtResource("5_2yool")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wfqtb"]
+atlas = ExtResource("5_2yool")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_30p1e"]
+atlas = ExtResource("5_2yool")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_41twh"]
+atlas = ExtResource("5_2yool")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lfydi"]
+atlas = ExtResource("5_2yool")
+region = Rect2(512, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jul0x"]
+atlas = ExtResource("5_2yool")
+region = Rect2(576, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mt371"]
+atlas = ExtResource("5_2yool")
+region = Rect2(640, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vmfll"]
+atlas = ExtResource("5_2yool")
+region = Rect2(704, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ey5ct"]
+atlas = ExtResource("5_2yool")
+region = Rect2(768, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rre7l"]
+atlas = ExtResource("5_2yool")
+region = Rect2(832, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ukjex"]
+atlas = ExtResource("5_2yool")
+region = Rect2(896, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mry0t"]
+atlas = ExtResource("5_2yool")
+region = Rect2(960, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sy7uo"]
+atlas = ExtResource("5_2yool")
+region = Rect2(1024, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f5vik"]
+atlas = ExtResource("5_2yool")
+region = Rect2(1088, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r5i3r"]
+atlas = ExtResource("5_2yool")
+region = Rect2(1152, 0, 64, 64)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_28twe"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_wsw5v")
+}],
+"loop": true,
+"name": &"BossDidIt",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_cbtk7")
@@ -303,6 +389,68 @@ animations = [{
 "loop": true,
 "name": &"BossIdle",
 "speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ew5ql")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_28twe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mo0ga")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w4qwj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n04vu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wfqtb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_30p1e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_41twh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lfydi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jul0x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mt371")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vmfll")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ey5ct")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rre7l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ukjex")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mry0t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sy7uo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f5vik")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r5i3r")
+}],
+"loop": true,
+"name": &"BossTransition",
+"speed": 10.0
 }]
 
 [node name="Sancho" type="CharacterBody2D"]
@@ -326,7 +474,7 @@ tint_progress = Color(0.8133591, 0.04377582, 0.22800821, 0.78039217)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_28twe")
-animation = &"BossIdle"
-frame_progress = 0.90414554
+animation = &"BossDidIt"
+frame_progress = 0.57917434
 
 [node name="BulletSpawnPoint" type="Node2D" parent="."]

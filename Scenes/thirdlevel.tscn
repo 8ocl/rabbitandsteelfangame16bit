@@ -195,3 +195,8 @@ idle_move_speed = 3.0
 [node name="LootBox" parent="." instance=ExtResource("23_13h47")]
 position = Vector2(1521, 0)
 script = null
+
+[node name="SanchoTransformNodes" type="Node2D" parent="."]
+position = Vector2(1200, -1)
+
+[node name="StartingPosition" type="Node2D" parent="SanchoTransformNodes"]
