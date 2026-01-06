@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bo4pygxxrwpug" path="res://Art/Players/Teto/TetoIdle.png" id="4_8514p"]
 [ext_resource type="Texture2D" uid="uid://b8eyl5j7aib1b" path="res://Art/Players/Cooldown.png" id="4_jksh3"]
 [ext_resource type="Texture2D" uid="uid://cwgbx4qxup2ox" path="res://Art/Players/Teto/TetoUJlt.png" id="4_ykwvr"]
-[ext_resource type="Texture2D" uid="uid://ppsuopr1c1ps" path="res://Art/Other/Arrow.png" id="5_8514p"]
+[ext_resource type="Texture2D" uid="uid://cj6iucid0n2br" path="res://Art/Other/Arrow.png" id="5_8514p"]
 [ext_resource type="Texture2D" uid="uid://d0pcwusbot6vx" path="res://Art/Players/Teto/TetoSpecial.png" id="5_vnnvq"]
 [ext_resource type="Texture2D" uid="uid://byi2vegh55cwr" path="res://Art/Other/CooldownRing.png" id="6_nsvye"]
 [ext_resource type="PackedScene" uid="uid://c01h2e6ncre6t" path="res://Scenes/invincible_orb.tscn" id="7_invicible_orb"]

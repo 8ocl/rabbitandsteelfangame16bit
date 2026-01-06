@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://cl0pmh6dk6r1g"]
+[gd_scene load_steps=23 format=3 uid="uid://cl0pmh6dk6r1g"]
 
 [ext_resource type="Texture2D" uid="uid://7yvjcb08ooll" path="res://Art/Other/Shadow.png" id="1_fvi8e"]
 [ext_resource type="Script" uid="uid://bi3ccs8jxok16" path="res://Scripts/transition/sync_camera_from_meta.gd" id="2_ob7yv"]
@@ -18,8 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://b4rrnckawicaq" path="res://Art/Background/FirstLayer.png" id="16_6owqs"]
 [ext_resource type="Script" uid="uid://ccuc5ow7c1a5o" path="res://Scripts/start_game_area.gd" id="17_r2dmx"]
 [ext_resource type="FontFile" uid="uid://dbxqf84atmdf5" path="res://Font/DotGothic16/DotGothic16-Regular.ttf" id="18_au36t"]
-[ext_resource type="PackedScene" uid="uid://bda41euegdlsr" path="res://Scenes/enemies/Ado/ado.tscn" id="19_k7c2w"]
-[ext_resource type="PackedScene" uid="uid://bqui5hqtuq3eh" path="res://Scenes/enemies/Ado/small_note_bullet.tscn" id="20_nl3kh"]
+[ext_resource type="PackedScene" uid="uid://cjtgu1fy3i4pr" path="res://Scenes/enemies/Sancho/sancho.tscn" id="19_ix33b"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kjpv7"]
 size = Vector2(231, 20)
@@ -165,49 +164,17 @@ text = "0/2"
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="Ado" parent="." instance=ExtResource("19_k7c2w")]
-position = Vector2(642, -1)
-bullet_scene = ExtResource("20_nl3kh")
-max_health = 300.0
-
 [node name="AdoPositionNodes" type="Node2D" parent="."]
 position = Vector2(1, 0)
 
 [node name="Position1" type="Node2D" parent="AdoPositionNodes"]
-position = Vector2(623, -13)
+position = Vector2(534, 38)
 
 [node name="Position2" type="Node2D" parent="AdoPositionNodes"]
-position = Vector2(526, -38)
+position = Vector2(516, -2)
 
 [node name="Position3" type="Node2D" parent="AdoPositionNodes"]
-position = Vector2(663, -48)
+position = Vector2(687, 0)
 
-[node name="BulletPositions" type="Node2D" parent="."]
-position = Vector2(1, 0)
-
-[node name="Bullet1Center" type="Node2D" parent="BulletPositions"]
-position = Vector2(623, -13)
-
-[node name="Bullet1Left" type="Node2D" parent="BulletPositions"]
-position = Vector2(705, -35)
-
-[node name="Bullet1Right" type="Node2D" parent="BulletPositions"]
-position = Vector2(500, -5)
-
-[node name="Bullet2Center" type="Node2D" parent="BulletPositions"]
-position = Vector2(583, -21)
-
-[node name="Bullet2Left" type="Node2D" parent="BulletPositions"]
-position = Vector2(702, -39)
-
-[node name="Bullet2Right" type="Node2D" parent="BulletPositions"]
-position = Vector2(498, -33)
-
-[node name="Bullet3Center" type="Node2D" parent="BulletPositions"]
-position = Vector2(630, 31)
-
-[node name="Bullet3Left" type="Node2D" parent="BulletPositions"]
-position = Vector2(661, -34)
-
-[node name="Bullet3Right" type="Node2D" parent="BulletPositions"]
-position = Vector2(507, -40)
+[node name="Sancho" parent="." instance=ExtResource("19_ix33b")]
+position = Vector2(651, -1)

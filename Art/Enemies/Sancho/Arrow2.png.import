@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cj6iucid0n2br"
-path="res://.godot/imported/Arrow.png-dda51bf29d210310035649bb7cfba060.ctex"
+uid="uid://ppsuopr1c1ps"
+path="res://.godot/imported/Arrow2.png-e7caee92036dba63374963f300a03e1d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/Other/Arrow.png"
-dest_files=["res://.godot/imported/Arrow.png-dda51bf29d210310035649bb7cfba060.ctex"]
+source_file="res://Art/Enemies/Sancho/Arrow2.png"
+dest_files=["res://.godot/imported/Arrow2.png-e7caee92036dba63374963f300a03e1d.ctex"]
 
 [params]
 

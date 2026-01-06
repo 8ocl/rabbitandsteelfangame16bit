@@ -32,6 +32,7 @@ size = Vector2(39, 130)
 
 [node name="secondlevel" type="Node2D"]
 script = ExtResource("1_3vwvj")
+next_scene_path = "uid://cl0pmh6dk6r1g"
 fly_offset_out = Vector2(300, 0)
 player_target_x = 1220.0
 

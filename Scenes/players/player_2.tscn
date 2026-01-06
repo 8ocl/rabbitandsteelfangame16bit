@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://b8eyl5j7aib1b" path="res://Art/Players/Cooldown.png" id="3_js14x"]
 [ext_resource type="Texture2D" uid="uid://dofswc7ip2s48" path="res://Art/Players/Miku/MikuIdle.png" id="4_dwbop"]
 [ext_resource type="Texture2D" uid="uid://cmx63747lgval" path="res://Art/Players/Teto/TetoPear.png" id="4_p2j4v"]
-[ext_resource type="Texture2D" uid="uid://ppsuopr1c1ps" path="res://Art/Other/Arrow.png" id="5_1dc8i"]
+[ext_resource type="Texture2D" uid="uid://cj6iucid0n2br" path="res://Art/Other/Arrow.png" id="5_1dc8i"]
 [ext_resource type="Texture2D" uid="uid://d0pcwusbot6vx" path="res://Art/Players/Teto/TetoSpecial.png" id="5_k5yn2"]
 [ext_resource type="Texture2D" uid="uid://cwgbx4qxup2ox" path="res://Art/Players/Teto/TetoUJlt.png" id="6_j3lpk"]
 [ext_resource type="Texture2D" uid="uid://byi2vegh55cwr" path="res://Art/Other/CooldownRing.png" id="6_xwe8u"]

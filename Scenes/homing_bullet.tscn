@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://de5l2uhqsxoei"]
+
+[ext_resource type="Script" uid="uid://d1h2b3c4d5e6" path="res://Scripts/homing_bullet.gd" id="1_mcgq1"]
+[ext_resource type="Texture2D" uid="uid://h33f11swoy5y" path="res://Art/Other/BulletSprite.png" id="2_76uoh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cxfru"]
+size = Vector2(6, 6)
+
+[node name="SmallBullet" type="Area2D"]
+script = ExtResource("1_mcgq1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_cxfru")
+
+[node name="SmallBulletSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_76uoh")
