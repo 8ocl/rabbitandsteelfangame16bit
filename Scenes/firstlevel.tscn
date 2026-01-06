@@ -38,7 +38,7 @@ fly_offset_out = Vector2(300, 0)
 player_target_x = 820.0
 
 [node name="Shadow" type="Sprite2D" parent="."]
-visible = false
+modulate = Color(0, 0.7808606, 0.77958924, 1)
 z_index = -3
 position = Vector2(600, 1)
 scale = Vector2(0.78378373, 1.8037384)

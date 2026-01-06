@@ -1,6 +1,7 @@
-[gd_scene load_steps=23 format=3 uid="uid://cl0pmh6dk6r1g"]
+[gd_scene load_steps=24 format=3 uid="uid://cl0pmh6dk6r1g"]
 
 [ext_resource type="Texture2D" uid="uid://7yvjcb08ooll" path="res://Art/Other/Shadow.png" id="1_fvi8e"]
+[ext_resource type="Script" uid="uid://bwpxl5gsj6dl4" path="res://Scripts/transition/fly_in_scene.gd" id="1_ob7yv"]
 [ext_resource type="Script" uid="uid://bi3ccs8jxok16" path="res://Scripts/transition/sync_camera_from_meta.gd" id="2_ob7yv"]
 [ext_resource type="PackedScene" uid="uid://brgksdlowkk3h" path="res://Scenes/ui/global_ui.tscn" id="3_t2cvv"]
 [ext_resource type="PackedScene" uid="uid://va8ld3cvsieq" path="res://Scenes/players/player_1.tscn" id="4_13h47"]
@@ -30,6 +31,7 @@ size = Vector2(20, 170)
 size = Vector2(39, 130)
 
 [node name="thirdlevel" type="Node2D"]
+script = ExtResource("1_ob7yv")
 
 [node name="Shadow" type="Sprite2D" parent="."]
 visible = false
@@ -46,7 +48,7 @@ script = ExtResource("2_ob7yv")
 [node name="GlobalUI" parent="Camera2D" instance=ExtResource("3_t2cvv")]
 
 [node name="borders" type="StaticBody2D" parent="."]
-position = Vector2(602, 0)
+position = Vector2(1190, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="borders"]
 position = Vector2(0.5, -75)
@@ -129,7 +131,7 @@ script = ExtResource("15_6gb5p")
 texture = ExtResource("16_6owqs")
 
 [node name="GoToLevelTwo" type="Area2D" parent="."]
-position = Vector2(708, 0)
+position = Vector2(1296, 0)
 collision_mask = 2
 script = ExtResource("17_r2dmx")
 next_scene_path = "uid://bbpg7sn8vacji"
@@ -165,7 +167,7 @@ horizontal_alignment = 1
 autowrap_mode = 2
 
 [node name="AdoPositionNodes" type="Node2D" parent="."]
-position = Vector2(1, 0)
+position = Vector2(589, 0)
 
 [node name="Position1" type="Node2D" parent="AdoPositionNodes"]
 position = Vector2(534, 38)
@@ -177,4 +179,4 @@ position = Vector2(516, -2)
 position = Vector2(687, 0)
 
 [node name="Sancho" parent="." instance=ExtResource("19_ix33b")]
-position = Vector2(651, -1)
+position = Vector2(1239, -1)
