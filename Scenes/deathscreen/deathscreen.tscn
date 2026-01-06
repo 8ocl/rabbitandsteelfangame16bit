@@ -3,10 +3,10 @@
 [ext_resource type="PackedScene" uid="uid://brgksdlowkk3h" path="res://Scenes/ui/global_ui.tscn" id="1_d8blm"]
 [ext_resource type="Script" uid="uid://bwpxl5gsj6dl4" path="res://Scripts/transition/fly_in_scene.gd" id="1_x8jew"]
 [ext_resource type="Script" uid="uid://bwpq8dqc0qb7m" path="res://Scripts/quit_game.gd" id="6_x8jew"]
+[ext_resource type="Script" uid="uid://7xcnobexwjln" path="res://Scripts/restartGameRetry.gd" id="9_x8jew"]
 [ext_resource type="PackedScene" uid="uid://va8ld3cvsieq" path="res://Scenes/players/player_1.tscn" id="12_yvo3w"]
 [ext_resource type="PackedScene" uid="uid://de3k3vaikl23d" path="res://Scenes/projectile.tscn" id="13_s5fgl"]
 [ext_resource type="PackedScene" uid="uid://dmv8quj68ks0a" path="res://Scenes/players/player_2.tscn" id="14_gxg1w"]
-[ext_resource type="Script" uid="uid://ccuc5ow7c1a5o" path="res://Scripts/start_game_area.gd" id="17_06ai7"]
 [ext_resource type="Texture2D" uid="uid://7yvjcb08ooll" path="res://Art/Other/Shadow.png" id="18_hbsy5"]
 [ext_resource type="FontFile" uid="uid://dbxqf84atmdf5" path="res://Font/DotGothic16/DotGothic16-Regular.ttf" id="19_n6i5i"]
 [ext_resource type="PackedScene" uid="uid://cnttea400lmhs" path="res://Scenes/lootbox/loot_box.tscn" id="20_yoh0g"]
@@ -77,17 +77,17 @@ text = "0/2"
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="GoToNextScene" type="Area2D" parent="."]
+[node name="Retry" type="Area2D" parent="."]
 position = Vector2(105, 0)
 collision_mask = 2
-script = ExtResource("17_06ai7")
+script = ExtResource("9_x8jew")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GoToNextScene"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Retry"]
 visible = false
 position = Vector2(-9.5, 0)
 shape = SubResource("RectangleShape2D_0ogdd")
 
-[node name="NinePatchRect" type="NinePatchRect" parent="GoToNextScene"]
+[node name="NinePatchRect" type="NinePatchRect" parent="Retry"]
 modulate = Color(1, 1, 1, 0.7058824)
 z_index = -1
 offset_left = -29.0
@@ -101,7 +101,7 @@ patch_margin_left = 1
 axis_stretch_horizontal = 2
 axis_stretch_vertical = 2
 
-[node name="StartText" type="Label" parent="GoToNextScene"]
+[node name="StartText" type="Label" parent="Retry"]
 offset_left = -23.0
 offset_top = -51.0
 offset_right = 8.0
@@ -158,14 +158,6 @@ theme_override_font_sizes/font_size = 12
 text = "Retry"
 horizontal_alignment = 1
 autowrap_mode = 2
-
-[node name="RetryArea" type="Area2D" parent="."]
-position = Vector2(81, -11)
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RetryArea"]
-position = Vector2(178.5, 103.5)
-shape = SubResource("RectangleShape2D_0ogdd")
 
 [node name="ShadowBackground" type="Sprite2D" parent="."]
 modulate = Color(0, 0, 0, 1)
