@@ -169,6 +169,7 @@ func apply_damage(amount: float, _is_crit: bool = false) -> void:
 	if _is_invincible:
 		return
 
+	SoundManager.play_sfx("res://Music/SFX/8-bit-game-sfx-sound-21-269970.mp3")
 	GlobalState.apply_damage(amount)
 
 	# Become invincible for 1 second after taking damage.
@@ -185,6 +186,7 @@ func apply_damage(amount: float, _is_crit: bool = false) -> void:
 		)
 
 func _die() -> void:
+	SoundManager.play_sfx("res://Music/SFX/8-bit-explosion-3-340456.mp3")
 	print("dead")
 	# Later you can add respawn or game over logic here.
 

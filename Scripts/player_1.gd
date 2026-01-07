@@ -43,6 +43,7 @@ func primary_action() -> void:
 		push_warning("No projectile_scene assigned on %s" % name)
 		return
 
+	SoundManager.play_sfx("res://Music/SFX/8-bit-explosion-95847.mp3")
 	can_primary = false
 	_trigger_global_cooldown()
 	_start_cooldown_ring()
@@ -89,6 +90,7 @@ func secondary_action() -> void:
 		push_warning("No projectile_scene assigned on %s" % name)
 		return
 
+	SoundManager.play_sfx("res://Music/SFX/8-bit-explosion-95847.mp3")
 	can_secondary = false
 	_trigger_global_cooldown()
 	_start_cooldown_ring()
@@ -135,6 +137,7 @@ func special_action() -> void:
 		push_warning("No projectile_scene assigned on %s" % name)
 		return
 
+	SoundManager.play_sfx("res://Music/SFX/8-bit-explosion-95847.mp3")
 	can_special = false
 	_trigger_global_cooldown()
 	_start_cooldown_ring()
@@ -181,6 +184,7 @@ func defensive_action() -> void:
 		push_warning("No projectile_scene assigned on %s" % name)
 		return
 
+	SoundManager.play_sfx("res://Music/SFX/8-bit-explosion-95847.mp3")
 	can_defensive = false
 	_trigger_global_cooldown()
 	_start_cooldown_ring()

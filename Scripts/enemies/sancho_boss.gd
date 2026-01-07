@@ -69,6 +69,7 @@ func _pattern_loop() -> void:
 
 
 func _perform_circular_attack() -> void:
+	SoundManager.play_sfx("res://Music/SFX/8-bit-explosion-95847.mp3")
 	var players = get_tree().get_nodes_in_group("players")
 	if players.is_empty():
 		return
@@ -138,6 +139,7 @@ func _phase_two_loop() -> void:
 		for n in move_nodes:
 			await _tween_to(n.global_position, 0.06)
 
+		SoundManager.play_sfx("res://Music/SFX/8-bit-explosion-3-340456.mp3")
 		# Flash screen red to indicate the slash
 		_flash_screen_red()
 

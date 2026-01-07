@@ -150,6 +150,7 @@ func _show_go_to_level_two_gate() -> void:
 # (same number of bullets), but moves more slowly and only speeds up a bit near
 # death.
 func _perform_circular_attack() -> void:
+	SoundManager.play_sfx("res://Music/SFX/8-bit-explosion-95847.mp3")
 	if bullet_scene == null:
 		push_warning("AdoBoss has no bullet_scene assigned")
 		return
@@ -182,6 +183,7 @@ func _perform_circular_attack() -> void:
 			bullet.velocity = velocity
 
 func _do_big_planet_for_index(index: int) -> void:
+	SoundManager.play_sfx("res://Music/SFX/8-bit-explosion-low-resonant-45659.mp3")
 	if big_planet_scene == null:
 		print("[AdoBoss] big_planet_scene is null, cannot perform BigPlanet attack")
 		return

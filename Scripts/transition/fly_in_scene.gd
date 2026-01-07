@@ -1,5 +1,13 @@
 extends Node2D
 
+var music_map = {
+	"firstlevel": "res://Music/BeetHoven/Neru - LVB_Sonate_57_3.WAV",
+	"secondlevel": "res://Music/BeetHoven/Sancho - Symphony7_2.WAV",
+	"thirdlevel": "res://Music/BeetHoven/Death- Beethoven-Moonlight-Sonata.WAV",
+	"fourthlevel": "res://Music/BeetHoven/Sailor Moon - Moonlight Densetsu - Moonlight Legend.WAV",
+	"tutorial": "res://Music/BeetHoven/Sailor Moon - Moonlight Densetsu - Moonlight Legend.WAV"
+}
+
 @export var fly_in_time: float = 1.0
 @export var fly_in_offset: Vector2 = Vector2(-200, 0)
 
@@ -15,6 +23,9 @@ extends Node2D
 var _flying_out: bool = false
 
 func _ready() -> void:
+	var scene_name = get_tree().current_scene.name
+	if music_map.has(scene_name):
+		SoundManager.fade_in_music(music_map[scene_name], 1.0)
 	call_deferred("_init_players")
 
 func _init_players() -> void:
@@ -55,6 +66,7 @@ func _on_fly_in_finished() -> void:
 func go_to_next_scene() -> void:
 	if _flying_out:
 		return
+	SoundManager.fade_out_music(fly_time_out)
 	if next_scene_path == "":
 		get_tree().change_scene_to_file("res://Scenes/firstlevel.tscn")
 		return
