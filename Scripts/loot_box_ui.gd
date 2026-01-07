@@ -9,36 +9,6 @@ extends Node2D
 #   value:        numeric magnitude (for later when you actually apply stats)
 
 const UPGRADES: Array = [
-	# Movement speed
-	{
-		"id": "move_speed_10",
-		"name": "Red Haired Shoes",
-		"description": "+10 movement",
-		"category": "move",
-		"value": 10,
-	},
-	{
-		"id": "move_speed_20",
-		"name": "Red Socked Laces",
-		"description": "+20 movement",
-		"category": "move",
-		"value": 20,
-	},
-	{
-		"id": "move_speed_30",
-		"name": "Blue Candy",
-		"description": "+30 movement speed",
-		"category": "move",
-		"value": 30,
-	},
-	{
-		"id": "accel_boost",
-		"name": "Rocket Soles",
-		"description": "+25 acceleration",
-		"category": "move",
-		"value": 25,
-	},
-
 	# Base damage
 	{
 		"id": "damage_10",
@@ -61,59 +31,8 @@ const UPGRADES: Array = [
 		"category": "damage",
 		"value": 3.0,
 	},
-	{
-		"id": "aoe_splash",
-		"name": "Splash Rounds",
-		"description": "Slight splash on hit (for later)",
-		"category": "damage",
-		"value": 1.0,
-	},
-
-	# Attack speed / cooldown
-	{
-		"id": "primary_cd_10",
-		"name": "Quick Trigger",
-		"description": "-10 primary cooldown",
-		"category": "attack_speed",
-		"value": 0.10,
-	},
-	{
-		"id": "primary_cd_20",
-		"name": "Trigger on Trigger",
-		"description": "-20 primary cooldown",
-		"category": "attack_speed",
-		"value": 0.20,
-	},
-	{
-		"id": "primary_cd_30",
-		"name": "Bullet Storm",
-		"description": "-30 primary cooldown",
-		"category": "attack_speed",
-		"value": 0.30,
-	},
-	{
-		"id": "global_cd_15",
-		"name": "Battle Dancer",
-		"description": "-15 global cooldown",
-		"category": "cooldown",
-		"value": 0.15,
-	},
 
 	# Crit
-	{
-		"id": "crit_chance_5",
-		"name": "Lucky Charm",
-		"description": "+5 crit chance",
-		"category": "crit",
-		"value": 5,
-	},
-	{
-		"id": "crit_chance_10",
-		"name": "Four-Leaf Clover",
-		"description": "+10 crit chance",
-		"category": "crit",
-		"value": 10,
-	},
 	{
 		"id": "crit_mult_25",
 		"name": "Fatal Edge",
