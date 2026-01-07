@@ -104,20 +104,18 @@ func apply_item_effects(player_num: int) -> void:
 		return
 
 	# Default stats
-	var default_normal_speed = 100.0
-	var default_base_damage = 10.0
-	var default_primary_cooldown = 0.2
-	var default_crit_chance = 0.10
-	var default_crit_multiplier = 2.0
-	var default_global_cooldown = 0.15
-	var default_invincible_duration = 1.0
+	var default_normal_speed = player.normal_speed_default
+	var default_base_damage = player.base_damage_default
+	var default_primary_cooldown = player.primary_cooldown_default
+	var default_crit_chance = player.crit_chance_default
+	var default_crit_multiplier = player.crit_multiplier_default
+	var default_global_cooldown = player.global_cooldown_default
+	var default_invincible_duration = player.invincible_duration_default
 	var default_max_health = 6
 
 	# Item multipliers
 	var speed_bonus = 0.0
 	var damage_bonus = 0.0
-	var cooldown_bonus = 0.0
-	var global_cooldown_bonus = 0.0
 	var crit_chance_bonus = 0.0
 	var crit_multiplier_bonus = 0.0
 	var max_health_bonus = 0
@@ -134,10 +132,6 @@ func apply_item_effects(player_num: int) -> void:
 				speed_bonus += value
 			"damage":
 				damage_bonus += value
-			"attack_speed":
-				cooldown_bonus += value
-			"cooldown":
-				global_cooldown_bonus += value
 			"crit":
 				if "chance" in item_id:
 					crit_chance_bonus += value
@@ -151,10 +145,8 @@ func apply_item_effects(player_num: int) -> void:
 	
 	player.normal_speed = default_normal_speed + speed_bonus
 	player.base_damage = default_base_damage + damage_bonus
-	player.primary_cooldown = default_primary_cooldown - cooldown_bonus
-	player.global_cooldown = default_global_cooldown - global_cooldown_bonus
 	player.crit_chance = default_crit_chance + crit_chance_bonus
-	player.crit_multiplier = default_crit_multiplier + crit_multiplier_bonus
+	player.crit_multiplier = default_crit_multiplier + (crit_multiplier_bonus / 100.0)
 	max_health = default_max_health + max_health_bonus
 	player.invincible_duration = default_invincible_duration + invincible_duration_bonus
 

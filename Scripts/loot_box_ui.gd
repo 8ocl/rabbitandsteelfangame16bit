@@ -36,14 +36,14 @@ const UPGRADES: Array = [
 	{
 		"id": "crit_mult_25",
 		"name": "Fatal Edge",
-		"description": "+25 crit damage",
+		"description": "+25% crit damage",
 		"category": "crit",
 		"value": 25,
 	},
 	{
 		"id": "crit_mult_50",
 		"name": "Executioner",
-		"description": "+50 crit damage",
+		"description": "+50% crit damage",
 		"category": "crit",
 		"value": 50,
 	},

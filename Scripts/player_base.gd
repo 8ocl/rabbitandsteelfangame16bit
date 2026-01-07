@@ -6,26 +6,26 @@ class_name PlayerBase
 @onready var directional_arrow: Sprite2D = get_node_or_null("DirectionalArrow")
 @onready var attack_ring_cooldown: AnimatedSprite2D = get_node_or_null("AttackRingCooldown")
 
-@export var normal_speed: float = 100.0
+@export var normal_speed_default: float = 100.0
 @export var slow_speed: float = 50.0
 @export var acceleration: float = 600.0
 @export var deceleration: float = 800.0
 @export var turn_speed: float = 8.0 # higher = faster turning
 
-@export var primary_cooldown: float = 0.2
+@export var primary_cooldown_default: float = 1
 @export var secondary_cooldown: float = 1.0
 @export var special_cooldown: float = 3.0
 @export var defensive_cooldown: float = 2.0
-@export var global_cooldown: float = 0.15
+@export var global_cooldown_default: float = 0.15
 
 @export_group("Input")
 @export var input_prefix: String = "" # "" for player 1, "2" for player 2
 
 @export_group("Combat")
 @export var projectile_scene: PackedScene
-@export var base_damage: float = 10.0
-@export var crit_chance: float = 0.10 # 10% base crit chance
-@export var crit_multiplier: float = 2.0
+@export var base_damage_default: float = 10.0
+@export var crit_chance_default: float = 0.10 # 10% base crit chance
+@export var crit_multiplier_default: float = 2.0
 
 @export_group("Collision Layers (optional)")
 # Configure these to match your project physics layers so players/bosses
@@ -43,7 +43,16 @@ class_name PlayerBase
 
 @export_group("Defensive")
 @export var invincible_orb_scene: PackedScene
-@export var invincible_duration: float = 1.0
+@export var invincible_duration_default: float = 1.0
+
+var normal_speed: float = 100.0
+var primary_cooldown: float = 0.2
+var global_cooldown: float = 0.15
+var base_damage: float = 10.0
+var crit_chance: float = 0.10
+var crit_multiplier: float = 2.0
+var invincible_duration: float = 1.0
+
 
 var controls_enabled: bool = true
 var current_speed: float
@@ -72,6 +81,14 @@ func _ready() -> void:
 	# Initialize attack ring as hidden
 	if attack_ring_cooldown != null:
 		attack_ring_cooldown.visible = false
+
+	normal_speed = normal_speed_default
+	primary_cooldown = primary_cooldown_default
+	global_cooldown = global_cooldown_default
+	base_damage = base_damage_default
+	crit_chance = crit_chance_default
+	crit_multiplier = crit_multiplier_default
+	invincible_duration = invincible_duration_default
 
 func set_controls_enabled(enabled: bool) -> void:
 	controls_enabled = enabled
