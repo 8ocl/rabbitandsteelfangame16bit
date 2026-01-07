@@ -20,6 +20,10 @@ config/icon="res://icon.svg"
 GlobalState="*res://Scripts/global_state.gd"
 SoundManager="*res://Scripts/sound_manager.gd"
 
+[audio]
+
+bus_layout_file="res://audio_bus_layout.tres"
+
 [input]
 
 move_up={

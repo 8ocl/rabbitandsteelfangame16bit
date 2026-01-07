@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://bn5djg81nrphw" path="res://Scripts/ui_settings_button.gd" id="7_settings_button"]
 [ext_resource type="Script" uid="uid://bgchi17t0o33a" path="res://Scripts/ui_quit_button.gd" id="8_quit_button"]
 [ext_resource type="Script" uid="uid://h8lbqc03odbi" path="res://Scripts/start_ui.gd" id="9_start_ui"]
+[ext_resource type="PackedScene" uid="uid://b8w2q2x2v6w8e" path="res://Scenes/ui/settings_menu.tscn" id="10_settings_scene"]
 
 [node name="StartUI" type="Node2D"]
 script = ExtResource("9_start_ui")
@@ -108,6 +109,7 @@ offset_top = 9.0
 offset_right = 93.0
 offset_bottom = 30.0
 script = ExtResource("7_settings_button")
+settings_scene = ExtResource("10_settings_scene")
 
 [node name="QuitGameBackground" type="Sprite2D" parent="Buttons"]
 modulate = Color(1, 1, 1, 0.91764706)

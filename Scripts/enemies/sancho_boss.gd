@@ -1,9 +1,9 @@
 extends "res://Scripts/enemy_template.gd"
 
-@export var move_delay: float = 2.0
-@export var position_move_time: float = 1.0
-@export var time_between_positions: float = 1.0
-@export var phase_two_health_ratio := 0.5
+@export var move_delay: float = 1.0
+@export var position_move_time: float = 0.6
+@export var time_between_positions: float = 0.8
+@export var phase_two_health_ratio := 0.3
 
 @export var small_bullet_scene: PackedScene = preload("res://Scenes/small_bullet.tscn")
 @export var warning_slice_scene: PackedScene = preload("res://Scenes/enemies/Sancho/warning_slice.tscn")

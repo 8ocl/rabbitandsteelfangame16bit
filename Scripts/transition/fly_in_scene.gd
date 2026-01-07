@@ -2,7 +2,7 @@ extends Node2D
 
 var music_map = {
 	"firstlevel": "res://Music/BeetHoven/Neru - LVB_Sonate_57_3.WAV",
-	# "secondlevel": "res://Music/BeetHoven/Sancho - Symphony7_2.WAV",
+	"secondlevel": "res://Music/BeetHoven/Sancho - Symphony7_2.WAV",
 	"thirdlevel": "res://Music/BeetHoven/Death- Beethoven-Moonlight-Sonata.WAV",
 	# "fourthlevel": "res://Music/BeetHoven/Sailor Moon - Moonlight Densetsu - Moonlight Legend.WAV",
 	"tutorial": "res://Music/BeetHoven/Sailor Moon - Moonlight Densetsu - Moonlight Legend.WAV"
@@ -25,7 +25,10 @@ var _flying_out: bool = false
 func _ready() -> void:
 	var scene_name = get_tree().current_scene.name
 	if music_map.has(scene_name):
-		SoundManager.fade_in_music(music_map[scene_name], 1.0)
+		if scene_name == "secondlevel":
+			SoundManager.fade_in_music(music_map[scene_name], 1.0, 0.0, 1.5)
+		else:
+			SoundManager.fade_in_music(music_map[scene_name], 1.0)
 	call_deferred("_init_players")
 
 func _init_players() -> void:

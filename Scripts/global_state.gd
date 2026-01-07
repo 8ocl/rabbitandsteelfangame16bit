@@ -114,10 +114,10 @@ func apply_item_effects(player_num: int) -> void:
 	var default_max_health = 6
 
 	# Item multipliers
-	var speed_multiplier = 1.0
-	var damage_multiplier = 1.0
-	var cooldown_multiplier = 1.0
-	var global_cooldown_multiplier = 1.0
+	var speed_bonus = 0.0
+	var damage_bonus = 0.0
+	var cooldown_bonus = 0.0
+	var global_cooldown_bonus = 0.0
 	var crit_chance_bonus = 0.0
 	var crit_multiplier_bonus = 0.0
 	var max_health_bonus = 0
@@ -131,13 +131,13 @@ func apply_item_effects(player_num: int) -> void:
 
 		match category:
 			"move":
-				speed_multiplier += value
+				speed_bonus += value
 			"damage":
-				damage_multiplier += value
+				damage_bonus += value
 			"attack_speed":
-				cooldown_multiplier -= value
+				cooldown_bonus += value
 			"cooldown":
-				global_cooldown_multiplier -= value
+				global_cooldown_bonus += value
 			"crit":
 				if "chance" in item_id:
 					crit_chance_bonus += value
@@ -149,10 +149,10 @@ func apply_item_effects(player_num: int) -> void:
 				elif "invuln" in item_id:
 					invincible_duration_bonus += value
 	
-	player.normal_speed = default_normal_speed * speed_multiplier
-	player.base_damage = default_base_damage * damage_multiplier
-	player.primary_cooldown = default_primary_cooldown * cooldown_multiplier
-	player.global_cooldown = default_global_cooldown * global_cooldown_multiplier
+	player.normal_speed = default_normal_speed + speed_bonus
+	player.base_damage = default_base_damage + damage_bonus
+	player.primary_cooldown = default_primary_cooldown - cooldown_bonus
+	player.global_cooldown = default_global_cooldown - global_cooldown_bonus
 	player.crit_chance = default_crit_chance + crit_chance_bonus
 	player.crit_multiplier = default_crit_multiplier + crit_multiplier_bonus
 	max_health = default_max_health + max_health_bonus

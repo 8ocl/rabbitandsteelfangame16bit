@@ -14,10 +14,11 @@ func play_sfx(sound_path, volume_db = 0.0):
 	sfx_player.volume_db = volume_db
 	sfx_player.play()
 
-func play_music(music_path, volume_db = 0.0):
+func play_music(music_path, volume_db = 0.0, pitch = 1.0):
 	var music = load(music_path)
 	music_player.stream = music
 	music_player.volume_db = volume_db
+	music_player.pitch_scale = pitch
 	music_player.play()
 
 func stop_music():
@@ -30,10 +31,14 @@ func fade_out_music(duration):
 	stop_music()
 	music_player.volume_db = 0
 
-func fade_in_music(music_path, duration, volume_db = 0.0):
+func fade_in_music(music_path, duration, volume_db = 0.0, pitch = 1.0):
 	var music = load(music_path)
 	music_player.stream = music
 	music_player.volume_db = -80
+	music_player.pitch_scale = pitch
 	music_player.play()
 	var tween = create_tween()
 	tween.tween_property(music_player, "volume_db", volume_db, duration).set_trans(Tween.TRANS_LINEAR)
+
+func set_music_pitch(pitch):
+	music_player.pitch_scale = pitch
