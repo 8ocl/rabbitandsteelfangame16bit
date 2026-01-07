@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cidgv35hl1j4r"
+path="res://.godot/imported/Neru - LVB_Sonate_57_3.WAV-6812dafbbba55c8bb829965768d6cb76.sample"
+
+[deps]
+
+source_file="res://Music/BeetHoven/Neru - LVB_Sonate_57_3.WAV"
+dest_files=["res://.godot/imported/Neru - LVB_Sonate_57_3.WAV-6812dafbbba55c8bb829965768d6cb76.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

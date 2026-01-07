@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://3igrbas440m0"
+path="res://.godot/imported/Death- Beethoven-Moonlight-Sonata.WAV-ac0c6c9709f9fe27a903399e4ef6542e.sample"
+
+[deps]
+
+source_file="res://Music/BeetHoven/Death- Beethoven-Moonlight-Sonata.WAV"
+dest_files=["res://.godot/imported/Death- Beethoven-Moonlight-Sonata.WAV-ac0c6c9709f9fe27a903399e4ef6542e.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

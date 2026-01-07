@@ -95,8 +95,6 @@ func _on_fade_finished() -> void:
 	if get_tree().root.has_meta("player_positions"):
 		get_tree().root.remove_meta("player_positions")
 
-	get_tree().unload_current_scene()
-
 	get_tree().change_scene_to_file(restart_scene_path)
 
 func _create_fade_layer() -> void:
@@ -110,4 +108,4 @@ func _create_fade_layer() -> void:
 	_fade_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 	_fade_layer.add_child(_fade_rect)
-	get_tree().root.add_child(_fade_layer)
+	add_child(_fade_layer)

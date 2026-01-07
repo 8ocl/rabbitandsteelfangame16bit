@@ -166,7 +166,7 @@ func _spawn_warning_rectangles() -> Array:
 
 	var viewport := get_viewport().get_visible_rect()
 	var safe_spots := get_tree().current_scene.get_node("SafeSpots").get_children()
-	var slice_count := 30
+	var slice_count := 100
 
 	# Use the shadow sprite as the spawning area
 	var shadow_sprite := get_tree().current_scene.get_node_or_null("Shadow")
