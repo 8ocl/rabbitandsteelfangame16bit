@@ -180,50 +180,21 @@ func special_action() -> void:
 	)
 
 func defensive_action() -> void:
-	# Shoots a projectile towards the closest enemy in group "enemies".
-	if projectile_scene == null:
-		push_warning("No projectile_scene assigned on %s" % name)
+	if not can_defensive:
 		return
 
-	SoundManager.play_sfx("res://Music/SFX/8-bit-explosion-95847.mp3")
 	can_defensive = false
-	_trigger_global_cooldown()
-	_start_cooldown_ring()
-
 	defensive_cooldown_timer.start(defensive_cooldown)
 
-	var projectile := projectile_scene.instantiate()
-	var root := get_tree().current_scene
-	root.add_child(projectile)
-	projectile.global_position = global_position
+	_is_invincible = true
+	var tween = create_tween()
+	tween.tween_property(anim, "modulate:a", 0.3, 0.2)
 
-	var dir := _get_aim_direction()
-	if dir == Vector2.ZERO:
-		# Fallback direction if no enemies are found
-		dir = Vector2.RIGHT
-
-	_update_facing_from_vector(dir)
-
-	# Preferred path: projectile has an initialize() method
-	if projectile.has_method("initialize"):
-		projectile.initialize(dir, base_damage, crit_chance, crit_multiplier, self)
-	else:
-		# Fallback: try to set common fields directly
-		if "direction" in projectile:
-			projectile.direction = dir
-		if "base_damage" in projectile:
-			projectile.base_damage = base_damage
-		if "crit_chance" in projectile:
-			projectile.crit_chance = crit_chance
-		if "crit_multiplier" in projectile:
-			projectile.crit_multiplier = crit_multiplier
-		if "shooter" in projectile:
-			projectile.shooter = self
-
-	get_tree().create_timer(defensive_cooldown).timeout.connect(
+	get_tree().create_timer(invincible_duration).timeout.connect(
 		func() -> void:
-			can_defensive = true
-			_is_on_cooldown = false
+			_is_invincible = false
+			var tween_back = create_tween()
+			tween_back.tween_property(anim, "modulate:a", 1.0, 0.2)
 	)
 
 func end_defensive_action() -> void:

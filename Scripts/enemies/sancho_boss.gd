@@ -126,24 +126,22 @@ func _phase_two_loop() -> void:
 		anim.play("BossDidIt")
 
 	while is_instance_valid(self) and not _is_dying:
-		# Fly up
+		# --- Slash Attack ---
 		await _tween_to(global_position + Vector2(0, -700), 0.6)
 		await get_tree().create_timer(1.0).timeout
 
-		# Spawn slices **await the coroutine**
 		var warnings = await _spawn_warning_rectangles()
 
-		# Randomize and dash through slices
 		var move_nodes = move_nodes_parent.get_children()
 		move_nodes.shuffle()
 		for n in move_nodes:
 			await _tween_to(n.global_position, 0.06)
 
 		SoundManager.play_sfx("res://Music/SFX/8-bit-explosion-3-340456.mp3")
-		# Flash screen red to indicate the slash
 		_flash_screen_red()
 
-		# Now, apply damage to players within the slices
+		await get_tree().create_timer(1.0).timeout
+
 		for w in warnings:
 			if not is_instance_valid(w):
 				continue
@@ -152,11 +150,61 @@ func _phase_two_loop() -> void:
 				if body.is_in_group("players") and body.has_method("apply_damage"):
 					body.apply_damage(1.0)
 
-		# Return to start
 		await _tween_to(start_pos.global_position, 0.8)
+		# No timer here to make the bullet attack immediate
+
+		# --- New Bullet Attack ---
+		await _spawn_warning_bullets()
 		await get_tree().create_timer(2.0).timeout
 
 
+func _spawn_warning_bullets() -> void:
+	if not warning_slice_scene or not small_bullet_scene:
+		return
+
+	var bullet_transforms: Array[Transform2D] = []
+
+	for i in range(20): # Spawn 20 warnings/bullets
+		var slice = warning_slice_scene.instantiate()
+		
+		# Immediately disable collision so this warning doesn't do damage
+		slice.collision_mask = 0
+
+		var sprite: AnimatedSprite2D = slice.get_node_or_null("AnimatedSprite2D")
+		if not sprite:
+			slice.queue_free()
+			continue
+
+		var thickness := randf_range(4.0, 8.0)
+		var length: float = get_viewport().get_visible_rect().size.length() * 1.5
+		var frame_texture = sprite.sprite_frames.get_frame_texture("default", 0)
+		if frame_texture:
+			sprite.scale = Vector2(length / frame_texture.get_width(), thickness / frame_texture.get_height())
+		else:
+			slice.queue_free()
+			continue
+
+		slice.rotation = randf_range(0, TAU)
+		slice.global_position = global_position # Spawn at Sancho's body
+
+		get_tree().current_scene.add_child(slice)
+		bullet_transforms.append(slice.transform)
+
+		# Fade in animation, wait, and fade out
+		sprite.modulate.a = 0.0
+		var life_tween := create_tween()
+		life_tween.tween_property(sprite, "modulate:a", 0.7, 0.25)
+		life_tween.tween_interval(1.0)
+		life_tween.tween_property(sprite, "modulate:a", 0.0, 0.25)
+		life_tween.tween_callback(slice.queue_free)
+
+	await get_tree().create_timer(1.25).timeout
+
+	for t in bullet_transforms:
+		var bullet = small_bullet_scene.instantiate()
+		get_tree().current_scene.add_child(bullet)
+		bullet.global_transform = t
+		bullet.velocity = bullet.transform.x * 200.0
 
 
 func _spawn_warning_rectangles() -> Array:

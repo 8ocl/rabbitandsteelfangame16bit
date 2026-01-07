@@ -2,9 +2,9 @@ extends Node2D
 
 var music_map = {
 	"firstlevel": "res://Music/BeetHoven/Neru - LVB_Sonate_57_3.WAV",
-	"secondlevel": "res://Music/BeetHoven/Sancho - Symphony7_2.WAV",
+	# "secondlevel": "res://Music/BeetHoven/Sancho - Symphony7_2.WAV",
 	"thirdlevel": "res://Music/BeetHoven/Death- Beethoven-Moonlight-Sonata.WAV",
-	"fourthlevel": "res://Music/BeetHoven/Sailor Moon - Moonlight Densetsu - Moonlight Legend.WAV",
+	# "fourthlevel": "res://Music/BeetHoven/Sailor Moon - Moonlight Densetsu - Moonlight Legend.WAV",
 	"tutorial": "res://Music/BeetHoven/Sailor Moon - Moonlight Densetsu - Moonlight Legend.WAV"
 }
 

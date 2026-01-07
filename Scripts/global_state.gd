@@ -17,6 +17,8 @@ const I_FRAME_DURATION = 0.1
 
 func _ready() -> void:
 	current_health = max_health
+	apply_item_effects(1)
+	apply_item_effects(2)
 	pass
 
 func apply_damage(amount: int) -> void:
@@ -87,7 +89,77 @@ func add_item_to_player(player_num: int, item_data) -> void:
 	var items_array = player1_items if player_num == 1 else player2_items
 	if items_array.size() < MAX_ITEMS_PER_PLAYER:
 		items_array.append(item_data)
+		apply_item_effects(player_num)
+		if item_data.get("category", "") == "defense" and "max_hp" in item_data.get("id", ""):
+			heal(item_data.get("value", 0))
 		emit_signal("items_changed")
+
+func apply_item_effects(player_num: int) -> void:
+	var player_group = "player" + str(player_num)
+	if not get_tree().has_group(player_group):
+		return
+
+	var player: PlayerBase = get_tree().get_first_node_in_group(player_group)
+	if not player:
+		return
+
+	# Default stats
+	var default_normal_speed = 100.0
+	var default_base_damage = 10.0
+	var default_primary_cooldown = 0.2
+	var default_crit_chance = 0.10
+	var default_crit_multiplier = 2.0
+	var default_global_cooldown = 0.15
+	var default_invincible_duration = 1.0
+	var default_max_health = 6
+
+	# Item multipliers
+	var speed_multiplier = 1.0
+	var damage_multiplier = 1.0
+	var cooldown_multiplier = 1.0
+	var global_cooldown_multiplier = 1.0
+	var crit_chance_bonus = 0.0
+	var crit_multiplier_bonus = 0.0
+	var max_health_bonus = 0
+	var invincible_duration_bonus = 0.0
+
+	var items_array = get_player_items(player_num)
+	for item in items_array:
+		var category = item.get("category", "")
+		var value = item.get("value", 0.0)
+		var item_id = item.get("id", "")
+
+		match category:
+			"move":
+				speed_multiplier += value
+			"damage":
+				damage_multiplier += value
+			"attack_speed":
+				cooldown_multiplier -= value
+			"cooldown":
+				global_cooldown_multiplier -= value
+			"crit":
+				if "chance" in item_id:
+					crit_chance_bonus += value
+				elif "mult" in item_id:
+					crit_multiplier_bonus += value
+			"defense":
+				if "max_hp" in item_id:
+					max_health_bonus += value
+				elif "invuln" in item_id:
+					invincible_duration_bonus += value
+	
+	player.normal_speed = default_normal_speed * speed_multiplier
+	player.base_damage = default_base_damage * damage_multiplier
+	player.primary_cooldown = default_primary_cooldown * cooldown_multiplier
+	player.global_cooldown = default_global_cooldown * global_cooldown_multiplier
+	player.crit_chance = default_crit_chance + crit_chance_bonus
+	player.crit_multiplier = default_crit_multiplier + crit_multiplier_bonus
+	max_health = default_max_health + max_health_bonus
+	player.invincible_duration = default_invincible_duration + invincible_duration_bonus
+
+	set_current_health(current_health)
+
 
 func get_player_items(player_num: int) -> Array:
 	return player1_items if player_num == 1 else player2_items
@@ -96,5 +168,7 @@ func reset() -> void:
 	set_current_health(max_health)
 	player1_items.clear()
 	player2_items.clear()
+	apply_item_effects(1)
+	apply_item_effects(2)
 	emit_signal("health_changed", current_health, max_health)
 	emit_signal("items_changed")
